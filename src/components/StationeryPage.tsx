@@ -48,6 +48,7 @@ interface StationeryItem {
   status: 'pending' | 'extracted' | 'improved' | 'approved';
   createdAt: string;
   updatedAt: string;
+  documentsLink?: string; // Google Docs/Sheets link
 }
 
 const STATIONERY_CATEGORIES = [
@@ -230,6 +231,7 @@ export default function StationeryPage() {
       status: improvedContent ? 'improved' : extractedText ? 'extracted' : 'pending',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      documentsLink: '', // Initialize with empty Google Docs link
     };
 
     setStationeryItems(prev => [...prev, newItem]);
@@ -432,6 +434,47 @@ export default function StationeryPage() {
                       <img src={item.originalFile} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                     </Box>
                   )}
+
+                  {/* Google Docs/Sheets Link Section */}
+                  <Box sx={{ mt: 2 }}>
+                    <Box display="flex" alignItems="center" gap={0.5} mb={1}>
+                      <Icon sx={{ fontSize: 16, color: 'primary.main' }}>link</Icon>
+                      <Typography variant="caption" fontWeight="medium" color="text.secondary">
+                        Google Docs Link:
+                      </Typography>
+                    </Box>
+                    <Box display="flex" alignItems="center" gap={1}>
+                      <TextField
+                        fullWidth
+                        size="small"
+                        placeholder="Paste Google Docs/Sheets link..."
+                        value={item.documentsLink || ''}
+                        onChange={(e) => {
+                          const updatedItem = { ...item, documentsLink: e.target.value, updatedAt: new Date().toISOString() };
+                          const updatedItems = stationeryItems.map(i => i.id === item.id ? updatedItem : i);
+                          setStationeryItems(updatedItems);
+                          localStorage.setItem('nabh_stationery_items', JSON.stringify(updatedItems));
+                        }}
+                        variant="outlined"
+                        sx={{ 
+                          '& .MuiOutlinedInput-root': {
+                            fontSize: '0.75rem',
+                            height: '32px',
+                          }
+                        }}
+                      />
+                      {item.documentsLink && (
+                        <Button
+                          size="small"
+                          variant="outlined"
+                          onClick={() => window.open(item.documentsLink, '_blank')}
+                          sx={{ minWidth: 'auto', px: 1, height: 32, fontSize: '0.7rem' }}
+                        >
+                          Open
+                        </Button>
+                      )}
+                    </Box>
+                  </Box>
                 </CardContent>
                 <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
                   <Box>
