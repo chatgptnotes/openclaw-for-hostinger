@@ -206,3 +206,80 @@ export interface Department {
   createdAt: string;
   updatedAt: string;
 }
+
+// Equipment Master Types
+export type EquipmentCategory = 
+  | 'Critical Care' 
+  | 'Monitoring' 
+  | 'Diagnostic' 
+  | 'Therapeutic' 
+  | 'Emergency' 
+  | 'Support';
+
+export type EquipmentStatus = 
+  | 'Operational' 
+  | 'Under Maintenance' 
+  | 'Out of Service' 
+  | 'Pending Calibration' 
+  | 'Decommissioned';
+
+export type EquipmentCompliance = 
+  | 'Compliant' 
+  | 'Non-Compliant' 
+  | 'Pending Inspection' 
+  | 'Calibration Due' 
+  | 'Maintenance Due';
+
+export interface EquipmentCalibration {
+  lastCalibrationDate: string;
+  nextCalibrationDue: string;
+  calibratedBy: string;
+  certificateNumber?: string;
+  frequency: 'Monthly' | 'Quarterly' | 'Half-Yearly' | 'Yearly' | 'As Required';
+}
+
+export interface EquipmentMaintenance {
+  lastMaintenanceDate: string;
+  nextMaintenanceDue: string;
+  maintenanceType: 'Preventive' | 'Corrective' | 'Emergency' | 'Routine';
+  performedBy: string;
+  notes?: string;
+}
+
+export interface Equipment {
+  id: string;
+  name: string;
+  category: EquipmentCategory;
+  manufacturer: string;
+  model?: string;
+  serialNumber?: string;
+  equipmentTag: string; // EIT - Equipment Identification Tag
+  department: string;
+  location: string;
+  quantity: number;
+  status: EquipmentStatus;
+  compliance: EquipmentCompliance;
+  
+  // Technical Details
+  specifications?: string;
+  yearOfPurchase?: string;
+  warrantExpiry?: string;
+  
+  // NABH Compliance
+  calibration?: EquipmentCalibration;
+  maintenance?: EquipmentMaintenance;
+  biomedicalClearance: boolean;
+  
+  // Asset Management
+  purchaseValue?: number;
+  currentValue?: number;
+  depreciationRate?: number;
+  
+  // Operational
+  operatingHours?: number;
+  criticalEquipment: boolean;
+  backupAvailable: boolean;
+  
+  createdAt: string;
+  updatedAt: string;
+}
