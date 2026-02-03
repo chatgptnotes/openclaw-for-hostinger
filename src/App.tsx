@@ -26,6 +26,8 @@ import DoctorsPage from './components/DoctorsPage';
 import DepartmentsMasterPage from './components/DepartmentsMasterPage';
 import EquipmentMasterPage from './components/EquipmentMasterPage';
 import EvidencePromptMasterPage from './components/EvidencePromptMasterPage';
+import HospitalProgramsMasterPage from './components/HospitalProgramsMasterPage';
+import ClinicalAuditsMasterPage from './components/ClinicalAuditsMasterPage';
 import Footer from './components/Footer';
 import { useNABHStore } from './store/nabhStore';
 
@@ -259,6 +261,8 @@ function MainContent() {
   const isDepartmentsPage = location.pathname === '/departments';
   const isEquipmentPage = location.pathname === '/equipment';
   const isEvidencePromptPage = location.pathname === '/evidence-prompt';
+  const isProgramsPage = location.pathname === '/programs';
+  const isClinicalAuditsPage = location.pathname === '/clinical-audits';
   const isDashboardPage = location.pathname === '/dashboard';
   const isLandingPage = location.pathname === '/' && !selectedChapter;
 
@@ -326,6 +330,14 @@ function MainContent() {
     return <EvidencePromptMasterPage />;
   }
 
+  if (isProgramsPage) {
+    return <HospitalProgramsMasterPage />;
+  }
+
+  if (isClinicalAuditsPage) {
+    return <ClinicalAuditsMasterPage />;
+  }
+
   if (isDashboardPage) {
     return <Dashboard />;
   }
@@ -355,7 +367,7 @@ function AppContent() {
   const isAIPage = location.pathname === '/ai-generator';
   const isObjectiveDetailPage = location.pathname.startsWith('/objective/');
   const isKPIDetailPage = location.pathname.startsWith('/kpi/');
-  const isManagementPage = ['/stationery', '/committees', '/kpis', '/presentations', '/nabh-master', '/migration', '/patients', '/employees', '/consultants', '/doctors', '/departments', '/equipment', '/dashboard'].includes(location.pathname) || isKPIDetailPage;
+  const isManagementPage = ['/stationery', '/committees', '/kpis', '/presentations', '/nabh-master', '/migration', '/patients', '/employees', '/consultants', '/doctors', '/departments', '/equipment', '/programs', '/clinical-audits', '/evidence-prompt', '/dashboard'].includes(location.pathname) || isKPIDetailPage;
   const isLandingPage = location.pathname === '/' && !selectedChapter;
   const showSidebar = !isAIPage && !isLandingPage && !isObjectiveDetailPage || isManagementPage;
 
