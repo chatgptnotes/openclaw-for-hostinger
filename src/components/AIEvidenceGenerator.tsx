@@ -806,7 +806,7 @@ export default function AIEvidenceGenerator() {
       dataContext += '\n\nCRITICAL SIGNATORY & DATE INSTRUCTIONS:';
       dataContext += '\n1. For PREPARED BY section: ALWAYS use "Sonali Kakde" with designation "Clinical Audit Coordinator" and date "29/12/2025".';
       dataContext += '\n2. For REVIEWED BY section: ALWAYS use "Gaurav Agrawal" with designation "Hospital Administrator" and date "29/12/2025".';
-      dataContext += '\n3. For APPROVED BY section: ALWAYS use "Dr. Shiraz Khan" with designation "NABH Coordinator / Administrator" and date "29/12/2025".';
+      dataContext += '\n3. For APPROVED BY section: ALWAYS use "Dr. Shiraz Khan" with designation "Quality Coordinator / Administrator" and date "29/12/2025".';
       dataContext += '\n4. For Effective Date: ALWAYS use "29/12/2025". For Review Date: ALWAYS use "29/12/2025".';
       dataContext += '\n5. Do NOT use placeholder text like "[PREPARED BY NAME]", "[REVIEWED BY NAME]", "[DD/MM/YYYY]", or "John Doe".';
       dataContext += '\n6. Do NOT use any other names or dates for signatories - only use the exact names and dates specified above.';
