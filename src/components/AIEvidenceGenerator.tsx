@@ -1098,32 +1098,6 @@ ${trimmed}
     return trimmed;
   };
 
-  // Print content handler
-  const handlePrintContent = (content: string, title: string) => {
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      if (isHTMLContent(content)) {
-        printWindow.document.write(extractHTMLContent(content));
-      } else {
-        printWindow.document.write(`
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>${title} - ${hospitalConfig.name}</title>
-              <style>
-                body { font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.5; padding: 20px; white-space: pre-wrap; }
-                @media print { body { margin: 0; padding: 15px; } }
-              </style>
-            </head>
-            <body>${content.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</body>
-          </html>
-        `);
-      }
-      printWindow.document.close();
-      printWindow.print();
-    }
-  };
-
   // Download as PDF handler
   const handleDownloadPDF = (content: string, filename: string) => {
     const printWindow = window.open('', '_blank');
