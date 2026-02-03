@@ -23,8 +23,7 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  Menu,
-  IconButton,
+  // Removed Menu and IconButton as we use direct buttons now
 } from '@mui/material';
 import {
   Add as AddIcon,
@@ -34,7 +33,7 @@ import {
   AutoAwesome as AutoAwesomeIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
-  MoreVert as MoreVertIcon,
+  // Removed MoreVertIcon as we use direct buttons now
 } from '@mui/icons-material';
 import { NABH_TEAM } from '../config/hospitalConfig';
 
@@ -148,7 +147,7 @@ export default function CommitteesPageEnhanced() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedCommittee, setSelectedCommittee] = useState<Committee | null>(null);
-  const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
+  // Removed menu anchor state as we now use direct buttons
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
 
   // New committee form
@@ -345,7 +344,6 @@ export default function CommitteesPageEnhanced() {
     });
     setSelectedCommittee(committee);
     setIsEditDialogOpen(true);
-    setMenuAnchor(null);
   };
 
   const handleSaveEditCommittee = () => {
@@ -369,7 +367,6 @@ export default function CommitteesPageEnhanced() {
   const handleDeleteCommittee = (committee: Committee) => {
     setSelectedCommittee(committee);
     setIsDeleteDialogOpen(true);
-    setMenuAnchor(null);
   };
 
   const handleConfirmDelete = () => {
@@ -380,14 +377,7 @@ export default function CommitteesPageEnhanced() {
     setSnackbar({ open: true, message: 'Committee deleted successfully', severity: 'success' });
   };
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, committee: Committee) => {
-    setMenuAnchor(event.currentTarget);
-    setSelectedCommittee(committee);
-  };
-
-  const handleMenuClose = () => {
-    setMenuAnchor(null);
-  };
+  // Removed menu functions as we now use direct buttons
 
   const getSelectedMasterData = () => {
     return MASTER_TYPES.find(m => m.value === memberForm.selectedMasterType)?.data || [];
@@ -494,26 +484,25 @@ export default function CommitteesPageEnhanced() {
                   <Typography variant="subtitle2" gutterBottom>
                     Chairperson:
                   </Typography>
-                  <Box 
-                    onClick={() => {
-                      setSelectedCommittee(committee);
-                      setIsMemberDialogOpen(true);
-                    }}
-                    sx={{ 
-                      cursor: 'pointer', 
-                      p: 1, 
-                      borderRadius: 1, 
-                      '&:hover': { bgcolor: 'action.hover' },
-                      display: 'inline-block'
-                    }}
-                  >
+                  <Box display="flex" alignItems="center" gap={1}>
                     <Typography variant="body2" color={committee.chairperson ? 'text.primary' : 'text.secondary'}>
                       {committee.chairperson ? 
                         `${committee.chairperson.name} (${committee.chairperson.designation})` : 
-                        'Click to assign chairperson'
+                        'Not assigned'
                       }
-                      <EditIcon sx={{ ml: 1, fontSize: 14, opacity: 0.5 }} />
                     </Typography>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      startIcon={<EditIcon />}
+                      onClick={() => {
+                        setSelectedCommittee(committee);
+                        setIsMemberDialogOpen(true);
+                      }}
+                      sx={{ ml: 1, py: 0.25, fontSize: '0.75rem' }}
+                    >
+                      {committee.chairperson ? 'Change' : 'Assign'}
+                    </Button>
                   </Box>
                 </Box>
 
@@ -588,14 +577,21 @@ export default function CommitteesPageEnhanced() {
                 >
                   Generate Minutes
                 </Button>
-                <Box sx={{ ml: 'auto' }}>
-                  <IconButton
-                    size="small"
-                    onClick={(e) => handleMenuOpen(e, committee)}
-                  >
-                    <MoreVertIcon />
-                  </IconButton>
-                </Box>
+                <Button
+                  size="small"
+                  startIcon={<EditIcon />}
+                  onClick={() => handleEditCommittee(committee)}
+                >
+                  Edit
+                </Button>
+                <Button
+                  size="small"
+                  startIcon={<DeleteIcon />}
+                  onClick={() => handleDeleteCommittee(committee)}
+                  color="error"
+                >
+                  Delete
+                </Button>
               </CardActions>
             </Card>
           </Box>
@@ -816,24 +812,7 @@ export default function CommitteesPageEnhanced() {
         </DialogActions>
       </Dialog>
 
-      {/* Committee Actions Menu */}
-      <Menu
-        anchorEl={menuAnchor}
-        open={Boolean(menuAnchor)}
-        onClose={handleMenuClose}
-      >
-        <MenuItem onClick={() => selectedCommittee && handleEditCommittee(selectedCommittee)}>
-          <EditIcon sx={{ mr: 1 }} />
-          Edit Committee
-        </MenuItem>
-        <MenuItem 
-          onClick={() => selectedCommittee && handleDeleteCommittee(selectedCommittee)}
-          sx={{ color: 'error.main' }}
-        >
-          <DeleteIcon sx={{ mr: 1 }} />
-          Delete Committee
-        </MenuItem>
-      </Menu>
+      {/* Committee Actions - Now using direct buttons on cards */}
 
       {/* Edit Committee Dialog */}
       <Dialog open={isEditDialogOpen} onClose={() => setIsEditDialogOpen(false)} maxWidth="sm" fullWidth>
