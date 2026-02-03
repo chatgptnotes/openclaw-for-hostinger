@@ -20,7 +20,7 @@ import {
   MenuItem,
   IconButton,
   Menu,
-  LinearProgress,
+  // LinearProgress removed - unused import
 } from '@mui/material';
 import {
   Add as AddIcon,
