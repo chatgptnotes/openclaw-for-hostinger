@@ -33,7 +33,7 @@ import LicensesMasterPage from './components/LicensesMasterPage';
 import MOUsMasterPage from './components/MOUsMasterPage';
 import SurveysPage from './components/SurveysPage';
 import CheatSheetsPage from './components/CheatSheetsPage';
-import SearchPage from './components/SearchPageSimple';
+import SearchPage from './components/SearchPageTest';
 import EmergencyCodesPage from './components/EmergencyCodesPage';
 import Footer from './components/Footer';
 import { useNABHStore } from './store/nabhStore';
