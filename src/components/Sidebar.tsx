@@ -82,6 +82,59 @@ export default function Sidebar({ mobileOpen, onClose }: SidebarProps) {
   const drawerContent = (
     <Box>
       <Toolbar />
+      
+      {/* Prominent Search Button */}
+      <Box sx={{ p: 2, pb: 1 }}>
+        <ListItemButton
+          selected={location.pathname === '/search'}
+          onClick={() => handleSectionClick('/search')}
+          sx={{
+            borderRadius: 2,
+            border: '2px solid',
+            borderColor: location.pathname === '/search' ? 'primary.main' : 'primary.light',
+            backgroundColor: location.pathname === '/search' ? 'primary.main' : 'primary.50',
+            color: location.pathname === '/search' ? 'white' : 'primary.main',
+            fontWeight: 'bold',
+            py: 1.5,
+            '&:hover': {
+              backgroundColor: 'primary.main',
+              color: 'white',
+              transform: 'scale(1.02)',
+            },
+            transition: 'all 0.2s ease-in-out',
+            boxShadow: location.pathname === '/search' ? 3 : 1
+          }}
+        >
+          <ListItemIcon sx={{ minWidth: 40 }}>
+            <Icon 
+              sx={{ 
+                color: location.pathname === '/search' ? 'white' : 'primary.main',
+                fontSize: 28
+              }}
+            >
+              search
+            </Icon>
+          </ListItemIcon>
+          <ListItemText
+            primary="🔍 GLOBAL SEARCH"
+            secondary="Find anything in NABH system"
+            slotProps={{
+              primary: { 
+                fontWeight: 'bold', 
+                fontSize: '1rem',
+                color: location.pathname === '/search' ? 'white' : 'primary.main'
+              },
+              secondary: { 
+                fontSize: '0.75rem',
+                color: location.pathname === '/search' ? 'rgba(255,255,255,0.8)' : 'primary.dark'
+              }
+            }}
+          />
+        </ListItemButton>
+      </Box>
+      
+      <Divider sx={{ my: 1 }} />
+      
       {/* Management Sections */}
       <Box sx={{ p: 2, pb: 1 }}>
         <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
