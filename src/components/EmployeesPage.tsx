@@ -97,7 +97,7 @@ export default function EmployeesPage() {
 
       if (error) throw error;
       
-      const dbEmployees = data || [];
+      const dbEmployees = (data || []) as Employee[];
       const dbNames = new Set(dbEmployees.map(e => e.name));
       
       // Merge with master staff list if not in DB
