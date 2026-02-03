@@ -33,6 +33,7 @@ import {
   AutoAwesome as AutoAwesomeIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
+  Link as LinkIcon,
   // Removed MoreVertIcon as we use direct buttons now
 } from '@mui/icons-material';
 import { NABH_TEAM } from '../config/hospitalConfig';
@@ -72,6 +73,7 @@ interface Committee {
   createdAt: string;
   nextMeetingDate?: string;
   minMeetingsRequired: number;
+  documentsLink?: string; // Google Docs/Sheets link
 }
 
 // Master data sources - These would come from your actual master APIs
@@ -238,6 +240,7 @@ export default function CommitteesPageEnhanced() {
       meetings: [],
       objectives: committee.objectives,
       createdAt: new Date().toISOString(),
+      documentsLink: '', // Initialize with empty link
     }));
     setCommittees(initialCommittees);
   }, []);
@@ -255,6 +258,7 @@ export default function CommitteesPageEnhanced() {
       objectives: newCommittee.objectives.split('\n').filter(obj => obj.trim()),
       createdAt: new Date().toISOString(),
       minMeetingsRequired: newCommittee.minMeetingsRequired,
+      documentsLink: '', // Initialize with empty link
     };
 
     setCommittees([...committees, committee]);
@@ -535,6 +539,43 @@ export default function CommitteesPageEnhanced() {
                   <Typography variant="body2">
                     {committee.meetings.length} meetings | {committee.meetingFrequency} frequency
                   </Typography>
+                </Box>
+
+                <Box mb={2}>
+                  <Box display="flex" alignItems="center" gap={0.5} mb={1}>
+                    <LinkIcon sx={{ fontSize: 18, color: 'primary.main' }} />
+                    <Typography variant="subtitle2">
+                      Documents Link:
+                    </Typography>
+                  </Box>
+                  <Box display="flex" alignItems="center" gap={1}>
+                    <TextField
+                      fullWidth
+                      size="small"
+                      placeholder="Paste Google Docs/Sheets link here..."
+                      value={committee.documentsLink || ''}
+                      onChange={(e) => {
+                        const updatedCommittee = { ...committee, documentsLink: e.target.value };
+                        setCommittees(committees.map(c => c.id === committee.id ? updatedCommittee : c));
+                      }}
+                      variant="outlined"
+                      sx={{ 
+                        '& .MuiOutlinedInput-root': {
+                          fontSize: '0.875rem',
+                        }
+                      }}
+                    />
+                    {committee.documentsLink && (
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => window.open(committee.documentsLink, '_blank')}
+                        sx={{ minWidth: 'auto', px: 1 }}
+                      >
+                        Open
+                      </Button>
+                    )}
+                  </Box>
                 </Box>
 
                 {committee.meetings.length < 6 && (
