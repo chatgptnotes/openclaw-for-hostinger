@@ -1109,7 +1109,7 @@ Start directly with the numbered list, no introduction or explanation.`;
             .replace(/^\d+[.):\s]*/, '')  // Remove numbering
             .replace(/\*\*/g, '')          // Remove ** markdown bold
             .trim(),
-          selected: true, // All selected by default
+          selected: false, // None selected by default - user chooses which to generate
         }))
         .slice(0, 8);
 
