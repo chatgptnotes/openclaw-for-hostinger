@@ -1,15 +1,36 @@
 import React, { useState, useMemo } from 'react';
-import { 
-  Building2, 
-  Clock, 
-  CheckCircle, 
-  XCircle, 
-  AlertCircle,
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Grid,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Chip,
+  Button,
+  IconButton,
+  Paper,
+  FormControlLabel,
+  Checkbox,
+  InputAdornment,
+  Tooltip,
+  Divider
+} from '@mui/material';
+import {
   Search,
-  BarChart3,
   Download,
-  Plus
-} from 'lucide-react';
+  Add,
+  Business,
+  Schedule,
+  CheckCircle,
+  Cancel,
+  Warning,
+  Assessment
+} from '@mui/icons-material';
 import {
   departmentsMaster,
   getEmergencyDepartments,
@@ -71,7 +92,7 @@ const DepartmentsMasterPage: React.FC = () => {
     return filtered;
   }, [searchTerm, categoryFilter, typeFilter, complianceFilter, showEmergencyOnly]);
 
-  // Handle export to CSV/PDF
+  // Handle export to CSV
   const handleExport = () => {
     const exportData = exportDepartmentListForAudit();
     const csvContent = "data:text/csv;charset=utf-8," + 
@@ -93,290 +114,383 @@ const DepartmentsMasterPage: React.FC = () => {
   const getComplianceDisplay = (status: string) => {
     switch (status) {
       case 'Compliant':
-        return { icon: CheckCircle, color: 'text-green-600', bg: 'bg-green-100' };
+        return { icon: CheckCircle, color: 'success' as const, label: 'Compliant' };
       case 'Non-Compliant':
-        return { icon: XCircle, color: 'text-red-600', bg: 'bg-red-100' };
+        return { icon: Cancel, color: 'error' as const, label: 'Non-Compliant' };
       case 'Under Review':
-        return { icon: AlertCircle, color: 'text-yellow-600', bg: 'bg-yellow-100' };
+        return { icon: Warning, color: 'warning' as const, label: 'Under Review' };
       default:
-        return { icon: AlertCircle, color: 'text-gray-600', bg: 'bg-gray-100' };
+        return { icon: Warning, color: 'default' as const, label: 'Not Assessed' };
     }
   };
 
+  const clearAllFilters = () => {
+    setSearchTerm('');
+    setCategoryFilter('All');
+    setTypeFilter('All');
+    setComplianceFilter('All');
+    setShowEmergencyOnly(false);
+  };
+
   return (
-    <div className="container mx-auto px-6 py-8">
+    <Box sx={{ p: 3 }}>
       {/* Header */}
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+      <Box sx={{ mb: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+          <Box>
+            <Typography variant="h3" component="h1" gutterBottom>
               Departments Master
-            </h1>
-            <p className="text-gray-600">
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary">
               Based on Scope of Services - Ayushman Nagpur Hospital (Sep 26, 2025)
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <button
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <Button
+              variant="outlined"
+              startIcon={<Download />}
               onClick={handleExport}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              size="large"
             >
-              <Download size={16} />
               Export for Audit
-            </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-              <Plus size={16} />
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<Add />}
+              size="large"
+            >
               Add Department
-            </button>
-          </div>
-        </div>
+            </Button>
+          </Box>
+        </Box>
 
         {/* Statistics Dashboard */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-lg shadow-md border">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Total Departments</p>
-                <p className="text-2xl font-bold text-gray-900">{complianceStats.total}</p>
-              </div>
-              <Building2 className="h-8 w-8 text-blue-600" />
-            </div>
-          </div>
+        <Grid container spacing={3} sx={{ mb: 4 }}>
+          <Grid item xs={12} md={3}>
+            <Card>
+              <CardContent>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Box>
+                    <Typography color="text.secondary" variant="overline">
+                      Total Departments
+                    </Typography>
+                    <Typography variant="h4">
+                      {complianceStats.total}
+                    </Typography>
+                  </Box>
+                  <Business color="primary" sx={{ fontSize: 32 }} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
 
-          <div className="bg-white p-6 rounded-lg shadow-md border">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">NABH Compliance</p>
-                <p className="text-2xl font-bold text-green-600">{complianceStats.compliancePercentage}%</p>
-              </div>
-              <CheckCircle className="h-8 w-8 text-green-600" />
-            </div>
-          </div>
+          <Grid item xs={12} md={3}>
+            <Card>
+              <CardContent>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Box>
+                    <Typography color="text.secondary" variant="overline">
+                      NABH Compliance
+                    </Typography>
+                    <Typography variant="h4" color="success.main">
+                      {complianceStats.compliancePercentage}%
+                    </Typography>
+                  </Box>
+                  <CheckCircle color="success" sx={{ fontSize: 32 }} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
 
-          <div className="bg-white p-6 rounded-lg shadow-md border">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Emergency Services</p>
-                <p className="text-2xl font-bold text-red-600">{getEmergencyDepartments().length}</p>
-              </div>
-              <Clock className="h-8 w-8 text-red-600" />
-            </div>
-          </div>
+          <Grid item xs={12} md={3}>
+            <Card>
+              <CardContent>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Box>
+                    <Typography color="text.secondary" variant="overline">
+                      Emergency Services
+                    </Typography>
+                    <Typography variant="h4" color="error.main">
+                      {getEmergencyDepartments().length}
+                    </Typography>
+                  </Box>
+                  <Schedule color="error" sx={{ fontSize: 32 }} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
 
-          <div className="bg-white p-6 rounded-lg shadow-md border">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-gray-600">Under Review</p>
-                <p className="text-2xl font-bold text-yellow-600">{complianceStats.underReview}</p>
-              </div>
-              <AlertCircle className="h-8 w-8 text-yellow-600" />
-            </div>
-          </div>
-        </div>
+          <Grid item xs={12} md={3}>
+            <Card>
+              <CardContent>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                  <Box>
+                    <Typography color="text.secondary" variant="overline">
+                      Under Review
+                    </Typography>
+                    <Typography variant="h4" color="warning.main">
+                      {complianceStats.underReview}
+                    </Typography>
+                  </Box>
+                  <Warning color="warning" sx={{ fontSize: 32 }} />
+                </Box>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
 
         {/* Category Summary */}
-        <div className="bg-white p-6 rounded-lg shadow-md border mb-8">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-            <BarChart3 size={20} />
-            Department Categories
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Object.entries(categorySummary).map(([category, count]) => (
-              <div key={category} className="text-center p-4 bg-gray-50 rounded-lg">
-                <p className="text-2xl font-bold text-blue-600">{count}</p>
-                <p className="text-sm text-gray-600">{category}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+        <Card sx={{ mb: 4 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Assessment />
+              Department Categories
+            </Typography>
+            <Grid container spacing={3}>
+              {Object.entries(categorySummary).map(([category, count]) => (
+                <Grid item xs={6} md={3} key={category}>
+                  <Paper elevation={0} sx={{ p: 2, textAlign: 'center', bgcolor: 'grey.50' }}>
+                    <Typography variant="h4" color="primary.main">
+                      {count}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {category}
+                    </Typography>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+          </CardContent>
+        </Card>
+      </Box>
 
       {/* Filters and Search */}
-      <div className="bg-white p-6 rounded-lg shadow-md border mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search departments..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
+      <Card sx={{ mb: 4 }}>
+        <CardContent>
+          <Grid container spacing={3}>
+            {/* Search */}
+            <Grid item xs={12} md={4}>
+              <TextField
+                fullWidth
+                placeholder="Search departments..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
 
-          {/* Category Filter */}
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value as DepartmentCategory | 'All')}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="All">All Categories</option>
-            <option value="Clinical Speciality">Clinical Speciality</option>
-            <option value="Super Speciality">Super Speciality</option>
-            <option value="Support Services">Support Services</option>
-            <option value="Administration">Administration</option>
-          </select>
+            {/* Category Filter */}
+            <Grid item xs={12} md={2}>
+              <FormControl fullWidth>
+                <InputLabel>Category</InputLabel>
+                <Select
+                  value={categoryFilter}
+                  label="Category"
+                  onChange={(e) => setCategoryFilter(e.target.value as DepartmentCategory | 'All')}
+                >
+                  <MenuItem value="All">All Categories</MenuItem>
+                  <MenuItem value="Clinical Speciality">Clinical Speciality</MenuItem>
+                  <MenuItem value="Super Speciality">Super Speciality</MenuItem>
+                  <MenuItem value="Support Services">Support Services</MenuItem>
+                  <MenuItem value="Administration">Administration</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
 
-          {/* Type Filter */}
-          <select
-            value={typeFilter}
-            onChange={(e) => setTypeFilter(e.target.value as DepartmentType | 'All')}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="All">All Types</option>
-            <option value="Medical">Medical</option>
-            <option value="Surgical">Surgical</option>
-            <option value="Diagnostic">Diagnostic</option>
-            <option value="Support">Support</option>
-            <option value="Administrative">Administrative</option>
-          </select>
+            {/* Type Filter */}
+            <Grid item xs={12} md={2}>
+              <FormControl fullWidth>
+                <InputLabel>Type</InputLabel>
+                <Select
+                  value={typeFilter}
+                  label="Type"
+                  onChange={(e) => setTypeFilter(e.target.value as DepartmentType | 'All')}
+                >
+                  <MenuItem value="All">All Types</MenuItem>
+                  <MenuItem value="Medical">Medical</MenuItem>
+                  <MenuItem value="Surgical">Surgical</MenuItem>
+                  <MenuItem value="Diagnostic">Diagnostic</MenuItem>
+                  <MenuItem value="Support">Support</MenuItem>
+                  <MenuItem value="Administrative">Administrative</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
 
-          {/* Compliance Filter */}
-          <select
-            value={complianceFilter}
-            onChange={(e) => setComplianceFilter(e.target.value as typeof complianceFilter)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="All">All Compliance</option>
-            <option value="Compliant">Compliant</option>
-            <option value="Non-Compliant">Non-Compliant</option>
-            <option value="Under Review">Under Review</option>
-            <option value="Not Assessed">Not Assessed</option>
-          </select>
+            {/* Compliance Filter */}
+            <Grid item xs={12} md={2}>
+              <FormControl fullWidth>
+                <InputLabel>Compliance</InputLabel>
+                <Select
+                  value={complianceFilter}
+                  label="Compliance"
+                  onChange={(e) => setComplianceFilter(e.target.value as typeof complianceFilter)}
+                >
+                  <MenuItem value="All">All Status</MenuItem>
+                  <MenuItem value="Compliant">Compliant</MenuItem>
+                  <MenuItem value="Non-Compliant">Non-Compliant</MenuItem>
+                  <MenuItem value="Under Review">Under Review</MenuItem>
+                  <MenuItem value="Not Assessed">Not Assessed</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
 
-          {/* Emergency Filter */}
-          <label className="flex items-center gap-2 px-3 py-2">
-            <input
-              type="checkbox"
-              checked={showEmergencyOnly}
-              onChange={(e) => setShowEmergencyOnly(e.target.checked)}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-            />
-            <span className="text-sm text-gray-700">Emergency Only</span>
-          </label>
-        </div>
+            {/* Emergency Filter */}
+            <Grid item xs={12} md={2}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={showEmergencyOnly}
+                    onChange={(e) => setShowEmergencyOnly(e.target.checked)}
+                  />
+                }
+                label="Emergency Only"
+              />
+            </Grid>
+          </Grid>
 
-        <div className="mt-4 flex items-center gap-4 text-sm text-gray-600">
-          <span>Showing {filteredDepartments.length} of {departmentsMaster.length} departments</span>
-          {(searchTerm || categoryFilter !== 'All' || typeFilter !== 'All' || complianceFilter !== 'All' || showEmergencyOnly) && (
-            <button
-              onClick={() => {
-                setSearchTerm('');
-                setCategoryFilter('All');
-                setTypeFilter('All');
-                setComplianceFilter('All');
-                setShowEmergencyOnly(false);
-              }}
-              className="text-blue-600 hover:text-blue-800 font-medium"
-            >
-              Clear Filters
-            </button>
-          )}
-        </div>
-      </div>
+          <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              Showing {filteredDepartments.length} of {departmentsMaster.length} departments
+            </Typography>
+            {(searchTerm || categoryFilter !== 'All' || typeFilter !== 'All' || complianceFilter !== 'All' || showEmergencyOnly) && (
+              <Button
+                size="small"
+                onClick={clearAllFilters}
+                color="primary"
+              >
+                Clear Filters
+              </Button>
+            )}
+          </Box>
+        </CardContent>
+      </Card>
 
       {/* Departments Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Grid container spacing={3}>
         {filteredDepartments.map((department) => {
           const complianceDisplay = getComplianceDisplay(department.nabhCompliance.complianceStatus);
           const ComplianceIcon = complianceDisplay.icon;
 
           return (
-            <div
-              key={department.id}
-              className="bg-white rounded-lg shadow-md border hover:shadow-lg transition-shadow"
-            >
-              <div className="p-6">
-                {/* Department Header */}
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-xl font-semibold text-gray-900">
-                        {department.name}
-                      </h3>
-                      <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">
-                        {department.code}
-                      </span>
-                      {department.isEmergencyService && (
-                        <span className="px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded">
-                          24/7
-                        </span>
+            <Grid item xs={12} lg={6} key={department.id}>
+              <Card sx={{ height: '100%', '&:hover': { boxShadow: 4 } }}>
+                <CardContent>
+                  {/* Department Header */}
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                    <Box sx={{ flex: 1 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                        <Typography variant="h6">
+                          {department.name}
+                        </Typography>
+                        <Chip label={department.code} size="small" color="primary" variant="outlined" />
+                        {department.isEmergencyService && (
+                          <Chip label="24/7" size="small" color="error" />
+                        )}
+                      </Box>
+                      <Typography variant="body2" color="text.secondary">
+                        {department.description}
+                      </Typography>
+                    </Box>
+                    <Tooltip title={complianceDisplay.label}>
+                      <IconButton color={complianceDisplay.color} size="small">
+                        <ComplianceIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+
+                  {/* Department Details */}
+                  <Grid container spacing={2} sx={{ mb: 2 }}>
+                    <Grid item xs={6}>
+                      <Typography variant="caption" color="text.secondary" display="block">
+                        CATEGORY
+                      </Typography>
+                      <Typography variant="body2">
+                        {department.category}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="caption" color="text.secondary" display="block">
+                        TYPE
+                      </Typography>
+                      <Typography variant="body2">
+                        {department.type}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+
+                  {/* Operating Hours */}
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                    <Schedule fontSize="small" color="action" />
+                    <Typography variant="body2" color="text.secondary">
+                      {department.operatingHours}
+                    </Typography>
+                  </Box>
+
+                  {/* Services */}
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+                      SERVICES
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                      {department.services.slice(0, 3).map((service, index) => (
+                        <Chip
+                          key={index}
+                          label={service}
+                          size="small"
+                          variant="outlined"
+                        />
+                      ))}
+                      {department.services.length > 3 && (
+                        <Chip
+                          label={`+${department.services.length - 3} more`}
+                          size="small"
+                          variant="outlined"
+                        />
                       )}
-                    </div>
-                    <p className="text-gray-600 text-sm">{department.description}</p>
-                  </div>
-                  <div className={`p-2 rounded-lg ${complianceDisplay.bg}`}>
-                    <ComplianceIcon size={20} className={complianceDisplay.color} />
-                  </div>
-                </div>
+                    </Box>
+                  </Box>
 
-                {/* Department Details */}
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">Category</p>
-                    <p className="text-sm text-gray-900">{department.category}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">Type</p>
-                    <p className="text-sm text-gray-900">{department.type}</p>
-                  </div>
-                </div>
+                  <Divider sx={{ my: 2 }} />
 
-                {/* Operating Hours */}
-                <div className="flex items-center gap-2 mb-4">
-                  <Clock size={16} className="text-gray-400" />
-                  <span className="text-sm text-gray-600">{department.operatingHours}</span>
-                </div>
-
-                {/* Services */}
-                <div className="mb-4">
-                  <p className="text-xs text-gray-500 font-medium uppercase tracking-wide mb-2">Services</p>
-                  <div className="flex flex-wrap gap-1">
-                    {department.services.slice(0, 3).map((service, index) => (
-                      <span
-                        key={index}
-                        className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded"
-                      >
-                        {service}
-                      </span>
-                    ))}
-                    {department.services.length > 3 && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded">
-                        +{department.services.length - 3} more
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Compliance Status */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div className={`flex items-center gap-2 px-3 py-1 rounded-full ${complianceDisplay.bg}`}>
-                    <ComplianceIcon size={14} className={complianceDisplay.color} />
-                    <span className={`text-xs font-medium ${complianceDisplay.color}`}>
-                      {department.nabhCompliance.complianceStatus}
-                    </span>
-                  </div>
-                  <button className="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                    View Details
-                  </button>
-                </div>
-              </div>
-            </div>
+                  {/* Compliance Status */}
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Chip
+                      icon={<ComplianceIcon />}
+                      label={complianceDisplay.label}
+                      size="small"
+                      color={complianceDisplay.color}
+                      variant="outlined"
+                    />
+                    <Button size="small" color="primary">
+                      View Details
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
           );
         })}
-      </div>
+      </Grid>
 
       {/* Empty State */}
       {filteredDepartments.length === 0 && (
-        <div className="text-center py-12">
-          <Building2 size={48} className="mx-auto text-gray-400 mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No departments found</h3>
-          <p className="text-gray-600">Try adjusting your search criteria or filters.</p>
-        </div>
+        <Box sx={{ textAlign: 'center', py: 6 }}>
+          <Business sx={{ fontSize: 48, color: 'text.disabled', mb: 2 }} />
+          <Typography variant="h6" gutterBottom>
+            No departments found
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Try adjusting your search criteria or filters.
+          </Typography>
+        </Box>
       )}
-    </div>
+    </Box>
   );
 };
 
