@@ -38,6 +38,7 @@ import {
 } from '@mui/icons-material';
 // NABH_TEAM import removed - now fetching from Supabase nabh_team_members table
 import { supabase } from '../lib/supabase';
+import LinkMetadataDialog, { LinkMetadata } from './shared/LinkMetadataDialog';
 
 // Enhanced interfaces
 interface CommitteeMember {
@@ -75,6 +76,14 @@ interface Committee {
   nextMeetingDate?: string;
   minMeetingsRequired: number;
   documentsLink?: string; // Google Docs/Sheets link
+  linkMetadata?: {
+    title: string;
+    description: string;
+    keywords: string[];
+    category?: string;
+    type?: string;
+    priority?: 'high' | 'medium' | 'low';
+  };
 }
 
 // Master data sources - Doctors and Employees fetched from Supabase
@@ -226,6 +235,7 @@ export default function CommitteesPageEnhanced() {
   const [isGenerateMinutesDialogOpen, setIsGenerateMinutesDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
   const [selectedCommittee, setSelectedCommittee] = useState<Committee | null>(null);
   // Removed menu anchor state as we now use direct buttons
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
@@ -714,6 +724,49 @@ export default function CommitteesPageEnhanced() {
     }
   };
 
+  const handleSaveDocumentLink = async (linkData: LinkMetadata) => {
+    if (!selectedCommittee) return;
+
+    try {
+      const updatedCommittee: Committee = {
+        ...selectedCommittee,
+        documentsLink: linkData.url,
+        linkMetadata: {
+          title: linkData.title,
+          description: linkData.description,
+          keywords: linkData.keywords,
+          category: linkData.category,
+          type: linkData.type,
+          priority: linkData.priority,
+        },
+      };
+
+      // Update in state
+      setCommittees(committees.map(c => 
+        c.id === selectedCommittee.id ? updatedCommittee : c
+      ));
+
+      // In a real implementation, this would save to Supabase
+      // await supabase.from('committees').update({ 
+      //   documents_link: linkData.url,
+      //   link_metadata: updatedCommittee.linkMetadata 
+      // }).eq('id', selectedCommittee.id);
+
+      setSnackbar({ 
+        open: true, 
+        message: `Document link with metadata saved for ${selectedCommittee.name}`, 
+        severity: 'success' 
+      });
+    } catch (error) {
+      console.error('Error saving document link:', error);
+      setSnackbar({ 
+        open: true, 
+        message: 'Failed to save document link', 
+        severity: 'error' 
+      });
+    }
+  };
+
   const handleGenerateMinutes = async () => {
     if (!selectedCommittee) return;
 
@@ -1029,34 +1082,63 @@ export default function CommitteesPageEnhanced() {
                       Documents Link:
                     </Typography>
                   </Box>
-                  <Box display="flex" alignItems="center" gap={1}>
-                    <TextField
-                      fullWidth
+                  {committee.documentsLink ? (
+                    <Box>
+                      <Box display="flex" alignItems="center" gap={1} mb={1}>
+                        <Typography variant="body2" fontWeight="bold" color="primary.main">
+                          {committee.linkMetadata?.title || 'Committee Documents'}
+                        </Typography>
+                        <Button
+                          size="small"
+                          variant="outlined"
+                          onClick={() => window.open(committee.documentsLink, '_blank')}
+                        >
+                          Open
+                        </Button>
+                        <Button
+                          size="small"
+                          variant="outlined"
+                          startIcon={<EditIcon />}
+                          onClick={() => {
+                            setSelectedCommittee(committee);
+                            setIsLinkDialogOpen(true);
+                          }}
+                        >
+                          Edit
+                        </Button>
+                      </Box>
+                      {committee.linkMetadata?.description && (
+                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
+                          {committee.linkMetadata.description}
+                        </Typography>
+                      )}
+                      {committee.linkMetadata?.keywords && (
+                        <Box mt={1} display="flex" gap={0.5} flexWrap="wrap">
+                          {committee.linkMetadata.keywords.slice(0, 5).map((keyword, index) => (
+                            <Chip
+                              key={index}
+                              label={keyword}
+                              size="small"
+                              sx={{ fontSize: '0.7rem', height: 18 }}
+                            />
+                          ))}
+                        </Box>
+                      )}
+                    </Box>
+                  ) : (
+                    <Button
                       size="small"
-                      placeholder="Paste Google Docs/Sheets link here..."
-                      value={committee.documentsLink || ''}
-                      onChange={(e) => {
-                        const updatedCommittee = { ...committee, documentsLink: e.target.value };
-                        setCommittees(committees.map(c => c.id === committee.id ? updatedCommittee : c));
-                      }}
                       variant="outlined"
-                      sx={{ 
-                        '& .MuiOutlinedInput-root': {
-                          fontSize: '0.875rem',
-                        }
+                      startIcon={<AddIcon />}
+                      onClick={() => {
+                        setSelectedCommittee(committee);
+                        setIsLinkDialogOpen(true);
                       }}
-                    />
-                    {committee.documentsLink && (
-                      <Button
-                        size="small"
-                        variant="outlined"
-                        onClick={() => window.open(committee.documentsLink, '_blank')}
-                        sx={{ minWidth: 'auto', px: 1 }}
-                      >
-                        Open
-                      </Button>
-                    )}
-                  </Box>
+                      fullWidth
+                    >
+                      Add Document Link with Metadata
+                    </Button>
+                  )}
                 </Box>
 
                 {committee.meetings.length < 6 && (
@@ -1429,6 +1511,29 @@ export default function CommitteesPageEnhanced() {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Document Link Metadata Dialog */}
+      {selectedCommittee && (
+        <LinkMetadataDialog
+          open={isLinkDialogOpen}
+          onClose={() => setIsLinkDialogOpen(false)}
+          onSave={handleSaveDocumentLink}
+          initialUrl={selectedCommittee.documentsLink || ''}
+          title={`Add Document Link for ${selectedCommittee.name}`}
+          subtitle="Committee Documentation"
+          context={`${selectedCommittee.name} - ${selectedCommittee.type} committee`}
+          suggestedKeywords={[
+            'committee',
+            'meeting minutes',
+            'nabh',
+            'quality',
+            selectedCommittee.name.toLowerCase().replace(/[^a-z0-9\s]/g, ''),
+            selectedCommittee.type,
+            ...selectedCommittee.objectives.flatMap(obj => obj.toLowerCase().split(' ')).filter(word => word.length > 3),
+          ]}
+          suggestedCategory="Committee Document"
+        />
+      )}
 
       {/* Snackbar */}
       <Snackbar
