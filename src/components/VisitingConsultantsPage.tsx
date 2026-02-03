@@ -194,11 +194,11 @@ export default function VisitingConsultantsPage() {
           <Table stickyHeader>
             <TableHead>
               <TableRow sx={{ bgcolor: '#000000' }}>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Emp. ID</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Doctor Name</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Specialization</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Registration Number</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }} align="center">Actions</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Emp. ID</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Doctor Name</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Specialization</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Registration Number</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }} align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

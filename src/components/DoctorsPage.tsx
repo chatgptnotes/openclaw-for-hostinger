@@ -207,13 +207,13 @@ export default function DoctorsPage() {
           <Table stickyHeader>
             <TableHead>
               <TableRow sx={{ bgcolor: '#000000' }}>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Emp. ID</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Doctor Name</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Qualification</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Reg. Number</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Department</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }}>Role</TableCell>
-                <TableCell sx={{ color: '#ffffff', fontWeight: 900, fontSize: '1rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '2px solid white' }} align="center">Actions</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Emp. ID</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Doctor Name</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Qualification</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Reg. Number</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Department</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Role</TableCell>
+                <TableCell sx={{ color: '#ffffff', fontWeight: '900 !important', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '0.05em' }} align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
