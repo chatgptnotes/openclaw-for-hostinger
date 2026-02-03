@@ -42,17 +42,27 @@ import {
   Share as ShareIcon,
 } from '@mui/icons-material';
 import { useNABHStore } from '../store/nabhStore';
+import LinkMetadataDialog, { LinkMetadata } from './shared/LinkMetadataDialog';
 
 interface CheatSheet {
   chapterCode: string;
   chapterName: string;
   googleDocLink: string;
+  linkTitle: string;
   description: string;
   lastUpdated: string;
   updatedBy: string;
   status: 'available' | 'missing' | 'outdated';
   tags: string[];
   keyPoints: string[];
+  linkMetadata?: {
+    title: string;
+    description: string;
+    keywords: string[];
+    category?: string;
+    type?: string;
+    priority?: 'high' | 'medium' | 'low';
+  };
 }
 
 // Chapter icons mapping
@@ -91,13 +101,11 @@ const getChapterColor = (code: string) => {
 export default function CheatSheetsPage() {
   const { chapters } = useNABHStore();
   const [cheatSheets, setCheatSheets] = useState<CheatSheet[]>([]);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
   const [selectedCheatSheet, setSelectedCheatSheet] = useState<CheatSheet | null>(null);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' });
 
-  const [editForm, setEditForm] = useState({
-    googleDocLink: '',
-    description: '',
+  const [additionalForm, setAdditionalForm] = useState({
     keyPoints: '',
     tags: '',
   });
@@ -116,12 +124,14 @@ export default function CheatSheetsPage() {
         chapterCode: chapter.code,
         chapterName: chapter.fullName,
         googleDocLink: '',
+        linkTitle: '',
         description: `Quick reference sheet for ${chapter.fullName} (${chapter.code})`,
         lastUpdated: '',
         updatedBy: '',
         status: 'missing' as const,
         tags: ['nabh', chapter.code.toLowerCase()],
         keyPoints: [],
+        linkMetadata: undefined,
       };
     });
 
@@ -130,30 +140,37 @@ export default function CheatSheetsPage() {
 
   const handleEditCheatSheet = (cheatSheet: CheatSheet) => {
     setSelectedCheatSheet(cheatSheet);
-    setEditForm({
-      googleDocLink: cheatSheet.googleDocLink,
-      description: cheatSheet.description,
+    setAdditionalForm({
       keyPoints: cheatSheet.keyPoints.join('\n'),
       tags: cheatSheet.tags.join(', '),
     });
-    setIsEditDialogOpen(true);
+    setIsLinkDialogOpen(true);
   };
 
-  const handleSaveCheatSheet = async () => {
+  const handleSaveLinkMetadata = async (linkData: LinkMetadata) => {
     if (!selectedCheatSheet) return;
 
     try {
       const updatedCheatSheet: CheatSheet = {
         ...selectedCheatSheet,
-        googleDocLink: editForm.googleDocLink,
-        description: editForm.description,
-        keyPoints: editForm.keyPoints.split('\n').filter(point => point.trim()),
-        tags: editForm.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
+        googleDocLink: linkData.url,
+        linkTitle: linkData.title,
+        description: linkData.description,
         lastUpdated: new Date().toISOString(),
         updatedBy: 'Dr. Shiraz (Quality Coordinator)',
-        status: editForm.googleDocLink ? 'available' : 'missing',
+        status: linkData.url ? 'available' : 'missing',
+        tags: [...new Set([...selectedCheatSheet.tags, ...linkData.keywords])],
+        linkMetadata: {
+          title: linkData.title,
+          description: linkData.description,
+          keywords: linkData.keywords,
+          category: linkData.category,
+          type: linkData.type,
+          priority: linkData.priority,
+        },
       };
 
+      // Update the cheat sheet in state
       setCheatSheets(sheets => 
         sheets.map(sheet => 
           sheet.chapterCode === selectedCheatSheet.chapterCode 
@@ -162,24 +179,25 @@ export default function CheatSheetsPage() {
         )
       );
 
-      // In a real implementation, this would save to Supabase
+      // In a real implementation, this would save to Supabase with searchable metadata
       // await supabase.from('chapter_cheat_sheets').upsert(updatedCheatSheet);
 
-      setIsEditDialogOpen(false);
       setSnackbar({ 
         open: true, 
-        message: `Cheat sheet for ${selectedCheatSheet.chapterCode} updated successfully`, 
+        message: `Cheat sheet link with metadata saved for ${selectedCheatSheet.chapterCode}`, 
         severity: 'success' 
       });
     } catch (error) {
-      console.error('Error saving cheat sheet:', error);
+      console.error('Error saving cheat sheet with metadata:', error);
       setSnackbar({ 
         open: true, 
-        message: 'Failed to save cheat sheet', 
+        message: 'Failed to save cheat sheet with metadata', 
         severity: 'error' 
       });
     }
   };
+
+  // Old function removed - now using handleSaveLinkMetadata
 
   const handleDeleteCheatSheet = (chapterCode: string) => {
     setCheatSheets(sheets =>
@@ -364,34 +382,75 @@ export default function CheatSheetsPage() {
                   {cheatSheet.description}
                 </Typography>
 
-                {/* Google Doc Status */}
+                {/* Google Doc Status with Enhanced Metadata */}
                 <Box display="flex" alignItems="center" gap={1} mb={2}>
                   <GoogleIcon sx={{ fontSize: 20, color: '#4285F4' }} />
-                  <Typography variant="body2">
+                  <Box>
                     {cheatSheet.googleDocLink ? (
-                      <Box component="span" color="success.main" fontWeight="bold">
-                        Google Doc Linked ✓
-                      </Box>
+                      <>
+                        <Typography variant="body2" color="success.main" fontWeight="bold">
+                          {cheatSheet.linkTitle || 'Google Doc Linked ✓'}
+                        </Typography>
+                        {cheatSheet.linkMetadata && (
+                          <Typography variant="caption" color="text.secondary" display="block">
+                            {cheatSheet.linkMetadata.category} • {cheatSheet.linkMetadata.priority} priority
+                          </Typography>
+                        )}
+                      </>
                     ) : (
-                      <Box component="span" color="error.main">
+                      <Typography variant="body2" color="error.main">
                         No Google Doc Link
-                      </Box>
+                      </Typography>
                     )}
-                  </Typography>
+                  </Box>
                 </Box>
 
-                {/* Tags */}
-                {cheatSheet.tags.length > 0 && (
-                  <Box display="flex" gap={0.5} mb={2} flexWrap="wrap">
-                    {cheatSheet.tags.map((tag, index) => (
-                      <Chip
-                        key={index}
-                        label={tag}
-                        size="small"
-                        variant="outlined"
-                        sx={{ fontSize: '0.7rem', height: 20 }}
-                      />
-                    ))}
+                {/* Enhanced Description from Link Metadata */}
+                {cheatSheet.linkMetadata?.description && (
+                  <Box mb={2} p={2} bgcolor="primary.50" borderRadius={1} border="1px solid" borderColor="primary.200">
+                    <Typography variant="body2" color="text.secondary" 
+                      sx={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                      }}>
+                      <strong>Content:</strong> {cheatSheet.linkMetadata.description}
+                    </Typography>
+                  </Box>
+                )}
+
+                {/* Tags and Keywords */}
+                {(cheatSheet.tags.length > 0 || cheatSheet.linkMetadata?.keywords.length) && (
+                  <Box mb={2}>
+                    <Typography variant="caption" color="text.secondary" mb={1}>
+                      Search Keywords:
+                    </Typography>
+                    <Box display="flex" gap={0.5} flexWrap="wrap">
+                      {/* Original tags */}
+                      {cheatSheet.tags.map((tag, index) => (
+                        <Chip
+                          key={`tag-${index}`}
+                          label={tag}
+                          size="small"
+                          variant="outlined"
+                          sx={{ fontSize: '0.7rem', height: 20 }}
+                        />
+                      ))}
+                      {/* Enhanced keywords from link metadata */}
+                      {cheatSheet.linkMetadata?.keywords.map((keyword, index) => (
+                        !cheatSheet.tags.includes(keyword) && (
+                          <Chip
+                            key={`keyword-${index}`}
+                            label={keyword}
+                            size="small"
+                            variant="filled"
+                            color="primary"
+                            sx={{ fontSize: '0.7rem', height: 20 }}
+                          />
+                        )
+                      ))}
+                    </Box>
                   </Box>
                 )}
 
@@ -504,78 +563,28 @@ export default function CheatSheetsPage() {
         ))}
       </Grid>
 
-      {/* Edit Cheat Sheet Dialog */}
-      <Dialog 
-        open={isEditDialogOpen} 
-        onClose={() => setIsEditDialogOpen(false)} 
-        maxWidth="md" 
-        fullWidth
-      >
-        <DialogTitle>
-          Edit Cheat Sheet: {selectedCheatSheet?.chapterCode} - {selectedCheatSheet?.chapterName}
-        </DialogTitle>
-        <DialogContent>
-          <Alert severity="info" sx={{ mb: 2 }}>
-            <strong>Instructions:</strong> Paste the Google Docs sharing link below. Make sure the document 
-            is set to "Anyone with the link can view" for team access during NABH audit.
-          </Alert>
-
-          <TextField
-            fullWidth
-            label="Google Docs Link"
-            value={editForm.googleDocLink}
-            onChange={(e) => setEditForm({ ...editForm, googleDocLink: e.target.value })}
-            margin="normal"
-            placeholder="https://docs.google.com/document/d/..."
-            helperText="Paste the shareable Google Docs link here"
-          />
-
-          <TextField
-            fullWidth
-            multiline
-            rows={3}
-            label="Description"
-            value={editForm.description}
-            onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-            margin="normal"
-            helperText="Brief description of what this cheat sheet covers"
-          />
-
-          <TextField
-            fullWidth
-            multiline
-            rows={6}
-            label="Key Points (one per line)"
-            value={editForm.keyPoints}
-            onChange={(e) => setEditForm({ ...editForm, keyPoints: e.target.value })}
-            margin="normal"
-            placeholder="• Key standard requirements&#10;• Important definitions&#10;• Critical audit points&#10;• Common non-conformities to avoid"
-            helperText="List the most important points for quick reference during audit"
-          />
-
-          <TextField
-            fullWidth
-            label="Tags (comma separated)"
-            value={editForm.tags}
-            onChange={(e) => setEditForm({ ...editForm, tags: e.target.value })}
-            margin="normal"
-            placeholder="nabh, audit, quality, standards"
-            helperText="Tags to help categorize and search cheat sheets"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setIsEditDialogOpen(false)}>
-            Cancel
-          </Button>
-          <Button 
-            variant="contained" 
-            onClick={handleSaveCheatSheet}
-            disabled={!editForm.googleDocLink.trim()}
-          >
-            Save Cheat Sheet
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {/* Enhanced Link Metadata Dialog */}
+      {selectedCheatSheet && (
+        <LinkMetadataDialog
+          open={isLinkDialogOpen}
+          onClose={() => setIsLinkDialogOpen(false)}
+          onSave={handleSaveLinkMetadata}
+          initialUrl={selectedCheatSheet.googleDocLink}
+          title={`Add Link for ${selectedCheatSheet.chapterCode} Chapter`}
+          subtitle={selectedCheatSheet.chapterName}
+          context={`Chapter ${selectedCheatSheet.chapterCode} Cheat Sheet`}
+          suggestedKeywords={[
+            'nabh',
+            selectedCheatSheet.chapterCode.toLowerCase(),
+            'cheat sheet',
+            'reference',
+            'standards',
+            'audit',
+            ...selectedCheatSheet.tags,
+          ]}
+          suggestedCategory="Cheat Sheet"
+        />
+      )}
 
       {/* Snackbar */}
       <Snackbar
