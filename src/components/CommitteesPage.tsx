@@ -130,6 +130,52 @@ interface VisitingConsultant {
   updated_at: string;
 }
 
+// Committee DB types from Supabase
+interface CommitteeDB {
+  id: string;
+  name: string;
+  type: string;
+  description: string | null;
+  meeting_frequency: string;
+  objectives: string[] | null;
+  min_meetings_required: number;
+  chairperson_id: string | null;
+  chairperson_name: string | null;
+  chairperson_designation: string | null;
+  chairperson_master_type: string | null;
+  hospital_id: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+interface CommitteeMemberDB {
+  id: string;
+  committee_id: string;
+  member_id: string;
+  name: string;
+  designation: string | null;
+  department: string | null;
+  role_in_committee: string;
+  master_type: string | null;
+  phone: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+
+interface CommitteeMeetingDB {
+  id: string;
+  committee_id: string;
+  meeting_date: string;
+  agenda: string | null;
+  minutes: string | null;
+  attendees: string[] | null;
+  decisions: string[] | null;
+  action_items: string[] | null;
+  next_meeting_date: string | null;
+  created_at: string;
+}
+
 // MASTER_TYPES will be created dynamically inside the component to use state for doctors
 
 const NABH_MANDATORY_COMMITTEES = [
@@ -361,52 +407,216 @@ export default function CommitteesPageEnhanced() {
     fetchConsultants();
   }, []);
 
-  // Initialize with NABH committees
+  // Load committees from Supabase
   useEffect(() => {
-    const initialCommittees: Committee[] = NABH_MANDATORY_COMMITTEES.map(committee => ({
-      id: `committee_${Date.now()}_${Math.random()}`,
-      ...committee,
-      type: 'mandatory' as const,
-      chairperson: null,
-      members: [],
-      meetings: [],
-      objectives: committee.objectives,
-      createdAt: new Date().toISOString(),
-      documentsLink: '', // Initialize with empty link
-    }));
-    setCommittees(initialCommittees);
-  }, []);
+    const loadCommittees = async () => {
+      try {
+        // Fetch committees
+        const { data: rawCommitteesData, error: committeesError } = await supabase
+          .from('committees')
+          .select('*')
+          .eq('is_active', true)
+          .order('created_at', { ascending: true });
 
-  const handleAddCommittee = () => {
-    const committee: Committee = {
-      id: `committee_${Date.now()}`,
-      name: newCommittee.name,
-      description: newCommittee.description,
-      type: newCommittee.type,
-      chairperson: null,
-      members: [],
-      meetingFrequency: newCommittee.meetingFrequency,
-      meetings: [],
-      objectives: newCommittee.objectives.split('\n').filter(obj => obj.trim()),
-      createdAt: new Date().toISOString(),
-      minMeetingsRequired: newCommittee.minMeetingsRequired,
-      documentsLink: '', // Initialize with empty link
+        if (committeesError) {
+          console.error('Error loading committees:', committeesError);
+          // If table doesn't exist or error, seed with default committees
+          await seedDefaultCommittees();
+          return;
+        }
+
+        const committeesData = rawCommitteesData as CommitteeDB[] | null;
+
+        if (!committeesData || committeesData.length === 0) {
+          // Seed default NABH mandatory committees
+          await seedDefaultCommittees();
+          return;
+        }
+
+        // Fetch members for all committees
+        const { data: rawMembersData, error: membersError } = await supabase
+          .from('committee_members')
+          .select('*')
+          .eq('is_active', true);
+
+        if (membersError) {
+          console.error('Error loading members:', membersError);
+        }
+
+        const membersData = rawMembersData as CommitteeMemberDB[] | null;
+
+        // Fetch meetings for all committees
+        const { data: rawMeetingsData, error: meetingsError } = await supabase
+          .from('committee_meetings')
+          .select('*')
+          .order('meeting_date', { ascending: true });
+
+        if (meetingsError) {
+          console.error('Error loading meetings:', meetingsError);
+        }
+
+        const meetingsData = rawMeetingsData as CommitteeMeetingDB[] | null;
+
+        // Map data to Committee interface
+        const loadedCommittees: Committee[] = committeesData.map(c => ({
+          id: c.id,
+          name: c.name,
+          type: c.type as 'mandatory' | 'recommended' | 'custom',
+          description: c.description || '',
+          meetingFrequency: c.meeting_frequency as any,
+          objectives: c.objectives || [],
+          minMeetingsRequired: c.min_meetings_required,
+          createdAt: c.created_at,
+          documentsLink: '', // Initialize with empty link
+          chairperson: c.chairperson_id ? {
+            id: c.chairperson_id,
+            name: c.chairperson_name || '',
+            designation: c.chairperson_designation || '',
+            role: 'Chairperson',
+            masterType: c.chairperson_master_type as any,
+          } : null,
+          members: (membersData || [])
+            .filter(m => m.committee_id === c.id)
+            .map(m => ({
+              id: m.member_id,
+              name: m.name,
+              designation: m.designation || '',
+              role: m.role_in_committee,
+              masterType: m.master_type as any,
+              department: m.department || '',
+              phone: m.phone || '',
+            })),
+          meetings: (meetingsData || [])
+            .filter(m => m.committee_id === c.id)
+            .map(m => ({
+              id: m.id,
+              date: m.meeting_date,
+              agenda: m.agenda || '',
+              minutes: m.minutes || '',
+              attendees: m.attendees || [],
+              decisions: m.decisions || [],
+              actionItems: m.action_items || [],
+              nextMeetingDate: m.next_meeting_date || undefined,
+            })),
+        }));
+
+        setCommittees(loadedCommittees);
+      } catch (err) {
+        console.error('Error loading committees:', err);
+        await seedDefaultCommittees();
+      }
     };
 
-    setCommittees([...committees, committee]);
-    setNewCommittee({
-      name: '',
-      description: '',
-      type: 'mandatory',
-      meetingFrequency: 'Monthly',
-      objectives: '',
-      minMeetingsRequired: 6,
-    });
-    setIsAddDialogOpen(false);
-    setSnackbar({ open: true, message: 'Committee created successfully', severity: 'success' });
+    const seedDefaultCommittees = async () => {
+      const defaultCommittees: Committee[] = [];
+
+      for (const committee of NABH_MANDATORY_COMMITTEES) {
+        const { data: rawData, error } = await supabase
+          .from('committees')
+          .insert({
+            name: committee.name,
+            type: 'mandatory',
+            description: committee.description,
+            meeting_frequency: committee.meetingFrequency,
+            objectives: committee.objectives,
+            min_meetings_required: committee.minMeetingsRequired,
+          } as any)
+          .select()
+          .single();
+
+        const data = rawData as CommitteeDB | null;
+
+        if (error) {
+          console.error('Error seeding committee:', error);
+          // If insert fails (table may not exist), use local state
+          defaultCommittees.push({
+            id: `committee_${Date.now()}_${Math.random()}`,
+            ...committee,
+            type: 'mandatory' as const,
+            chairperson: null,
+            members: [],
+            meetings: [],
+            objectives: committee.objectives,
+            createdAt: new Date().toISOString(),
+          });
+        } else if (data) {
+          defaultCommittees.push({
+            id: data.id,
+            name: data.name,
+            type: 'mandatory',
+            description: data.description || '',
+            meetingFrequency: data.meeting_frequency as any,
+            objectives: data.objectives || [],
+            minMeetingsRequired: data.min_meetings_required,
+            createdAt: data.created_at,
+            chairperson: null,
+            members: [],
+            meetings: [],
+          });
+        }
+      }
+
+      setCommittees(defaultCommittees);
+    };
+
+    loadCommittees();
+  }, []);
+
+  const handleAddCommittee = async () => {
+    try {
+      const { data: rawData, error } = await supabase
+        .from('committees')
+        .insert({
+          name: newCommittee.name,
+          type: newCommittee.type,
+          description: newCommittee.description,
+          meeting_frequency: newCommittee.meetingFrequency,
+          objectives: newCommittee.objectives.split('\n').filter(obj => obj.trim()),
+          min_meetings_required: newCommittee.minMeetingsRequired,
+        } as any)
+        .select()
+        .single();
+
+      if (error) {
+        console.error('Error creating committee:', error);
+        setSnackbar({ open: true, message: 'Failed to create committee', severity: 'error' });
+        return;
+      }
+
+      const data = rawData as CommitteeDB;
+
+      const committee: Committee = {
+        id: data.id,
+        name: data.name,
+        description: data.description || '',
+        type: data.type as any,
+        chairperson: null,
+        members: [],
+        meetingFrequency: data.meeting_frequency as any,
+        meetings: [],
+        objectives: data.objectives || [],
+        createdAt: data.created_at,
+        minMeetingsRequired: data.min_meetings_required,
+      };
+
+      setCommittees([...committees, committee]);
+      setNewCommittee({
+        name: '',
+        description: '',
+        type: 'mandatory',
+        meetingFrequency: 'Monthly',
+        objectives: '',
+        minMeetingsRequired: 6,
+      });
+      setIsAddDialogOpen(false);
+      setSnackbar({ open: true, message: 'Committee created successfully', severity: 'success' });
+    } catch (err) {
+      console.error('Error creating committee:', err);
+      setSnackbar({ open: true, message: 'Failed to create committee', severity: 'error' });
+    }
   };
 
-  const handleAddMember = () => {
+  const handleAddMember = async () => {
     if (!selectedCommittee || !memberForm.selectedMasterType || !memberForm.selectedPersonId) return;
 
     const masterData = MASTER_TYPES.find(m => m.value === memberForm.selectedMasterType)?.data;
@@ -414,58 +624,149 @@ export default function CommitteesPageEnhanced() {
 
     if (!selectedPerson) return;
 
-    const newMember: CommitteeMember = {
-      id: selectedPerson.id,
-      name: selectedPerson.name,
-      role: memberForm.role || 'Member',
-      designation: selectedPerson.designation,
-      masterType: memberForm.selectedMasterType as any,
-      department: selectedPerson.department,
-      phone: selectedPerson.phone,
-    };
+    try {
+      // Save to Supabase
+      const { error } = await supabase
+        .from('committee_members')
+        .insert({
+          committee_id: selectedCommittee.id,
+          member_id: selectedPerson.id,
+          name: selectedPerson.name,
+          designation: selectedPerson.designation,
+          department: selectedPerson.department,
+          role_in_committee: memberForm.role || 'Member',
+          master_type: memberForm.selectedMasterType,
+          phone: selectedPerson.phone,
+        } as any);
 
-    const updatedCommittee = {
-      ...selectedCommittee,
-      members: [...selectedCommittee.members, newMember],
-    };
+      if (error) {
+        console.error('Error adding member:', error);
+        setSnackbar({ open: true, message: 'Failed to add member', severity: 'error' });
+        return;
+      }
 
-    setCommittees(committees.map(c => c.id === selectedCommittee.id ? updatedCommittee : c));
-    setSelectedCommittee(updatedCommittee);
-    setMemberForm({ selectedMasterType: '', selectedPersonId: '', role: '' });
-    setIsMemberDialogOpen(false);
-    setSnackbar({ open: true, message: 'Member added successfully', severity: 'success' });
+      const newMember: CommitteeMember = {
+        id: selectedPerson.id,
+        name: selectedPerson.name,
+        role: memberForm.role || 'Member',
+        designation: selectedPerson.designation,
+        masterType: memberForm.selectedMasterType as any,
+        department: selectedPerson.department,
+        phone: selectedPerson.phone,
+      };
+
+      const updatedCommittee = {
+        ...selectedCommittee,
+        members: [...selectedCommittee.members, newMember],
+      };
+
+      setCommittees(committees.map(c => c.id === selectedCommittee.id ? updatedCommittee : c));
+      setSelectedCommittee(updatedCommittee);
+      setMemberForm({ selectedMasterType: '', selectedPersonId: '', role: '' });
+      setIsMemberDialogOpen(false);
+      setSnackbar({ open: true, message: 'Member added successfully', severity: 'success' });
+    } catch (err) {
+      console.error('Error adding member:', err);
+      setSnackbar({ open: true, message: 'Failed to add member', severity: 'error' });
+    }
   };
 
-  const handleSetChairperson = (member: CommitteeMember) => {
+  const handleSetChairperson = async (member: CommitteeMember) => {
     if (!selectedCommittee) return;
 
-    const updatedCommittee = {
-      ...selectedCommittee,
-      chairperson: member,
-    };
+    try {
+      // Update in Supabase
+      const updateData = {
+        chairperson_id: member.id,
+        chairperson_name: member.name,
+        chairperson_designation: member.designation,
+        chairperson_master_type: member.masterType,
+      };
+      const { error } = await (supabase
+        .from('committees') as any)
+        .update(updateData)
+        .eq('id', selectedCommittee.id);
 
-    setCommittees(committees.map(c => c.id === selectedCommittee.id ? updatedCommittee : c));
-    setSelectedCommittee(updatedCommittee);
-    setSnackbar({ open: true, message: 'Chairperson assigned successfully', severity: 'success' });
+      if (error) {
+        console.error('Error setting chairperson:', error);
+        setSnackbar({ open: true, message: 'Failed to set chairperson', severity: 'error' });
+        return;
+      }
+
+      const updatedCommittee = {
+        ...selectedCommittee,
+        chairperson: member,
+      };
+
+      setCommittees(committees.map(c => c.id === selectedCommittee.id ? updatedCommittee : c));
+      setSelectedCommittee(updatedCommittee);
+      setSnackbar({ open: true, message: 'Chairperson assigned successfully', severity: 'success' });
+    } catch (err) {
+      console.error('Error setting chairperson:', err);
+      setSnackbar({ open: true, message: 'Failed to set chairperson', severity: 'error' });
+    }
   };
 
-  const handleGenerateMinutes = () => {
+  const handleGenerateMinutes = async () => {
     if (!selectedCommittee) return;
 
-    const generatedMeetings = generateMeetingMinutes(selectedCommittee);
-    const updatedCommittee = {
-      ...selectedCommittee,
-      meetings: generatedMeetings,
-    };
+    try {
+      const generatedMeetings = generateMeetingMinutes(selectedCommittee);
 
-    setCommittees(committees.map(c => c.id === selectedCommittee.id ? updatedCommittee : c));
-    setSelectedCommittee(updatedCommittee);
-    setIsGenerateMinutesDialogOpen(false);
-    setSnackbar({ 
-      open: true, 
-      message: `Generated ${generatedMeetings.length} meeting minutes successfully`, 
-      severity: 'success' 
-    });
+      // Delete existing meetings for this committee first
+      await supabase
+        .from('committee_meetings')
+        .delete()
+        .eq('committee_id', selectedCommittee.id);
+
+      // Insert new meetings to Supabase
+      const meetingsToInsert = generatedMeetings.map(m => ({
+        committee_id: selectedCommittee.id,
+        meeting_date: m.date,
+        agenda: m.agenda,
+        minutes: m.minutes,
+        attendees: m.attendees,
+        decisions: m.decisions,
+        action_items: m.actionItems,
+        next_meeting_date: m.nextMeetingDate,
+      }));
+
+      const { data: rawInsertedMeetings, error } = await supabase
+        .from('committee_meetings')
+        .insert(meetingsToInsert as any)
+        .select();
+
+      if (error) {
+        console.error('Error saving meetings:', error);
+        setSnackbar({ open: true, message: 'Failed to save meetings', severity: 'error' });
+        return;
+      }
+
+      const insertedMeetings = rawInsertedMeetings as CommitteeMeetingDB[] | null;
+
+      // Update meetings with IDs from Supabase
+      const meetingsWithIds = insertedMeetings?.map((m, idx) => ({
+        ...generatedMeetings[idx],
+        id: m.id,
+      })) || generatedMeetings;
+
+      const updatedCommittee = {
+        ...selectedCommittee,
+        meetings: meetingsWithIds,
+      };
+
+      setCommittees(committees.map(c => c.id === selectedCommittee.id ? updatedCommittee : c));
+      setSelectedCommittee(updatedCommittee);
+      setIsGenerateMinutesDialogOpen(false);
+      setSnackbar({
+        open: true,
+        message: `Generated ${generatedMeetings.length} meeting minutes successfully`,
+        severity: 'success'
+      });
+    } catch (err) {
+      console.error('Error generating minutes:', err);
+      setSnackbar({ open: true, message: 'Failed to generate minutes', severity: 'error' });
+    }
   };
 
   const handleEditCommittee = (committee: Committee) => {
@@ -482,22 +783,46 @@ export default function CommitteesPageEnhanced() {
     setIsEditDialogOpen(true);
   };
 
-  const handleSaveEditCommittee = () => {
+  const handleSaveEditCommittee = async () => {
     if (!selectedCommittee) return;
 
-    const updatedCommittee: Committee = {
-      ...selectedCommittee,
-      name: editCommittee.name,
-      description: editCommittee.description,
-      type: editCommittee.type,
-      meetingFrequency: editCommittee.meetingFrequency,
-      objectives: editCommittee.objectives.split('\n').filter(obj => obj.trim()),
-      minMeetingsRequired: editCommittee.minMeetingsRequired,
-    };
+    try {
+      const updateData = {
+        name: editCommittee.name,
+        type: editCommittee.type,
+        description: editCommittee.description,
+        meeting_frequency: editCommittee.meetingFrequency,
+        objectives: editCommittee.objectives.split('\n').filter(obj => obj.trim()),
+        min_meetings_required: editCommittee.minMeetingsRequired,
+      };
+      const { error } = await (supabase
+        .from('committees') as any)
+        .update(updateData)
+        .eq('id', selectedCommittee.id);
 
-    setCommittees(committees.map(c => c.id === selectedCommittee.id ? updatedCommittee : c));
-    setIsEditDialogOpen(false);
-    setSnackbar({ open: true, message: 'Committee updated successfully', severity: 'success' });
+      if (error) {
+        console.error('Error updating committee:', error);
+        setSnackbar({ open: true, message: 'Failed to update committee', severity: 'error' });
+        return;
+      }
+
+      const updatedCommittee: Committee = {
+        ...selectedCommittee,
+        name: editCommittee.name,
+        description: editCommittee.description,
+        type: editCommittee.type,
+        meetingFrequency: editCommittee.meetingFrequency,
+        objectives: editCommittee.objectives.split('\n').filter(obj => obj.trim()),
+        minMeetingsRequired: editCommittee.minMeetingsRequired,
+      };
+
+      setCommittees(committees.map(c => c.id === selectedCommittee.id ? updatedCommittee : c));
+      setIsEditDialogOpen(false);
+      setSnackbar({ open: true, message: 'Committee updated successfully', severity: 'success' });
+    } catch (err) {
+      console.error('Error updating committee:', err);
+      setSnackbar({ open: true, message: 'Failed to update committee', severity: 'error' });
+    }
   };
 
   const handleDeleteCommittee = (committee: Committee) => {
@@ -505,12 +830,29 @@ export default function CommitteesPageEnhanced() {
     setIsDeleteDialogOpen(true);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!selectedCommittee) return;
 
-    setCommittees(committees.filter(c => c.id !== selectedCommittee.id));
-    setIsDeleteDialogOpen(false);
-    setSnackbar({ open: true, message: 'Committee deleted successfully', severity: 'success' });
+    try {
+      // Delete from Supabase (soft delete by setting is_active to false)
+      const { error } = await (supabase
+        .from('committees') as any)
+        .update({ is_active: false })
+        .eq('id', selectedCommittee.id);
+
+      if (error) {
+        console.error('Error deleting committee:', error);
+        setSnackbar({ open: true, message: 'Failed to delete committee', severity: 'error' });
+        return;
+      }
+
+      setCommittees(committees.filter(c => c.id !== selectedCommittee.id));
+      setIsDeleteDialogOpen(false);
+      setSnackbar({ open: true, message: 'Committee deleted successfully', severity: 'success' });
+    } catch (err) {
+      console.error('Error deleting committee:', err);
+      setSnackbar({ open: true, message: 'Failed to delete committee', severity: 'error' });
+    }
   };
 
   // Removed menu functions as we now use direct buttons
