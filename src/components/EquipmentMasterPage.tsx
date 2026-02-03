@@ -139,7 +139,7 @@ const EquipmentMasterPage: React.FC = () => {
       case 'Pending Calibration':
         return { icon: Schedule, color: 'info' as const, label: 'Pending Calibration' };
       default:
-        return { icon: Warning, color: 'default' as const, label: 'Unknown' };
+        return { icon: Warning, color: 'inherit' as const, label: 'Unknown' };
     }
   };
 
@@ -155,7 +155,7 @@ const EquipmentMasterPage: React.FC = () => {
       case 'Maintenance Due':
         return { icon: Build, color: 'warning' as const, label: 'Maintenance Due' };
       default:
-        return { icon: Warning, color: 'default' as const, label: 'Pending Inspection' };
+        return { icon: Warning, color: 'inherit' as const, label: 'Pending Inspection' };
     }
   };
 
@@ -208,7 +208,7 @@ const EquipmentMasterPage: React.FC = () => {
 
         {/* Statistics Dashboard */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -226,7 +226,7 @@ const EquipmentMasterPage: React.FC = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -244,7 +244,7 @@ const EquipmentMasterPage: React.FC = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -262,7 +262,7 @@ const EquipmentMasterPage: React.FC = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -290,7 +290,7 @@ const EquipmentMasterPage: React.FC = () => {
             </Typography>
             <Grid container spacing={2}>
               {Object.entries(categorySummary).map(([category, count]) => (
-                <Grid item xs={6} md={2} key={category}>
+                <Grid size={{ xs: 6, md: 2 }} key={category}>
                   <Paper elevation={0} sx={{ p: 2, textAlign: 'center', bgcolor: 'grey.50' }}>
                     <Typography variant="h5" color="primary.main">
                       {count}
@@ -311,7 +311,7 @@ const EquipmentMasterPage: React.FC = () => {
         <CardContent>
           <Grid container spacing={3}>
             {/* Search */}
-            <Grid item xs={12} md={3}>
+            <Grid size={{ xs: 12, md: 3 }}>
               <TextField
                 fullWidth
                 placeholder="Search equipment..."
@@ -328,7 +328,7 @@ const EquipmentMasterPage: React.FC = () => {
             </Grid>
 
             {/* Category Filter */}
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <FormControl fullWidth>
                 <InputLabel>Category</InputLabel>
                 <Select
@@ -348,7 +348,7 @@ const EquipmentMasterPage: React.FC = () => {
             </Grid>
 
             {/* Status Filter */}
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <FormControl fullWidth>
                 <InputLabel>Status</InputLabel>
                 <Select
@@ -366,7 +366,7 @@ const EquipmentMasterPage: React.FC = () => {
             </Grid>
 
             {/* Compliance Filter */}
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <FormControl fullWidth>
                 <InputLabel>Compliance</InputLabel>
                 <Select
@@ -384,7 +384,7 @@ const EquipmentMasterPage: React.FC = () => {
             </Grid>
 
             {/* Department Filter */}
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <FormControl fullWidth>
                 <InputLabel>Department</InputLabel>
                 <Select
@@ -401,7 +401,7 @@ const EquipmentMasterPage: React.FC = () => {
             </Grid>
 
             {/* Critical Equipment Filter */}
-            <Grid item xs={12} md={1}>
+            <Grid size={{ xs: 12, md: 1 }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -440,7 +440,7 @@ const EquipmentMasterPage: React.FC = () => {
           const ComplianceIcon = complianceDisplay.icon;
 
           return (
-            <Grid item xs={12} lg={6} key={equipment.id}>
+            <Grid size={{ xs: 12, lg: 6 }} key={equipment.id}>
               <Card sx={{ height: '100%', '&:hover': { boxShadow: 4 } }}>
                 <CardContent>
                   {/* Equipment Header */}
@@ -471,7 +471,7 @@ const EquipmentMasterPage: React.FC = () => {
 
                   {/* Equipment Details */}
                   <Grid container spacing={2} sx={{ mb: 2 }}>
-                    <Grid item xs={6}>
+                    <Grid size={{ xs: 6 }}>
                       <Typography variant="caption" color="text.secondary" display="block">
                         DEPARTMENT
                       </Typography>
@@ -479,7 +479,7 @@ const EquipmentMasterPage: React.FC = () => {
                         {equipment.department}
                       </Typography>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid size={{ xs: 6 }}>
                       <Typography variant="caption" color="text.secondary" display="block">
                         LOCATION
                       </Typography>

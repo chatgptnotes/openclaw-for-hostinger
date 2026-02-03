@@ -120,7 +120,7 @@ const DepartmentsMasterPage: React.FC = () => {
       case 'Under Review':
         return { icon: Warning, color: 'warning' as const, label: 'Under Review' };
       default:
-        return { icon: Warning, color: 'default' as const, label: 'Not Assessed' };
+        return { icon: Warning, color: 'inherit' as const, label: 'Not Assessed' };
     }
   };
 
@@ -166,7 +166,7 @@ const DepartmentsMasterPage: React.FC = () => {
 
         {/* Statistics Dashboard */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -184,7 +184,7 @@ const DepartmentsMasterPage: React.FC = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -202,7 +202,7 @@ const DepartmentsMasterPage: React.FC = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -220,7 +220,7 @@ const DepartmentsMasterPage: React.FC = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={3}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -248,7 +248,7 @@ const DepartmentsMasterPage: React.FC = () => {
             </Typography>
             <Grid container spacing={3}>
               {Object.entries(categorySummary).map(([category, count]) => (
-                <Grid item xs={6} md={3} key={category}>
+                <Grid size={{ xs: 6, md: 3 }} key={category}>
                   <Paper elevation={0} sx={{ p: 2, textAlign: 'center', bgcolor: 'grey.50' }}>
                     <Typography variant="h4" color="primary.main">
                       {count}
@@ -269,7 +269,7 @@ const DepartmentsMasterPage: React.FC = () => {
         <CardContent>
           <Grid container spacing={3}>
             {/* Search */}
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <TextField
                 fullWidth
                 placeholder="Search departments..."
@@ -286,7 +286,7 @@ const DepartmentsMasterPage: React.FC = () => {
             </Grid>
 
             {/* Category Filter */}
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <FormControl fullWidth>
                 <InputLabel>Category</InputLabel>
                 <Select
@@ -304,7 +304,7 @@ const DepartmentsMasterPage: React.FC = () => {
             </Grid>
 
             {/* Type Filter */}
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <FormControl fullWidth>
                 <InputLabel>Type</InputLabel>
                 <Select
@@ -323,7 +323,7 @@ const DepartmentsMasterPage: React.FC = () => {
             </Grid>
 
             {/* Compliance Filter */}
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <FormControl fullWidth>
                 <InputLabel>Compliance</InputLabel>
                 <Select
@@ -341,7 +341,7 @@ const DepartmentsMasterPage: React.FC = () => {
             </Grid>
 
             {/* Emergency Filter */}
-            <Grid item xs={12} md={2}>
+            <Grid size={{ xs: 12, md: 2 }}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -378,7 +378,7 @@ const DepartmentsMasterPage: React.FC = () => {
           const ComplianceIcon = complianceDisplay.icon;
 
           return (
-            <Grid item xs={12} lg={6} key={department.id}>
+            <Grid size={{ xs: 12, lg: 6 }} key={department.id}>
               <Card sx={{ height: '100%', '&:hover': { boxShadow: 4 } }}>
                 <CardContent>
                   {/* Department Header */}
@@ -406,7 +406,7 @@ const DepartmentsMasterPage: React.FC = () => {
 
                   {/* Department Details */}
                   <Grid container spacing={2} sx={{ mb: 2 }}>
-                    <Grid item xs={6}>
+                    <Grid size={{ xs: 6 }}>
                       <Typography variant="caption" color="text.secondary" display="block">
                         CATEGORY
                       </Typography>
@@ -414,7 +414,7 @@ const DepartmentsMasterPage: React.FC = () => {
                         {department.category}
                       </Typography>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid size={{ xs: 6 }}>
                       <Typography variant="caption" color="text.secondary" display="block">
                         TYPE
                       </Typography>
