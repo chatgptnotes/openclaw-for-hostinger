@@ -206,14 +206,14 @@ export default function DoctorsPage() {
         <TableContainer sx={{ maxHeight: 600 }}>
           <Table stickyHeader>
             <TableHead>
-              <TableRow>
-                <TableCell sx={{ fontWeight: 600 }}>Emp. ID</TableCell>
-                <TableCell sx={{ fontWeight: 600 }}>Doctor Name</TableCell>
-                <TableCell sx={{ fontWeight: 600 }}>Qualification</TableCell>
-                <TableCell sx={{ fontWeight: 600 }}>Reg. Number</TableCell>
-                <TableCell sx={{ fontWeight: 600 }}>Department</TableCell>
-                <TableCell sx={{ fontWeight: 600 }}>Role</TableCell>
-                <TableCell sx={{ fontWeight: 600 }} align="center">Actions</TableCell>
+              <TableRow sx={{ bgcolor: 'primary.main' }}>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Emp. ID</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Doctor Name</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Qualification</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Reg. Number</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Department</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Role</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }} align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

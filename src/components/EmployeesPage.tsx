@@ -299,13 +299,13 @@ export default function EmployeesPage() {
           <Table stickyHeader>
             <TableHead>
               <TableRow sx={{ bgcolor: 'primary.main' }}>
-                <TableCell sx={{ color: 'white', fontWeight: 600 }}>Emp. ID</TableCell>
-                <TableCell sx={{ color: 'white', fontWeight: 600 }}>Name</TableCell>
-                <TableCell sx={{ color: 'white', fontWeight: 600 }}>Designation</TableCell>
-                <TableCell sx={{ color: 'white', fontWeight: 600 }}>Department</TableCell>
-                <TableCell sx={{ color: 'white', fontWeight: 600 }}>Role</TableCell>
-                <TableCell sx={{ color: 'white', fontWeight: 600 }}>Status</TableCell>
-                <TableCell sx={{ color: 'white', fontWeight: 600 }} align="center">Actions</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Emp. ID</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Name</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Designation</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Department</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Role</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Status</TableCell>
+                <TableCell sx={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }} align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
