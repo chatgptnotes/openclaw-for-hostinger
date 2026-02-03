@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -18,7 +18,8 @@ import {
   Checkbox,
   InputAdornment,
   Tooltip,
-  Divider
+  Divider,
+  CircularProgress
 } from '@mui/material';
 import {
   Search,
@@ -31,15 +32,35 @@ import {
   Warning,
   Assessment
 } from '@mui/icons-material';
-import {
-  departmentsMaster,
-  getEmergencyDepartments,
-  getNABHComplianceStats,
-  getDepartmentCategorySummary,
-  exportDepartmentListForAudit,
-  type DepartmentCategory,
-  type DepartmentType
-} from '../data/departmentsMaster';
+import { supabase } from '../lib/supabase';
+
+// Types
+type DepartmentCategory = 'Clinical Speciality' | 'Super Speciality' | 'Support Services' | 'Administration';
+type DepartmentType = 'Medical' | 'Surgical' | 'Diagnostic' | 'Support' | 'Administrative';
+
+interface DepartmentDB {
+  id: string;
+  dept_id: string;
+  name: string;
+  code: string;
+  category: string;
+  type: string;
+  description: string | null;
+  head_of_department: string | null;
+  contact_number: string | null;
+  nabh_is_active: boolean;
+  nabh_last_audit_date: string | null;
+  nabh_compliance_status: string;
+  services: string[] | null;
+  equipment_list: string[] | null;
+  staff_count: number | null;
+  is_emergency_service: boolean;
+  operating_hours: string | null;
+  hospital_id: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
 
 /**
  * Departments Master Page Component
@@ -52,20 +73,74 @@ const DepartmentsMasterPage: React.FC = () => {
   const [complianceFilter, setComplianceFilter] = useState<'All' | 'Compliant' | 'Non-Compliant' | 'Under Review' | 'Not Assessed'>('All');
   const [showEmergencyOnly, setShowEmergencyOnly] = useState(false);
 
-  // Calculate statistics
-  const complianceStats = getNABHComplianceStats();
-  const categorySummary = getDepartmentCategorySummary();
+  // Supabase data state
+  const [departmentsData, setDepartmentsData] = useState<DepartmentDB[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch departments from Supabase
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const { data, error } = await (supabase.from('departments') as any)
+          .select('*')
+          .eq('is_active', true)
+          .order('dept_id', { ascending: true });
+
+        if (error) {
+          console.error('Error fetching departments:', error);
+        } else {
+          setDepartmentsData(data as DepartmentDB[] || []);
+        }
+      } catch (err) {
+        console.error('Error fetching departments:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDepartments();
+  }, []);
+
+  // Calculate statistics from fetched data
+  const complianceStats = useMemo(() => {
+    const total = departmentsData.length;
+    const compliant = departmentsData.filter(dept => dept.nabh_compliance_status === 'Compliant').length;
+    const nonCompliant = departmentsData.filter(dept => dept.nabh_compliance_status === 'Non-Compliant').length;
+    const underReview = departmentsData.filter(dept => dept.nabh_compliance_status === 'Under Review').length;
+    const notAssessed = departmentsData.filter(dept => dept.nabh_compliance_status === 'Not Assessed').length;
+    return {
+      total,
+      compliant,
+      nonCompliant,
+      underReview,
+      notAssessed,
+      compliancePercentage: total > 0 ? Math.round((compliant / total) * 100) : 0
+    };
+  }, [departmentsData]);
+
+  const categorySummary = useMemo(() => {
+    return {
+      'Clinical Speciality': departmentsData.filter(dept => dept.category === 'Clinical Speciality').length,
+      'Super Speciality': departmentsData.filter(dept => dept.category === 'Super Speciality').length,
+      'Support Services': departmentsData.filter(dept => dept.category === 'Support Services').length,
+      'Administration': departmentsData.filter(dept => dept.category === 'Administration').length,
+    };
+  }, [departmentsData]);
+
+  const emergencyDepartmentsCount = useMemo(() => {
+    return departmentsData.filter(dept => dept.is_emergency_service).length;
+  }, [departmentsData]);
 
   // Filter departments based on search and filters
   const filteredDepartments = useMemo(() => {
-    let filtered = departmentsMaster;
+    let filtered = departmentsData;
 
     // Search filter
     if (searchTerm) {
-      filtered = filtered.filter(dept => 
+      filtered = filtered.filter(dept =>
         dept.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         dept.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        dept.description.toLowerCase().includes(searchTerm.toLowerCase())
+        (dept.description || '').toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
@@ -81,24 +156,23 @@ const DepartmentsMasterPage: React.FC = () => {
 
     // Compliance filter
     if (complianceFilter !== 'All') {
-      filtered = filtered.filter(dept => dept.nabhCompliance.complianceStatus === complianceFilter);
+      filtered = filtered.filter(dept => dept.nabh_compliance_status === complianceFilter);
     }
 
     // Emergency services filter
     if (showEmergencyOnly) {
-      filtered = filtered.filter(dept => dept.isEmergencyService);
+      filtered = filtered.filter(dept => dept.is_emergency_service);
     }
 
     return filtered;
-  }, [searchTerm, categoryFilter, typeFilter, complianceFilter, showEmergencyOnly]);
+  }, [departmentsData, searchTerm, categoryFilter, typeFilter, complianceFilter, showEmergencyOnly]);
 
   // Handle export to CSV
   const handleExport = () => {
-    const exportData = exportDepartmentListForAudit();
-    const csvContent = "data:text/csv;charset=utf-8," + 
+    const csvContent = "data:text/csv;charset=utf-8," +
       "Code,Name,Category,Type,Emergency Service,Operating Hours,Compliance Status,Services\n" +
-      exportData.map(dept => 
-        `"${dept.code}","${dept.name}","${dept.category}","${dept.type}","${dept.isEmergencyService}","${dept.operatingHours}","${dept.complianceStatus}","${dept.services}"`
+      departmentsData.map(dept =>
+        `"${dept.code}","${dept.name}","${dept.category}","${dept.type}","${dept.is_emergency_service}","${dept.operating_hours || ''}","${dept.nabh_compliance_status}","${(dept.services || []).join(', ')}"`
       ).join("\n");
 
     const encodedUri = encodeURI(csvContent);
@@ -211,7 +285,7 @@ const DepartmentsMasterPage: React.FC = () => {
                       Emergency Services
                     </Typography>
                     <Typography variant="h4" color="error.main">
-                      {getEmergencyDepartments().length}
+                      {emergencyDepartmentsCount}
                     </Typography>
                   </Box>
                   <Schedule color="error" sx={{ fontSize: 32 }} />
@@ -356,7 +430,7 @@ const DepartmentsMasterPage: React.FC = () => {
 
           <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
             <Typography variant="body2" color="text.secondary">
-              Showing {filteredDepartments.length} of {departmentsMaster.length} departments
+              Showing {filteredDepartments.length} of {departmentsData.length} departments
             </Typography>
             {(searchTerm || categoryFilter !== 'All' || typeFilter !== 'All' || complianceFilter !== 'All' || showEmergencyOnly) && (
               <Button
@@ -371,115 +445,125 @@ const DepartmentsMasterPage: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* Departments Grid */}
-      <Grid container spacing={3}>
-        {filteredDepartments.map((department) => {
-          const complianceDisplay = getComplianceDisplay(department.nabhCompliance.complianceStatus);
-          const ComplianceIcon = complianceDisplay.icon;
+      {/* Loading State */}
+      {loading && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', py: 6 }}>
+          <CircularProgress />
+        </Box>
+      )}
 
-          return (
-            <Grid size={{ xs: 12, lg: 6 }} key={department.id}>
-              <Card sx={{ height: '100%', '&:hover': { boxShadow: 4 } }}>
-                <CardContent>
-                  {/* Department Header */}
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-                    <Box sx={{ flex: 1 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                        <Typography variant="h6">
-                          {department.name}
+      {/* Departments Grid */}
+      {!loading && (
+        <Grid container spacing={3}>
+          {filteredDepartments.map((department) => {
+            const complianceDisplay = getComplianceDisplay(department.nabh_compliance_status);
+            const ComplianceIcon = complianceDisplay.icon;
+            const services = department.services || [];
+
+            return (
+              <Grid size={{ xs: 12, lg: 6 }} key={department.id}>
+                <Card sx={{ height: '100%', '&:hover': { boxShadow: 4 } }}>
+                  <CardContent>
+                    {/* Department Header */}
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
+                      <Box sx={{ flex: 1 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                          <Typography variant="h6">
+                            {department.name}
+                          </Typography>
+                          <Chip label={department.code} size="small" color="primary" variant="outlined" />
+                          {department.is_emergency_service && (
+                            <Chip label="24/7" size="small" color="error" />
+                          )}
+                        </Box>
+                        <Typography variant="body2" color="text.secondary">
+                          {department.description}
                         </Typography>
-                        <Chip label={department.code} size="small" color="primary" variant="outlined" />
-                        {department.isEmergencyService && (
-                          <Chip label="24/7" size="small" color="error" />
+                      </Box>
+                      <Tooltip title={complianceDisplay.label}>
+                        <IconButton color={complianceDisplay.color} size="small">
+                          <ComplianceIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
+
+                    {/* Department Details */}
+                    <Grid container spacing={2} sx={{ mb: 2 }}>
+                      <Grid size={{ xs: 6 }}>
+                        <Typography variant="caption" color="text.secondary" display="block">
+                          CATEGORY
+                        </Typography>
+                        <Typography variant="body2">
+                          {department.category}
+                        </Typography>
+                      </Grid>
+                      <Grid size={{ xs: 6 }}>
+                        <Typography variant="caption" color="text.secondary" display="block">
+                          TYPE
+                        </Typography>
+                        <Typography variant="body2">
+                          {department.type}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+
+                    {/* Operating Hours */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
+                      <Schedule fontSize="small" color="action" />
+                      <Typography variant="body2" color="text.secondary">
+                        {department.operating_hours || 'Not specified'}
+                      </Typography>
+                    </Box>
+
+                    {/* Services */}
+                    <Box sx={{ mb: 2 }}>
+                      <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
+                        SERVICES
+                      </Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                        {services.slice(0, 3).map((service, index) => (
+                          <Chip
+                            key={index}
+                            label={service}
+                            size="small"
+                            variant="outlined"
+                          />
+                        ))}
+                        {services.length > 3 && (
+                          <Chip
+                            label={`+${services.length - 3} more`}
+                            size="small"
+                            variant="outlined"
+                          />
                         )}
                       </Box>
-                      <Typography variant="body2" color="text.secondary">
-                        {department.description}
-                      </Typography>
                     </Box>
-                    <Tooltip title={complianceDisplay.label}>
-                      <IconButton color={complianceDisplay.color} size="small">
-                        <ComplianceIcon />
-                      </IconButton>
-                    </Tooltip>
-                  </Box>
 
-                  {/* Department Details */}
-                  <Grid container spacing={2} sx={{ mb: 2 }}>
-                    <Grid size={{ xs: 6 }}>
-                      <Typography variant="caption" color="text.secondary" display="block">
-                        CATEGORY
-                      </Typography>
-                      <Typography variant="body2">
-                        {department.category}
-                      </Typography>
-                    </Grid>
-                    <Grid size={{ xs: 6 }}>
-                      <Typography variant="caption" color="text.secondary" display="block">
-                        TYPE
-                      </Typography>
-                      <Typography variant="body2">
-                        {department.type}
-                      </Typography>
-                    </Grid>
-                  </Grid>
+                    <Divider sx={{ my: 2 }} />
 
-                  {/* Operating Hours */}
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-                    <Schedule fontSize="small" color="action" />
-                    <Typography variant="body2" color="text.secondary">
-                      {department.operatingHours}
-                    </Typography>
-                  </Box>
-
-                  {/* Services */}
-                  <Box sx={{ mb: 2 }}>
-                    <Typography variant="caption" color="text.secondary" display="block" gutterBottom>
-                      SERVICES
-                    </Typography>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {department.services.slice(0, 3).map((service, index) => (
-                        <Chip
-                          key={index}
-                          label={service}
-                          size="small"
-                          variant="outlined"
-                        />
-                      ))}
-                      {department.services.length > 3 && (
-                        <Chip
-                          label={`+${department.services.length - 3} more`}
-                          size="small"
-                          variant="outlined"
-                        />
-                      )}
+                    {/* Compliance Status */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                      <Chip
+                        icon={<ComplianceIcon />}
+                        label={complianceDisplay.label}
+                        size="small"
+                        color={complianceDisplay.color}
+                        variant="outlined"
+                      />
+                      <Button size="small" color="primary">
+                        View Details
+                      </Button>
                     </Box>
-                  </Box>
-
-                  <Divider sx={{ my: 2 }} />
-
-                  {/* Compliance Status */}
-                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Chip
-                      icon={<ComplianceIcon />}
-                      label={complianceDisplay.label}
-                      size="small"
-                      color={complianceDisplay.color}
-                      variant="outlined"
-                    />
-                    <Button size="small" color="primary">
-                      View Details
-                    </Button>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          );
-        })}
-      </Grid>
+                  </CardContent>
+                </Card>
+              </Grid>
+            );
+          })}
+        </Grid>
+      )}
 
       {/* Empty State */}
-      {filteredDepartments.length === 0 && (
+      {!loading && filteredDepartments.length === 0 && (
         <Box sx={{ textAlign: 'center', py: 6 }}>
           <Business sx={{ fontSize: 48, color: 'text.disabled', mb: 2 }} />
           <Typography variant="h6" gutterBottom>
