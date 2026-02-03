@@ -168,3 +168,41 @@ export const CHAPTER_TYPES: Record<string, ChapterType> = {
   HRM: 'Organization Centered',
   IMS: 'Organization Centered',
 };
+
+// Department Master Types
+export type DepartmentCategory = 
+  | 'Clinical Speciality' 
+  | 'Super Speciality' 
+  | 'Support Services' 
+  | 'Administration';
+
+export type DepartmentType = 
+  | 'Medical' 
+  | 'Surgical' 
+  | 'Diagnostic' 
+  | 'Support' 
+  | 'Administrative';
+
+export interface Department {
+  id: string;
+  name: string;
+  code: string;
+  category: DepartmentCategory;
+  type: DepartmentType;
+  description: string;
+  headOfDepartment?: string;
+  contactNumber?: string;
+  nabhCompliance: {
+    isActive: boolean;
+    lastAuditDate?: string;
+    complianceStatus: 'Compliant' | 'Non-Compliant' | 'Under Review' | 'Not Assessed';
+    criticalFindings?: string[];
+  };
+  services: string[];
+  equipmentList?: string[];
+  staffCount?: number;
+  isEmergencyService: boolean;
+  operatingHours: string;
+  createdAt: string;
+  updatedAt: string;
+}
