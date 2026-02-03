@@ -510,6 +510,138 @@ export interface Database {
           updated_at?: string;
         };
       };
+      committees: {
+        Row: {
+          id: string;
+          name: string;
+          type: string;
+          description: string | null;
+          meeting_frequency: string;
+          objectives: string[] | null;
+          min_meetings_required: number;
+          chairperson_id: string | null;
+          chairperson_name: string | null;
+          chairperson_designation: string | null;
+          chairperson_master_type: string | null;
+          hospital_id: string;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          type?: string;
+          description?: string | null;
+          meeting_frequency?: string;
+          objectives?: string[] | null;
+          min_meetings_required?: number;
+          chairperson_id?: string | null;
+          chairperson_name?: string | null;
+          chairperson_designation?: string | null;
+          chairperson_master_type?: string | null;
+          hospital_id?: string;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          type?: string;
+          description?: string | null;
+          meeting_frequency?: string;
+          objectives?: string[] | null;
+          min_meetings_required?: number;
+          chairperson_id?: string | null;
+          chairperson_name?: string | null;
+          chairperson_designation?: string | null;
+          chairperson_master_type?: string | null;
+          hospital_id?: string;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
+      committee_members: {
+        Row: {
+          id: string;
+          committee_id: string;
+          member_id: string;
+          name: string;
+          designation: string | null;
+          department: string | null;
+          role_in_committee: string;
+          master_type: string | null;
+          phone: string | null;
+          is_active: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          committee_id: string;
+          member_id: string;
+          name: string;
+          designation?: string | null;
+          department?: string | null;
+          role_in_committee?: string;
+          master_type?: string | null;
+          phone?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          committee_id?: string;
+          member_id?: string;
+          name?: string;
+          designation?: string | null;
+          department?: string | null;
+          role_in_committee?: string;
+          master_type?: string | null;
+          phone?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+        };
+      };
+      committee_meetings: {
+        Row: {
+          id: string;
+          committee_id: string;
+          meeting_date: string;
+          agenda: string | null;
+          minutes: string | null;
+          attendees: string[] | null;
+          decisions: string[] | null;
+          action_items: string[] | null;
+          next_meeting_date: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          committee_id: string;
+          meeting_date: string;
+          agenda?: string | null;
+          minutes?: string | null;
+          attendees?: string[] | null;
+          decisions?: string[] | null;
+          action_items?: string[] | null;
+          next_meeting_date?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          committee_id?: string;
+          meeting_date?: string;
+          agenda?: string | null;
+          minutes?: string | null;
+          attendees?: string[] | null;
+          decisions?: string[] | null;
+          action_items?: string[] | null;
+          next_meeting_date?: string | null;
+          created_at?: string;
+        };
+      };
     };
     Views: {
       [_ in never]: never;
