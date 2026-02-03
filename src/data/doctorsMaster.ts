@@ -19,58 +19,7 @@ export interface Doctor {
  * Master list of Full-time Doctors / RMOs
  * Extracted from: /Users/murali/Downloads/List of Doctors .docx
  */
-export const doctorsMaster: Doctor[] = [
-  {
-    name: "Dr. Nilesh Katole",
-    qualification: "MBBS",
-    specialization: "Resident Medical Officer",
-    registrationNumber: "2013/05/1577",
-    department: "Casualty/Ward",
-    role: "RMO",
-    emp_id_no: "HOPE/DOC/001",
-    is_active: true
-  },
-  {
-    name: "Dr. Ashish Patil",
-    qualification: "MBBS",
-    specialization: "Resident Medical Officer",
-    registrationNumber: "2014/01/0082",
-    department: "ICU/Ward",
-    role: "RMO",
-    emp_id_no: "HOPE/DOC/002",
-    is_active: true
-  },
-  {
-    name: "Dr. Swapnil Bansod",
-    qualification: "BAMS",
-    specialization: "Resident Medical Officer",
-    registrationNumber: "I-76632-A",
-    department: "Ward/ICU",
-    role: "RMO",
-    emp_id_no: "HOPE/DOC/003",
-    is_active: true
-  },
-  {
-    name: "Dr. Pallavi Agrawal",
-    qualification: "BAMS",
-    specialization: "Resident Medical Officer",
-    registrationNumber: "I-78901-A",
-    department: "Ward",
-    role: "RMO",
-    emp_id_no: "HOPE/DOC/004",
-    is_active: true
-  },
-  {
-    name: "Dr. Amol Deshmukh",
-    qualification: "BHMS",
-    specialization: "Resident Medical Officer",
-    registrationNumber: "54321",
-    department: "Ward",
-    role: "RMO",
-    emp_id_no: "HOPE/DOC/005",
-    is_active: true
-  }
-];
+export const doctorsMaster: Doctor[] = [];
 
 /**
  * Sync doctors to Supabase (nabh_team_members table)
