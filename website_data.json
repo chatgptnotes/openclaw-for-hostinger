@@ -4,6 +4,8 @@
     "title": "Orthopedic Surgeon, CMD Hope Hospital",
     "phone": "+91 93731 11709", 
     "timezone": "IST (UTC+5:30)",
+    "location": "Nagpur",
+    "family": "Daughters: Ishita and Anora",
     "roles": [
       "Chairman & Managing Director - Hope Hospital",
       "Orthopedic Surgeon - Primary medical practice", 
@@ -36,6 +38,7 @@
           "patientFiles": {
             "name": "Dr. Sachin",
             "phone": "+91 72766 80847",
+            "hospitalContact": "+91 72082 52712",
             "task": "Form team for 100% patient files completion by Feb 10"
           },
           "qualityCoordinator": {
@@ -149,12 +152,37 @@
       {
         "name": "Viji Murali", 
         "role": "Hospital Director",
-        "phone": "+91 9158887857",
+        "phone": "+91 91588 87857",
         "responsibility": "Operations, team coordination",
         "dailyTask": "Send motivational messages at 9:30 PM IST"
       }
     ],
     "nabh_core_team": [
+      {
+        "name": "Gaurav Agrawal",
+        "role": "NABH Coordination Lead",
+        "phone": "+91 98222 02396",
+        "responsibility": "Daily planning and execution, meeting screenshots"
+      },
+      {
+        "name": "Isaac",
+        "role": "NABH Consultant",
+        "phone": "+91 72765 10845",
+        "responsibility": "DAILY coordination MANDATORY, expert guidance"
+      },
+      {
+        "name": "Dr. Shiraz Navedkhan Khan",
+        "role": "Quality Coordinator & SOP Admin",
+        "phone": "+91 93709 14454",
+        "responsibility": "Quality protocols, SOP administration"
+      },
+      {
+        "name": "Dr. Sachin",
+        "role": "Senior Doctor - Patient Files",
+        "phone": "+91 72766 80847",
+        "hospitalContact": "+91 72082 52712",
+        "task": "Form team for 100% patient files completion by Feb 10"
+      },
       {
         "name": "K J Shashank",
         "role": "Quality Manager/HR", 
@@ -163,7 +191,8 @@
       {
         "name": "Diksha",
         "role": "Front Office Manager",
-        "phone": "+91 86053 00668"
+        "phone": "+91 86053 00668",
+        "responsibility": "Front office audit readiness"
       },
       {
         "name": "Neesha", 
@@ -173,7 +202,7 @@
       {
         "name": "Shilpi",
         "role": "Infection Control Nurse", 
-        "phone": "+91 6268 716635"
+        "phone": "+91 62687 16635"
       },
       {
         "name": "Sonali",
@@ -183,12 +212,14 @@
       {
         "name": "Abhishek", 
         "role": "Pharmacist",
-        "phone": "+91 95299 91074"
+        "phone": "+91 95299 91074",
+        "responsibility": "Medication management audit readiness"
       },
       {
         "name": "Azhar",
         "role": "NABH Champion/MRD",
-        "phone": "+91 95955 85788"
+        "phone": "+91 95955 85788",
+        "responsibility": "Medical records department readiness"
       },
       {
         "name": "Nitin Bawane",
@@ -228,6 +259,13 @@
         "phone": "+91 97663 12514",
         "task": "Cash collection monitoring", 
         "schedule": "Every 3 hours (9 AM, 12 PM, 3 PM, 6 PM) + 7 PM daily summary"
+      },
+      {
+        "name": "Sohail Shoib",
+        "role": "Night Reception - Ayushman Nagpur",
+        "phone": "+91 79720 96556",
+        "task": "Daily occupancy data",
+        "checkTime": "7:45 AM"
       }
     ],
     "legal_financial": [
@@ -236,6 +274,19 @@
         "role": "Advocate",
         "phone": "+91 90282 95905",
         "cases": "Handles 10 critical cases"
+      },
+      {
+        "name": "Aman Rajak",
+        "role": "Infrastructure & Licenses",
+        "phone": "+91 93700 89063",
+        "status": "Requires immediate meeting with Dr. Murali BK"
+      }
+    ],
+    "emergency_contacts": [
+      {
+        "name": "Suraj Rajput",
+        "phone": "+91 98902 30165",
+        "type": "Emergency contact"
       }
     ],
     "whatsapp_groups": [
@@ -246,24 +297,29 @@
       },
       {
         "name": "Group 2",
-        "jid": "918600660801-1621570136@g.us"
+        "jid": "918600660801-1621570136@g.us",
+        "purpose": "Secondary operations group"
       },
       {
         "name": "Group 3 (with Dr. Murali)",
-        "jid": "919373111709-1617712459@g.us"
+        "jid": "919373111709-1617712459@g.us",
+        "note": "Includes Dr. Murali directly"
       },
       {
         "name": "Group 4", 
-        "jid": "919823063952-1410859110@g.us"
+        "jid": "919823063952-1410859110@g.us",
+        "purpose": "Hospital coordination"
       },
       {
         "name": "Group 5 (with Dr. Murali)",
-        "jid": "919373111709-1576989129@g.us"
+        "jid": "919373111709-1576989129@g.us",
+        "note": "Includes Dr. Murali directly"
       },
       {
         "name": "Nabh with isaac",
         "purpose": "DAILY MANDATORY NABH coordination",
-        "note": "One of above groups - needs identification"
+        "note": "Critical for NABH audit preparation",
+        "coordinator": "Isaac +91 72765 10845"
       }
     ]
   },
@@ -359,13 +415,23 @@
         "reminders": ["08:00 daily", "14:00 pre-workout"]
       },
       "meeting_reminders": {
-        "target": "SOP Hope, Ayush, Raftaar group",
+        "target": "SOP Hope, Ayush, Raftaar group (120363404280816474@g.us)",
         "schedule": ["10:45", "15:45"],
         "note": "15 minutes before 11 AM and 4 PM meetings"
       }
     }
   },
   "communication": {
+    "primary_channels": {
+      "phone": "+91 93731 11709",
+      "whatsapp": "+91 93731 11709",
+      "telegram": "@Nabhassistant_bot"
+    },
+    "emails": {
+      "hospital": "info@hopehospital.com",
+      "docdrm": ["cmd@hopehospital.com", "murali@drmhope.com"],
+      "bettroi": "bk@bettroi.com"
+    },
     "priority_system": {
       "URGENT": "NABH-related messages (immediate response)",
       "HIGH": "Hospital operations, medical emergencies", 
@@ -376,13 +442,6 @@
       "surgery": "Professional auto-reply message",
       "meetings": "Meeting in progress notification",
       "medical_procedures": "Unavailable for patient care"
-    },
-    "channels": {
-      "whatsapp": "+91 93731 11709 (primary)",
-      "telegram": "@Nabhassistant_bot",
-      "email_hospital": "info@hopehospital.com",
-      "email_docdrm": ["cmd@hopehospital.com", "murali@drmhope.com"],
-      "email_bettroi": "bk@bettroi.com"
     }
   },
   "success_metrics": {
@@ -430,5 +489,6 @@
     "occupancy_tracking": "Both hospitals daily at 7:45 AM",
     "cash_collection": "Every 3 hours + 7 PM summary",
     "nabh_progress": "Daily department readiness verification"
-  }
+  },
+  "last_updated": "2026-02-05T20:04:00+05:30"
 }
