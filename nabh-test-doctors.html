@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NABH Doctors Test - Hope Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .card { background: white; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        .header p { opacity: 0.9; }
+        .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; margin-top: 10px; }
+        .content { padding: 30px; }
+        .start-screen { text-align: center; padding: 40px 20px; }
+        .start-screen h2 { color: var(--gray-800); font-size: 1.5rem; margin-bottom: 20px; }
+        .info-box { background: #dbeafe; border-left: 4px solid var(--primary); padding: 20px; margin: 20px 0; text-align: left; border-radius: 8px; }
+        .info-box h3 { color: var(--primary-dark); margin-bottom: 10px; }
+        .info-box ul { margin-left: 20px; color: var(--gray-600); }
+        .info-box li { margin: 5px 0; }
+        .btn { padding: 14px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; margin: 5px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-secondary { background: var(--gray-100); color: var(--gray-800); }
+        .question-screen { display: none; }
+        .progress-bar { height: 8px; background: var(--gray-200); border-radius: 4px; margin-bottom: 20px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #7c3aed); border-radius: 4px; transition: width 0.3s; }
+        .question-meta { display: flex; justify-content: space-between; margin-bottom: 20px; color: var(--gray-600); font-size: 0.9rem; }
+        .category-tag { background: #dbeafe; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+        .question-text { font-size: 1.25rem; font-weight: 600; color: var(--gray-800); line-height: 1.6; margin-bottom: 25px; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .option { padding: 18px 20px; border: 2px solid var(--gray-200); border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 15px; }
+        .option:hover { border-color: var(--primary); background: var(--gray-50); }
+        .option.selected { border-color: var(--primary); background: #dbeafe; }
+        .option.correct { border-color: var(--success); background: #d1fae5; }
+        .option.incorrect { border-color: var(--danger); background: #fee2e2; }
+        .option-letter { width: 36px; height: 36px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--gray-600); }
+        .option.selected .option-letter { background: var(--primary); color: white; }
+        .option.correct .option-letter { background: var(--success); color: white; }
+        .option.incorrect .option-letter { background: var(--danger); color: white; }
+        .explanation { margin-top: 20px; padding: 20px; background: #fef3c7; border-radius: 12px; border-left: 4px solid var(--warning); display: none; }
+        .explanation h4 { color: #92400e; margin-bottom: 8px; }
+        .explanation p { color: #78350f; font-size: 0.9rem; line-height: 1.5; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .results-screen { display: none; text-align: center; padding: 40px 20px; }
+        .score-circle { width: 180px; height: 180px; border-radius: 50%; margin: 0 auto 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; }
+        .score-circle.excellent { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .score-circle.good { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
+        .score-circle.average { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .score-circle.poor { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .score-percent { font-size: 3rem; }
+        .score-label { font-size: 1rem; opacity: 0.9; }
+        .result-message { font-size: 1.5rem; font-weight: 600; color: var(--gray-800); margin-bottom: 10px; }
+        .result-detail { color: var(--gray-600); margin-bottom: 30px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .stat-box { padding: 20px; background: var(--gray-50); border-radius: 12px; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--gray-800); }
+        .stat-label { font-size: 0.85rem; color: var(--gray-600); }
+        .stat-box.correct .stat-value { color: var(--success); }
+        .stat-box.incorrect .stat-value { color: var(--danger); }
+        .footer { text-align: center; padding: 20px; background: var(--gray-50); color: var(--gray-600); font-size: 0.85rem; }
+        @media (max-width: 640px) { .header h1 { font-size: 1.4rem; } .question-text { font-size: 1.1rem; } .stats-grid { grid-template-columns: 1fr; } .nav-buttons { flex-direction: column; } .btn { width: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>👨‍⚕️ NABH Test for DOCTORS</h1>
+                <p>SHCO 3rd Edition - Medical Staff Training</p>
+                <span class="badge">Hope & Ayushman Hospitals</span>
+            </div>
+            
+            <div class="content start-screen" id="startScreen">
+                <h2>Medical Officer Assessment</h2>
+                
+                <div class="info-box">
+                    <h3>📋 This test covers:</h3>
+                    <ul>
+                        <li>Informed Consent & Documentation</li>
+                        <li>Clinical Protocols & Care Planning</li>
+                        <li>Surgical Safety Checklist (WHO)</li>
+                        <li>Prescription & Medication Safety</li>
+                        <li>Sentinel Events & RCA</li>
+                        <li>Patient Rights & Ethics</li>
+                        <li>Quality Indicators & Clinical Audits</li>
+                        <li>Privileging & Credentialing</li>
+                    </ul>
+                </div>
+                
+                <p style="color: var(--gray-600); margin-bottom: 20px;">30 questions • Approx. 15 minutes</p>
+                
+                <button class="btn btn-primary" onclick="startTest()">🚀 Start Test</button>
+            </div>
+            
+            <div class="content question-screen" id="questionScreen">
+                <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+                <div class="question-meta">
+                    <span class="category-tag" id="categoryTag">Clinical</span>
+                    <span id="questionNumber">Question 1 of 30</span>
+                </div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+                <div class="explanation" id="explanation">
+                    <h4>💡 Explanation</h4>
+                    <p id="explanationText"></p>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">← Previous</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Next →</button>
+                </div>
+            </div>
+            
+            <div class="content results-screen" id="resultsScreen">
+                <div class="score-circle" id="scoreCircle">
+                    <span class="score-percent" id="scorePercent">0%</span>
+                    <span class="score-label">Score</span>
+                </div>
+                <h2 class="result-message" id="resultMessage">Great Job!</h2>
+                <p class="result-detail" id="resultDetail"></p>
+                <div class="stats-grid">
+                    <div class="stat-box correct"><div class="stat-value" id="correctCount">0</div><div class="stat-label">Correct</div></div>
+                    <div class="stat-box incorrect"><div class="stat-value" id="incorrectCount">0</div><div class="stat-label">Incorrect</div></div>
+                    <div class="stat-box"><div class="stat-value" id="timeTaken">0:00</div><div class="stat-label">Time</div></div>
+                </div>
+                <button class="btn btn-primary" onclick="restartTest()">🔄 Retake Test</button>
+                <button class="btn btn-secondary" onclick="reviewAnswers()">📋 Review</button>
+            </div>
+            
+            <div class="footer">NABH Audit Preparation • Medical Staff • Feb 2026</div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // Informed Consent
+            { category: "Consent", question: "Informed consent must include:", options: ["Only procedure name", "Procedure, risks, benefits, alternatives, and right to refuse", "Just patient signature", "Doctor's credentials only"], correct: 1, explanation: "Informed consent requires explaining nature of procedure, expected benefits, potential risks, alternative options, and patient's right to refuse." },
+            { category: "Consent", question: "Who can provide consent for an unconscious emergency patient?", options: ["No consent needed in emergency", "Two doctors can certify and proceed", "Must wait for family always", "Only court can authorize"], correct: 1, explanation: "In life-threatening emergencies, two doctors can certify the emergency and proceed. Document the emergency nature and attempts to contact family." },
+            { category: "Consent", question: "Consent for a minor (below 18 years) must be from:", options: ["The minor themselves", "Legal guardian (parent)", "Any accompanying adult", "Hospital administrator"], correct: 1, explanation: "For minors, consent must be obtained from legal guardian (parent or court-appointed guardian). Document relationship." },
+            { category: "Consent", question: "If patient refuses recommended treatment, you should:", options: ["Force treatment", "Document refusal and consequences explained", "Discharge immediately", "Call police"], correct: 1, explanation: "Document that patient was informed of risks of refusal, consequences explained, and patient still refused. Get signature if possible." },
+            
+            // Surgical Safety
+            { category: "Surgery", question: "WHO Surgical Safety Checklist has how many phases?", options: ["2 phases", "3 phases", "4 phases", "5 phases"], correct: 1, explanation: "3 phases: Sign In (before anesthesia), Time Out (before incision), Sign Out (before patient leaves OR)." },
+            { category: "Surgery", question: "Site marking before surgery should be done by:", options: ["Nurse", "Operating surgeon or designee", "Ward boy", "OT technician"], correct: 1, explanation: "Site marking must be done by operating surgeon (or designated surgeon) with patient awake and involved in verification." },
+            { category: "Surgery", question: "Time Out before incision must confirm:", options: ["Only patient name", "Patient, procedure, site, consent, antibiotics, imaging", "Only surgical instruments", "Team names only"], correct: 1, explanation: "Time Out: Correct patient, correct procedure, correct site, consent present, prophylactic antibiotics given, relevant imaging displayed." },
+            { category: "Surgery", question: "Wrong-site surgery is classified as:", options: ["Minor incident", "Sentinel event requiring immediate RCA", "Not reportable", "Nursing error only"], correct: 1, explanation: "Wrong-site surgery is a SENTINEL EVENT - must be reported immediately, RCA conducted within 45 days, and systemic changes implemented." },
+            
+            // Documentation
+            { category: "Documentation", question: "Clinical notes should be written:", options: ["At end of duty", "Contemporaneously (at or near time of care)", "Weekly summary only", "Only for abnormal findings"], correct: 1, explanation: "Documentation must be contemporaneous - at time of care or as soon as possible. Late entries should be clearly marked." },
+            { category: "Documentation", question: "Discharge summary must include:", options: ["Only diagnosis", "Diagnosis, treatment, medications, follow-up, warning signs", "Just doctor's signature", "Only billing information"], correct: 1, explanation: "Complete discharge summary: Diagnosis, treatment given, medications with dosage and duration, follow-up plan, warning signs, diet advice." },
+            { category: "Documentation", question: "Abbreviations in medical records should be:", options: ["Used freely for speed", "From approved hospital abbreviation list only", "Avoided completely", "Used only by doctors"], correct: 1, explanation: "Only approved abbreviations from hospital's standardized list to prevent dangerous misinterpretation." },
+            { category: "Documentation", question: "Verbal orders should be:", options: ["Avoided always", "Read back and authenticated within 24 hours", "Only given in emergencies", "Written by any staff"], correct: 1, explanation: "Verbal orders: Use only when necessary, receiver reads back, prescriber confirms, authentication (signature) within 24 hours." },
+            
+            // Medication
+            { category: "Medication", question: "High-alert medications include:", options: ["Paracetamol, vitamins", "Insulin, anticoagulants, potassium chloride, opioids", "All oral medications", "Only IV medications"], correct: 1, explanation: "High-alert: Insulin, anticoagulants (heparin, warfarin), concentrated potassium, opioids, chemotherapy - cause significant harm if error." },
+            { category: "Medication", question: "Antibiotic stewardship aims to:", options: ["Increase antibiotic use", "Optimize selection, dose, duration to prevent resistance", "Stop all antibiotics", "Use only expensive antibiotics"], correct: 1, explanation: "Antibiotic stewardship promotes appropriate selection, dosing, and duration to improve outcomes and prevent antimicrobial resistance." },
+            { category: "Medication", question: "When prescribing, NABH requires:", options: ["Verbal instructions only", "Legible, complete prescriptions with generic names", "Brand names only", "Abbreviations for speed"], correct: 1, explanation: "Prescriptions must be legible, complete (name, dose, route, frequency, duration), preferably generic names, no dangerous abbreviations." },
+            
+            // Quality & Safety
+            { category: "Quality", question: "Root Cause Analysis (RCA) should be completed within:", options: ["24 hours", "1 week", "45 days of sentinel event", "No specific timeline"], correct: 2, explanation: "RCA for sentinel events should be completed within 45 days, with action plan developed and implementation monitored." },
+            { category: "Quality", question: "Near-miss events should be:", options: ["Ignored if no harm", "Reported and analyzed to prevent future harm", "Hidden", "Reported only to family"], correct: 1, explanation: "Near-misses are valuable learning opportunities - report, analyze, and implement preventive measures before actual harm occurs." },
+            { category: "Quality", question: "Clinical indicators should be:", options: ["Collected once a year", "Monitored regularly with trend analysis", "Only during NABH audit", "Optional"], correct: 1, explanation: "Quality indicators measured monthly/quarterly, trended over time, benchmarked, and improvement actions when targets not met." },
+            { category: "Quality", question: "Mortality and morbidity meetings should:", options: ["Focus on blame", "Analyze cases for system improvement, not blame", "Only discuss deaths", "Be held once a year"], correct: 1, explanation: "M&M meetings: Non-punitive, focus on system issues, learning opportunities, conducted regularly (at least monthly)." },
+            
+            // Patient Rights
+            { category: "Ethics", question: "Patient has right to:", options: ["Choose specific room", "Know their diagnosis and treatment options", "Demand specific tests", "All staff records"], correct: 1, explanation: "Patient rights: Know diagnosis, treatment options, prognosis, costs, right to second opinion, privacy, confidentiality." },
+            { category: "Ethics", question: "Research involving patients requires:", options: ["Only doctor's decision", "Ethics committee approval and patient informed consent", "Hospital director approval only", "No special requirements"], correct: 1, explanation: "Research requires: Ethics Committee approval, specific informed consent explaining study nature, risks, voluntary participation." },
+            { category: "Ethics", question: "Do Not Resuscitate (DNR) order requires:", options: ["Nurse's decision", "Patient/family discussion, documentation, regular review", "Only doctor's order", "Hospital policy only"], correct: 1, explanation: "DNR: Detailed discussion with patient/family, document understanding and decision, regular review, visible in chart." },
+            
+            // Credentialing
+            { category: "Credentialing", question: "Privileging means:", options: ["VIP treatment", "Permission to perform specific procedures based on credentials", "Seniority benefits", "Higher pay"], correct: 1, explanation: "Privileging grants specific clinical permissions based on verified credentials, training, and demonstrated competence for each procedure." },
+            { category: "Credentialing", question: "Primary source verification means:", options: ["Checking photocopies", "Direct verification from issuing institution", "Peer reference only", "Self-declaration"], correct: 1, explanation: "Primary source verification: Confirm qualifications directly from university, medical council, previous employer - not just certificates." },
+            { category: "Credentialing", question: "New procedure introduction requires:", options: ["Just start doing it", "Credentials verification, training, supervision period, approval", "Only doctor's confidence", "Patient consent only"], correct: 1, explanation: "New procedures: Verify credentials/training, supervision period, competency assessment, committee approval before independent practice." },
+            
+            // Emergency
+            { category: "Emergency", question: "Code Blue activation is for:", options: ["Fire", "Cardiac/respiratory arrest", "Missing patient", "Security threat"], correct: 1, explanation: "Code Blue: Cardiac/respiratory arrest. Immediate team response, CPR initiation, defibrillator, emergency drugs." },
+            { category: "Emergency", question: "MLC (Medico-Legal Case) documentation must include:", options: ["Only injury description", "History, examination, injury details, time, informing police", "Just treatment given", "Patient's statement only"], correct: 1, explanation: "MLC: Detailed history, physical examination, injury description (size, shape, location), time of examination, police intimation." },
+            { category: "Emergency", question: "Transfer of unstable patient requires:", options: ["Just ambulance", "Stabilization, documentation, qualified escort, receiving facility confirmation", "Family consent only", "Only if patient requests"], correct: 1, explanation: "Transfer: Stabilize first, document condition, qualified escort, confirm receiving facility acceptance, proper handover." },
+            { category: "Emergency", question: "Critical test results must be:", options: ["Filed in chart", "Communicated immediately to ordering physician", "Reported in next round", "Documented only"], correct: 1, explanation: "Critical results: Immediate communication to ordering/covering physician, read-back confirmation, document notification time and recipient." }
+        ];
+
+        let currentQuestions = [], currentIndex = 0, userAnswers = [], startTime = null;
+
+        function shuffleArray(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+        function startTest() {
+            currentQuestions = shuffleArray(questions);
+            currentIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill(null);
+            startTime = Date.now();
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('questionScreen').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = currentQuestions[currentIndex];
+            document.getElementById('progressBar').style.width = `${((currentIndex + 1) / currentQuestions.length) * 100}%`;
+            document.getElementById('categoryTag').textContent = q.category;
+            document.getElementById('questionNumber').textContent = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
+            document.getElementById('questionText').textContent = q.question;
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            ['A','B','C','D'].forEach((l, i) => {
+                const div = document.createElement('div');
+                div.className = 'option' + (userAnswers[currentIndex] === i ? ' selected' : '');
+                div.innerHTML = `<span class="option-letter">${l}</span><span>${q.options[i]}</span>`;
+                div.onclick = () => selectOption(i);
+                container.appendChild(div);
+            });
+            document.getElementById('explanation').style.display = 'none';
+            document.getElementById('prevBtn').style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').textContent = currentIndex === currentQuestions.length - 1 ? 'Finish ✓' : 'Next →';
+        }
+
+        function selectOption(index) {
+            userAnswers[currentIndex] = index;
+            const q = currentQuestions[currentIndex];
+            document.querySelectorAll('.option').forEach((opt, i) => { opt.classList.remove('selected','correct','incorrect'); if (i === index) opt.classList.add('selected'); });
+            setTimeout(() => {
+                document.querySelectorAll('.option').forEach((opt, i) => { if (i === q.correct) opt.classList.add('correct'); else if (i === index) opt.classList.add('incorrect'); });
+                document.getElementById('explanationText').textContent = q.explanation;
+                document.getElementById('explanation').style.display = 'block';
+            }, 300);
+        }
+
+        function prevQuestion() { if (currentIndex > 0) { currentIndex--; showQuestion(); } }
+        function nextQuestion() { if (currentIndex < currentQuestions.length - 1) { currentIndex++; showQuestion(); } else finishTest(); }
+
+        function finishTest() {
+            let correct = currentQuestions.filter((q, i) => userAnswers[i] === q.correct).length;
+            const pct = Math.round((correct / currentQuestions.length) * 100);
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById('scoreCircle').className = 'score-circle ' + (pct >= 90 ? 'excellent' : pct >= 75 ? 'good' : pct >= 50 ? 'average' : 'poor');
+            document.getElementById('resultMessage').textContent = pct >= 90 ? '🏆 Excellent!' : pct >= 75 ? '👍 Good Job!' : pct >= 50 ? '📚 Keep Learning!' : '💪 Needs Practice';
+            document.getElementById('scorePercent').textContent = pct + '%';
+            document.getElementById('resultDetail').textContent = `${correct} of ${currentQuestions.length} correct`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = currentQuestions.length - correct;
+            document.getElementById('timeTaken').textContent = `${Math.floor(elapsed/60)}:${(elapsed%60).toString().padStart(2,'0')}`;
+            document.getElementById('questionScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+        }
+
+        function restartTest() { document.getElementById('resultsScreen').style.display = 'none'; document.getElementById('startScreen').style.display = 'block'; }
+        function reviewAnswers() { currentIndex = 0; document.getElementById('resultsScreen').style.display = 'none'; document.getElementById('questionScreen').style.display = 'block'; showQuestion(); setTimeout(() => { const q = currentQuestions[0]; document.querySelectorAll('.option').forEach((opt, i) => { if (i === q.correct) opt.classList.add('correct'); else if (userAnswers[0] === i) opt.classList.add('incorrect'); }); document.getElementById('explanationText').textContent = q.explanation; document.getElementById('explanation').style.display = 'block'; }, 100); }
+    </script>
+</body>
+</html>

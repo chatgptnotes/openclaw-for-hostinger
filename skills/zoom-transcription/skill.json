@@ -1,0 +1,43 @@
+{
+  "name": "zoom-transcription",
+  "version": "1.0.0",
+  "description": "Transcribe Zoom meetings using multiple free transcription services",
+  "author": "Dr. Murali BK",
+  "homepage": "https://github.com/openclaw/skills/zoom-transcription",
+  "keywords": ["zoom", "transcription", "whisper", "meetings"],
+  "type": "workspace",
+  "invocation": {
+    "userInvocable": true,
+    "agentInvocable": true,
+    "keywords": [
+      "transcribe zoom",
+      "zoom transcript",
+      "meeting transcript",
+      "transcribe meeting"
+    ]
+  },
+  "requirements": {
+    "binaries": {
+      "required": ["ffmpeg", "curl", "jq"],
+      "optional": ["zoom"]
+    },
+    "environment": {
+      "required": [],
+      "optional": ["OPENAI_API_KEY", "FIREFLIES_API_KEY"]
+    }
+  },
+  "scripts": {
+    "transcribe": "./transcribe-zoom.sh",
+    "extract-audio": "./extract-audio.sh"
+  },
+  "configuration": {
+    "file": "./config.json",
+    "schema": {
+      "defaultService": "string",
+      "services": "object",
+      "zoom": "object",
+      "output": "object",
+      "notifications": "object"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "sent": 145,
+  "total": 157,
+  "skipped": 12,
+  "skipped_reason": "Landlines, invalid formats, or non-ambulance contacts",
+  "completed": true,
+  "completed_at": "2026-02-19T08:32:00+05:30"
+}

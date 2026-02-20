@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NABH Housekeeping Test - Hope Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-dark: #047857;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #059669 0%, #0d9488 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .card { background: white; border-radius: 16px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); overflow: hidden; }
+        .header { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: white; padding: 30px; text-align: center; }
+        .header h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        .header p { opacity: 0.9; }
+        .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; margin-top: 10px; }
+        .content { padding: 30px; }
+        .start-screen { text-align: center; padding: 40px 20px; }
+        .start-screen h2 { color: var(--gray-800); font-size: 1.5rem; margin-bottom: 20px; }
+        .info-box { background: #d1fae5; border-left: 4px solid var(--primary); padding: 20px; margin: 20px 0; text-align: left; border-radius: 8px; }
+        .info-box h3 { color: var(--primary-dark); margin-bottom: 10px; }
+        .info-box ul { margin-left: 20px; color: var(--gray-600); }
+        .info-box li { margin: 5px 0; }
+        .btn { padding: 14px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s; margin: 5px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-secondary { background: var(--gray-100); color: var(--gray-800); }
+        .question-screen { display: none; }
+        .progress-bar { height: 8px; background: var(--gray-200); border-radius: 4px; margin-bottom: 20px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #0d9488); border-radius: 4px; transition: width 0.3s; }
+        .question-meta { display: flex; justify-content: space-between; margin-bottom: 20px; color: var(--gray-600); font-size: 0.9rem; }
+        .category-tag { background: #d1fae5; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+        .question-text { font-size: 1.25rem; font-weight: 600; color: var(--gray-800); line-height: 1.6; margin-bottom: 25px; }
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        .option { padding: 18px 20px; border: 2px solid var(--gray-200); border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 15px; }
+        .option:hover { border-color: var(--primary); background: var(--gray-50); }
+        .option.selected { border-color: var(--primary); background: #d1fae5; }
+        .option.correct { border-color: var(--success); background: #d1fae5; }
+        .option.incorrect { border-color: var(--danger); background: #fee2e2; }
+        .option-letter { width: 36px; height: 36px; border-radius: 50%; background: var(--gray-100); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--gray-600); }
+        .option.selected .option-letter { background: var(--primary); color: white; }
+        .option.correct .option-letter { background: var(--success); color: white; }
+        .option.incorrect .option-letter { background: var(--danger); color: white; }
+        .explanation { margin-top: 20px; padding: 20px; background: #fef3c7; border-radius: 12px; border-left: 4px solid var(--warning); display: none; }
+        .explanation h4 { color: #92400e; margin-bottom: 8px; }
+        .explanation p { color: #78350f; font-size: 0.9rem; line-height: 1.5; }
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        .results-screen { display: none; text-align: center; padding: 40px 20px; }
+        .score-circle { width: 180px; height: 180px; border-radius: 50%; margin: 0 auto 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 700; }
+        .score-circle.excellent { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .score-circle.good { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
+        .score-circle.average { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .score-circle.poor { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .score-percent { font-size: 3rem; }
+        .score-label { font-size: 1rem; opacity: 0.9; }
+        .result-message { font-size: 1.5rem; font-weight: 600; color: var(--gray-800); margin-bottom: 10px; }
+        .result-detail { color: var(--gray-600); margin-bottom: 30px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .stat-box { padding: 20px; background: var(--gray-50); border-radius: 12px; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--gray-800); }
+        .stat-label { font-size: 0.85rem; color: var(--gray-600); }
+        .stat-box.correct .stat-value { color: var(--success); }
+        .stat-box.incorrect .stat-value { color: var(--danger); }
+        .footer { text-align: center; padding: 20px; background: var(--gray-50); color: var(--gray-600); font-size: 0.85rem; }
+        @media (max-width: 640px) { .header h1 { font-size: 1.4rem; } .question-text { font-size: 1.1rem; } .stats-grid { grid-template-columns: 1fr; } .nav-buttons { flex-direction: column; } .btn { width: 100%; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>🧹 NABH Test for HOUSEKEEPING</h1>
+                <p>SHCO 3rd Edition - Support Staff Training</p>
+                <span class="badge">Hope & Ayushman Hospitals</span>
+            </div>
+            
+            <div class="content start-screen" id="startScreen">
+                <h2>Housekeeping Staff Assessment</h2>
+                
+                <div class="info-box">
+                    <h3>📋 This test covers:</h3>
+                    <ul>
+                        <li>Biomedical Waste Segregation (Color Coding)</li>
+                        <li>Hand Hygiene Basics</li>
+                        <li>Spill Management</li>
+                        <li>Disinfection & Cleaning</li>
+                        <li>Fire Safety</li>
+                        <li>Personal Protective Equipment (PPE)</li>
+                        <li>Patient Safety Basics</li>
+                        <li>Emergency Codes</li>
+                    </ul>
+                </div>
+                
+                <p style="color: var(--gray-600); margin-bottom: 20px;">20 questions • Approx. 10 minutes</p>
+                
+                <button class="btn btn-primary" onclick="startTest()">🚀 Start Test</button>
+            </div>
+            
+            <div class="content question-screen" id="questionScreen">
+                <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+                <div class="question-meta">
+                    <span class="category-tag" id="categoryTag">Waste</span>
+                    <span id="questionNumber">Question 1 of 20</span>
+                </div>
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+                <div class="explanation" id="explanation">
+                    <h4>💡 Explanation</h4>
+                    <p id="explanationText"></p>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">← Previous</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Next →</button>
+                </div>
+            </div>
+            
+            <div class="content results-screen" id="resultsScreen">
+                <div class="score-circle" id="scoreCircle">
+                    <span class="score-percent" id="scorePercent">0%</span>
+                    <span class="score-label">Score</span>
+                </div>
+                <h2 class="result-message" id="resultMessage">Great Job!</h2>
+                <p class="result-detail" id="resultDetail"></p>
+                <div class="stats-grid">
+                    <div class="stat-box correct"><div class="stat-value" id="correctCount">0</div><div class="stat-label">Correct</div></div>
+                    <div class="stat-box incorrect"><div class="stat-value" id="incorrectCount">0</div><div class="stat-label">Incorrect</div></div>
+                    <div class="stat-box"><div class="stat-value" id="timeTaken">0:00</div><div class="stat-label">Time</div></div>
+                </div>
+                <button class="btn btn-primary" onclick="restartTest()">🔄 Retake Test</button>
+                <button class="btn btn-secondary" onclick="reviewAnswers()">📋 Review</button>
+            </div>
+            
+            <div class="footer">NABH Audit Preparation • Housekeeping Staff • Feb 2026</div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // Waste Segregation - Color Coding
+            { category: "Waste कचरा", question: "Blood-soaked cotton and dressings go in which color bin? / खून वाली रुई किस रंग की बाल्टी में?", options: ["Black / काला", "Red / लाल", "Yellow / पीला", "Blue / नीला"], correct: 1, explanation: "RED bin for infected/contaminated waste - blood, body fluids, soaked dressings. लाल बाल्टी में संक्रमित कचरा।" },
+            { category: "Waste कचरा", question: "Used needles and blades go in which container? / इस्तेमाल की हुई सुई कहाँ डालें?", options: ["Red bin / लाल बाल्टी", "Black bin / काली बाल्टी", "Blue puncture-proof box / नीला बॉक्स", "Any bin / कोई भी"], correct: 2, explanation: "Sharps (needles, blades, broken glass) go in BLUE puncture-proof containers. सुई नीले बॉक्स में।" },
+            { category: "Waste कचरा", question: "Yellow bin is for which waste? / पीली बाल्टी किसके लिए?", options: ["Paper waste / कागज़", "Anatomical waste (body parts) / शरीर के अंग", "Plastic bottles / प्लास्टिक", "Food waste / खाना"], correct: 1, explanation: "Yellow bin for anatomical/pathological waste - body parts, placenta, blood bags. पीली बाल्टी में शरीर के अंग।" },
+            { category: "Waste कचरा", question: "General non-infectious waste (paper, packaging) goes in? / सामान्य कचरा कहाँ?", options: ["Red bin / लाल", "Yellow bin / पीला", "Black bin / काला", "Blue bin / नीला"], correct: 2, explanation: "Black bin for general non-biomedical waste - paper, packaging, food waste. काली बाल्टी में सामान्य कचरा।" },
+            { category: "Waste कचरा", question: "How full should waste bins be before changing? / बाल्टी कितनी भरने पर बदलें?", options: ["Completely full / पूरी भरी", "3/4 (three-quarter) / तीन-चौथाई", "Half / आधी", "When overflowing / जब बहने लगे"], correct: 1, explanation: "Change bins when 3/4 full to prevent spillage and contamination. तीन-चौथाई भरने पर बदलें।" },
+            
+            // Hand Hygiene
+            { category: "Hand Hygiene हाथ धोना", question: "When must you wash hands? / हाथ कब धोने चाहिए?", options: ["Only before eating / खाने से पहले", "Before and after patient room cleaning / मरीज़ के कमरे की सफाई के पहले और बाद", "Only when dirty / जब गंदे हों", "Once a day / दिन में एक बार"], correct: 1, explanation: "Wash hands before entering and after leaving patient areas. Every cleaning task requires hand hygiene." },
+            { category: "Hand Hygiene हाथ धोना", question: "How long to wash hands with soap? / साबुन से कितनी देर धोएं?", options: ["5 seconds / ५ सेकंड", "20-30 seconds / २०-३० सेकंड", "1 minute / १ मिनट", "10 seconds / १० सेकंड"], correct: 1, explanation: "Wash with soap and water for 20-30 seconds, covering all areas. २०-३० सेकंड तक साबुन से धोएं।" },
+            { category: "Hand Hygiene हाथ धोना", question: "Alcohol hand rub should be used when? / सैनिटाइज़र कब?", options: ["Always instead of soap / हमेशा साबुन की जगह", "When hands are not visibly dirty / जब हाथ गंदे न दिखें", "Never / कभी नहीं", "Only after bathroom / टॉयलेट के बाद"], correct: 1, explanation: "Use alcohol rub when hands are not visibly soiled. If dirty, wash with soap and water." },
+            
+            // Spill Management
+            { category: "Spill छलकाव", question: "If blood spills on floor, first step? / खून गिरे तो पहले?", options: ["Wipe with regular mop / साधारण पोंछा", "Pour disinfectant, wait, then clean / दवा डालें, रुकें, फिर साफ़", "Call doctor / डॉक्टर को बुलाएं", "Ignore if small / छोटा हो तो छोड़ दें"], correct: 1, explanation: "Spill management: Pour sodium hypochlorite (1%), wait 10-20 minutes, then clean. Do NOT mop directly." },
+            { category: "Spill छलकाव", question: "What PPE for blood spill cleaning? / खून साफ़ करते समय क्या पहनें?", options: ["Only mask / सिर्फ मास्क", "Gloves, gown, and boots / दस्ताने, गाउन, जूते", "Nothing needed / कुछ नहीं", "Only gloves / सिर्फ दस्ताने"], correct: 1, explanation: "Full PPE: Heavy-duty gloves, gown/apron, closed shoes/boots, mask if splashing risk." },
+            
+            // Cleaning & Disinfection
+            { category: "Cleaning सफाई", question: "High-touch surfaces (door handles, bed rails) should be cleaned? / दरवाज़े के हैंडल कितनी बार साफ़?", options: ["Once a week / हफ्ते में एक बार", "Multiple times a day / दिन में कई बार", "Monthly / महीने में", "Only when dirty / गंदे होने पर"], correct: 1, explanation: "High-touch surfaces need cleaning multiple times daily - door handles, light switches, bed rails, nurse call buttons." },
+            { category: "Cleaning सफाई", question: "Sequence of cleaning should be? / सफाई का क्रम?", options: ["Dirty areas first / गंदी जगह पहले", "Clean to dirty areas / साफ़ से गंदी तरफ", "Random / कहीं भी", "Toilet first / टॉयलेट पहले"], correct: 1, explanation: "Always clean from clean to dirty areas to prevent contamination spread. साफ़ जगह से गंदी जगह की तरफ।" },
+            { category: "Cleaning सफाई", question: "Separate mops should be used for? / अलग पोंछा कहाँ?", options: ["Same mop everywhere / एक ही पोंछा सब जगह", "Different for patient area, bathroom, corridor / अलग-अलग जगह अलग", "Only OT needs separate / सिर्फ OT में अलग", "No specific rule / कोई नियम नहीं"], correct: 1, explanation: "Color-coded mops: different for patient rooms, bathrooms, corridors to prevent cross-contamination." },
+            
+            // Fire Safety
+            { category: "Fire आग", question: "If you see fire, what is the first action? / आग दिखे तो पहले?", options: ["Try to put it out / बुझाने की कोशिश", "Alert and raise alarm / अलार्म बजाएं", "Run away / भाग जाएं", "Call family / परिवार को फ़ोन"], correct: 1, explanation: "RACE: Rescue, Alarm, Contain, Extinguish. First raise alarm to alert everyone. पहले अलार्म बजाएं।" },
+            { category: "Fire आग", question: "Fire extinguisher - PASS means? / आग बुझाने का तरीका?", options: ["Push And Spray Slowly", "Pull pin, Aim, Squeeze, Sweep", "Press And Shake Spray", "Pour All Substances Slowly"], correct: 1, explanation: "PASS: Pull pin, Aim at base of fire, Squeeze handle, Sweep side to side." },
+            { category: "Fire आग", question: "Fire exits should be? / आग का रास्ता कैसा हो?", options: ["Locked for security / सुरक्षा के लिए बंद", "Clear and never blocked / साफ़ और खुला", "Used for storage / सामान रखने के लिए", "Only for staff / सिर्फ स्टाफ के लिए"], correct: 1, explanation: "Fire exits must NEVER be blocked. Keep corridors and exits clear at all times." },
+            
+            // PPE & Safety
+            { category: "PPE सुरक्षा", question: "When cleaning isolation room, you need? / Isolation room साफ़ करते समय?", options: ["Normal clothes / सामान्य कपड़े", "Full PPE as per signage / साइन के अनुसार PPE", "Only gloves / सिर्फ दस्ताने", "Supervisor permission only / सिर्फ अनुमति"], correct: 1, explanation: "Follow PPE signage on door - gown, gloves, mask, eye protection as indicated. साइन के अनुसार।" },
+            { category: "PPE सुरक्षा", question: "If needle pricks your hand? / अगर सुई चुभ जाए?", options: ["Hide it / छुपा दें", "Wash, report to supervisor immediately / धोएं, तुरंत बताएं", "Apply bandage only / पट्टी लगाएं", "Wait and watch / देखते रहें"], correct: 1, explanation: "Needle stick: Wash with soap and water, report to supervisor within 2 hours for evaluation. तुरंत बताएं।" },
+            
+            // Patient Safety
+            { category: "Safety सुरक्षा", question: "Wet floor should have? / गीले फर्श पर?", options: ["No sign needed / कोई साइन नहीं", "Wet floor caution sign / सावधान का साइन", "Just dry quickly / जल्दी सुखाएं", "Block the area / रास्ता बंद करें"], correct: 1, explanation: "Always put wet floor sign to prevent patient and visitor falls. फिसलने से बचाने के लिए साइन।" },
+            { category: "Safety सुरक्षा", question: "If patient falls while you are nearby? / मरीज़ गिर जाए तो?", options: ["Leave the area / चले जाएं", "Call for help, don't move patient, stay with them / मदद बुलाएं, हिलाएं नहीं, साथ रहें", "Pick up patient / उठाएं", "Give water / पानी दें"], correct: 1, explanation: "Don't move fallen patient (may have injury). Call for nurse/doctor help. Stay with patient." }
+        ];
+
+        let currentQuestions = [], currentIndex = 0, userAnswers = [], startTime = null;
+
+        function shuffleArray(arr) { const a = [...arr]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+        function startTest() {
+            currentQuestions = shuffleArray(questions);
+            currentIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill(null);
+            startTime = Date.now();
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('questionScreen').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = currentQuestions[currentIndex];
+            document.getElementById('progressBar').style.width = `${((currentIndex + 1) / currentQuestions.length) * 100}%`;
+            document.getElementById('categoryTag').textContent = q.category;
+            document.getElementById('questionNumber').textContent = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
+            document.getElementById('questionText').textContent = q.question;
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            ['A','B','C','D'].forEach((l, i) => {
+                const div = document.createElement('div');
+                div.className = 'option' + (userAnswers[currentIndex] === i ? ' selected' : '');
+                div.innerHTML = `<span class="option-letter">${l}</span><span>${q.options[i]}</span>`;
+                div.onclick = () => selectOption(i);
+                container.appendChild(div);
+            });
+            document.getElementById('explanation').style.display = 'none';
+            document.getElementById('prevBtn').style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').textContent = currentIndex === currentQuestions.length - 1 ? 'Finish ✓' : 'Next →';
+        }
+
+        function selectOption(index) {
+            userAnswers[currentIndex] = index;
+            const q = currentQuestions[currentIndex];
+            document.querySelectorAll('.option').forEach((opt, i) => { opt.classList.remove('selected','correct','incorrect'); if (i === index) opt.classList.add('selected'); });
+            setTimeout(() => {
+                document.querySelectorAll('.option').forEach((opt, i) => { if (i === q.correct) opt.classList.add('correct'); else if (i === index) opt.classList.add('incorrect'); });
+                document.getElementById('explanationText').textContent = q.explanation;
+                document.getElementById('explanation').style.display = 'block';
+            }, 300);
+        }
+
+        function prevQuestion() { if (currentIndex > 0) { currentIndex--; showQuestion(); } }
+        function nextQuestion() { if (currentIndex < currentQuestions.length - 1) { currentIndex++; showQuestion(); } else finishTest(); }
+
+        function finishTest() {
+            let correct = currentQuestions.filter((q, i) => userAnswers[i] === q.correct).length;
+            const pct = Math.round((correct / currentQuestions.length) * 100);
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            document.getElementById('scoreCircle').className = 'score-circle ' + (pct >= 90 ? 'excellent' : pct >= 75 ? 'good' : pct >= 50 ? 'average' : 'poor');
+            document.getElementById('resultMessage').textContent = pct >= 90 ? '🏆 Excellent!' : pct >= 75 ? '👍 Good Job!' : pct >= 50 ? '📚 Keep Learning!' : '💪 Needs Practice';
+            document.getElementById('scorePercent').textContent = pct + '%';
+            document.getElementById('resultDetail').textContent = `${correct} of ${currentQuestions.length} correct`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = currentQuestions.length - correct;
+            document.getElementById('timeTaken').textContent = `${Math.floor(elapsed/60)}:${(elapsed%60).toString().padStart(2,'0')}`;
+            document.getElementById('questionScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+        }
+
+        function restartTest() { document.getElementById('resultsScreen').style.display = 'none'; document.getElementById('startScreen').style.display = 'block'; }
+        function reviewAnswers() { currentIndex = 0; document.getElementById('resultsScreen').style.display = 'none'; document.getElementById('questionScreen').style.display = 'block'; showQuestion(); setTimeout(() => { const q = currentQuestions[0]; document.querySelectorAll('.option').forEach((opt, i) => { if (i === q.correct) opt.classList.add('correct'); else if (userAnswers[0] === i) opt.classList.add('incorrect'); }); document.getElementById('explanationText').textContent = q.explanation; document.getElementById('explanation').style.display = 'block'; }, 100); }
+    </script>
+</body>
+</html>

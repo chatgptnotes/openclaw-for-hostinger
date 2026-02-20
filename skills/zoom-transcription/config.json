@@ -1,0 +1,40 @@
+{
+  "defaultService": "whisper-api",
+  "services": {
+    "whisper-api": {
+      "enabled": true,
+      "model": "whisper-1",
+      "apiKey": "${OPENAI_API_KEY}"
+    },
+    "fireflies": {
+      "enabled": false,
+      "apiKey": "${FIREFLIES_API_KEY}",
+      "webhook": ""
+    },
+    "otter": {
+      "enabled": false,
+      "autoJoin": false
+    }
+  },
+  "zoom": {
+    "meetingId": "9373111709",
+    "password": "${ZOOM_MEETING_PASSWORD}",
+    "recordingsPath": "~/Downloads"
+  },
+  "output": {
+    "directory": "~/.openclaw/workspace/transcripts",
+    "formats": ["txt", "json", "srt"],
+    "includeTimestamps": true,
+    "speakerDiarization": false
+  },
+  "notifications": {
+    "autoSend": false,
+    "channels": ["whatsapp"],
+    "recipients": ["+919373111709"]
+  },
+  "processing": {
+    "autoCleanup": true,
+    "maxFileSize": "500MB",
+    "compressionQuality": "medium"
+  }
+}

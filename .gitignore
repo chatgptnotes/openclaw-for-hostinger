@@ -30,3 +30,6 @@ migrate-*.js
 add-*.sql
 *.bak
 .env*.local
+VisionClawRN/
+nabh.online-4th-feb/
+voice-assistant/

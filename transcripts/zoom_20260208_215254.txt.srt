@@ -1,0 +1,1580 @@
+1
+00:00:00,0 --> 00:00:28,0
+ Okay.
+
+2
+00:00:28,0 --> 00:00:56,0
+ Okay.
+
+3
+00:01:26,0 --> 00:01:41,0
+ Yeah.
+
+4
+00:01:41,0 --> 00:01:42,0
+ Yeah.
+
+5
+00:01:42,0 --> 00:01:43,0
+ Yes.
+
+6
+00:01:43,0 --> 00:01:44,0
+ Yes.
+
+7
+00:01:44,0 --> 00:01:47,0
+ So, first, first item.
+
+8
+00:01:47,0 --> 00:01:50,0
+ There's a proposal which is sent to you with pricing.
+
+9
+00:01:50,0 --> 00:02:02,0
+ Let me see the pricing.
+
+10
+00:02:02,0 --> 00:02:14,0
+ Proposal was sent. You sent me on a WhatsApp or email, email.
+
+11
+00:02:14,0 --> 00:02:17,0
+ Yeah.
+
+12
+00:02:17,0 --> 00:02:19,0
+ Okay.
+
+13
+00:02:19,0 --> 00:02:24,0
+ Okay.
+
+14
+00:02:24,0 --> 00:02:53,0
+ Okay.
+
+15
+00:02:53,0 --> 00:03:15,0
+ I'm sharing the screen.
+
+16
+00:03:15,0 --> 00:03:20,0
+ Visible.
+
+17
+00:03:20,0 --> 00:03:30,0
+ Yes. Yes.
+
+18
+00:03:30,0 --> 00:03:36,0
+ So, we can drop, drop, drop proposal.
+
+19
+00:03:36,0 --> 00:03:41,0
+ I'm thinking to be directly from BTS company to this Bombay.
+
+20
+00:03:41,0 --> 00:03:55,0
+ Yeah.
+
+21
+00:03:55,0 --> 00:03:56,0
+ Yeah.
+
+22
+00:03:56,0 --> 00:04:10,0
+ Yeah.
+
+23
+00:04:10,0 --> 00:04:22,0
+ Okay.
+
+24
+00:04:22,0 --> 00:04:25,0
+ Yeah.
+
+25
+00:04:25,0 --> 00:04:27,0
+ Yeah.
+
+26
+00:04:27,0 --> 00:04:28,0
+ Yeah.
+
+27
+00:04:28,0 --> 00:04:36,0
+ So, we can send it to the budget and see how the customer react.
+
+28
+00:04:36,0 --> 00:04:38,0
+ Okay.
+
+29
+00:04:38,0 --> 00:04:41,0
+ So, you will put it in your letterhead and send it back.
+
+30
+00:04:41,0 --> 00:04:42,0
+ Yes. Yes.
+
+31
+00:04:42,0 --> 00:04:43,0
+ I'll send it.
+
+32
+00:04:43,0 --> 00:04:48,0
+ Okay.
+
+33
+00:04:49,0 --> 00:04:53,0
+ Okay.
+
+34
+00:04:53,0 --> 00:04:56,0
+ Okay.
+
+35
+00:04:56,0 --> 00:04:57,0
+ Okay.
+
+36
+00:04:57,0 --> 00:04:59,0
+ And big one.
+
+37
+00:04:59,0 --> 00:05:00,0
+ Yeah.
+
+38
+00:05:00,0 --> 00:05:06,0
+ And there is no, there is nothing we have to clarify or there is no such a technical challenge challenge I found.
+
+39
+00:05:06,0 --> 00:05:08,0
+ So, but you can go through the scope once again.
+
+40
+00:05:08,0 --> 00:05:09,0
+ Okay.
+
+41
+00:05:09,0 --> 00:05:17,0
+ And one.
+
+42
+00:05:17,0 --> 00:05:25,0
+ If we need to add the mobile technology also, you can mention I mentioned only for the web app.
+
+43
+00:05:25,0 --> 00:05:26,0
+ Okay.
+
+44
+00:05:26,0 --> 00:05:27,0
+ Okay.
+
+45
+00:05:27,0 --> 00:05:31,0
+ That's all.
+
+46
+00:05:31,0 --> 00:05:37,0
+ But I know this guy he'll come back and negotiate.
+
+47
+00:05:37,0 --> 00:05:38,0
+ So let us see.
+
+48
+00:05:38,0 --> 00:05:43,0
+ Okay.
+
+49
+00:05:43,0 --> 00:05:48,0
+ So, this is one item models.
+
+50
+00:05:48,0 --> 00:06:12,0
+ So the next thing is.
+
+51
+00:06:12,0 --> 00:06:25,0
+ So, the next thing is not from API, external dashboard customization.
+
+52
+00:06:25,0 --> 00:06:27,0
+ Yeah, DK.
+
+53
+00:06:27,0 --> 00:06:28,0
+ Yeah.
+
+54
+00:06:28,0 --> 00:06:30,0
+ There's again a new project.
+
+55
+00:06:30,0 --> 00:06:35,0
+ So, you know there's a company called JotForm right you heard about JotForm.
+
+56
+00:06:35,0 --> 00:06:38,0
+ Yeah.
+
+57
+00:06:38,0 --> 00:06:47,0
+ So, JotForm is being used by some of the UAE entities for their workflows.
+
+58
+00:06:47,0 --> 00:06:52,0
+ So, there are many, many forms they are using in the workflow.
+
+59
+00:06:52,0 --> 00:06:58,0
+ And let's say there is one workflow, which has got four different approval levels.
+
+60
+00:06:58,0 --> 00:07:02,0
+ Approval one and then goes to approval two etc like that.
+
+61
+00:07:03,0 --> 00:07:05,0
+ So, now the situation is.
+
+62
+00:07:05,0 --> 00:07:11,0
+ So, one situation is in the JotForm backend.
+
+63
+00:07:11,0 --> 00:07:16,0
+ They can see the entire form, maybe 1000 forms.
+
+64
+00:07:16,0 --> 00:07:22,0
+ And out of that maybe 200 forms are complete, process complete.
+
+65
+00:07:22,0 --> 00:07:24,0
+ And maybe 800 are under progress.
+
+66
+00:07:24,0 --> 00:07:25,0
+ Okay.
+
+67
+00:07:26,0 --> 00:07:32,0
+ But the under progress ones, whether they are sitting in approval level one or two or three or four.
+
+68
+00:07:32,0 --> 00:07:38,0
+ They are not able to see from the reports section of the JotForm.
+
+69
+00:07:38,0 --> 00:07:39,0
+ Yeah.
+
+70
+00:07:39,0 --> 00:07:49,0
+ But if they click any specific workflow and go into the details and they can see that that particular one is at approval level three or one or two whatever.
+
+71
+00:07:49,0 --> 00:07:51,0
+ But they cannot see it in the report.
+
+72
+00:07:51,0 --> 00:07:52,0
+ Okay.
+
+73
+00:07:52,0 --> 00:08:03,0
+ So, they went to JotForm and asked them to amend the report and make additional column and say under progress means they are in this level now.
+
+74
+00:08:03,0 --> 00:08:05,0
+ Why that is important?
+
+75
+00:08:05,0 --> 00:08:11,0
+ So, that the supervisor can call the people and say that so many are pending at your site.
+
+76
+00:08:11,0 --> 00:08:13,0
+ Why don't you approve it?
+
+77
+00:08:13,0 --> 00:08:19,0
+ So, JotForm did not agree to do that.
+
+78
+00:08:19,0 --> 00:08:20,0
+ Okay.
+
+79
+00:08:20,0 --> 00:08:23,0
+ JotForm said that, yes, I understand what you want.
+
+80
+00:08:23,0 --> 00:08:27,0
+ But we have, you know, 30 million customers.
+
+81
+00:08:27,0 --> 00:08:31,0
+ Just because you are asking, we will not do.
+
+82
+00:08:31,0 --> 00:08:39,0
+ But we will keep in the queue.
+
+83
+00:08:39,0 --> 00:08:42,0
+ So, this is one.
+
+84
+00:08:42,0 --> 00:08:46,0
+ So, we are talking JotForm and JotForm is willing to give us the API.
+
+85
+00:08:47,0 --> 00:08:52,0
+ So, using the API, we can pull out the data from the JotForm form.
+
+86
+00:08:52,0 --> 00:08:59,0
+ Then using AI or Power BI or something, you have to make a dashboard.
+
+87
+00:08:59,0 --> 00:09:04,0
+ A beautiful dashboard such that they forget about the JotForm report.
+
+88
+00:09:04,0 --> 00:09:07,0
+ They should always look at our dashboard.
+
+89
+00:09:07,0 --> 00:09:08,0
+ Okay.
+
+90
+00:09:08,0 --> 00:09:09,0
+ Understood.
+
+91
+00:09:10,0 --> 00:09:18,0
+ So, they want to do it in a very cost-effective manner because they think that if JotForm is going to do it, then it will be free for them.
+
+92
+00:09:18,0 --> 00:09:25,0
+ So, if JotForm is not doing, then we are saying that we can help you.
+
+93
+00:09:25,0 --> 00:09:31,0
+ So, they are asking us, okay, I understand what you are planning to do, but how much it will cost.
+
+94
+00:09:31,0 --> 00:09:32,0
+ Okay.
+
+95
+00:09:32,0 --> 00:09:36,0
+ So, the API documentation is available with Harida.
+
+96
+00:09:36,0 --> 00:09:37,0
+ Okay.
+
+97
+00:09:37,0 --> 00:09:38,0
+ Okay.
+
+98
+00:09:38,0 --> 00:09:50,0
+ So, what we need to do is we need to test it out by creating a couple of forms and pull out the API backend and try to create a dashboard.
+
+99
+00:09:50,0 --> 00:09:51,0
+ Okay.
+
+100
+00:09:51,0 --> 00:09:52,0
+ Yeah.
+
+101
+00:09:52,0 --> 00:09:54,0
+ This is number one.
+
+102
+00:09:54,0 --> 00:09:58,0
+ Harida, there was also another use case you were telling yesterday.
+
+103
+00:09:58,0 --> 00:10:00,0
+ For?
+
+104
+00:10:00,0 --> 00:10:01,0
+ Sorry.
+
+105
+00:10:01,0 --> 00:10:02,0
+ JotForm.
+
+106
+00:10:02,0 --> 00:10:03,0
+ For JotForm.
+
+107
+00:10:03,0 --> 00:10:04,0
+ Who?
+
+108
+00:10:04,0 --> 00:10:05,0
+ Saifa.
+
+109
+00:10:05,0 --> 00:10:08,0
+ Saifa was telling another.
+
+110
+00:10:08,0 --> 00:10:16,0
+ But that we have to, yeah, but that is he directly, you both were speaking out.
+
+111
+00:10:16,0 --> 00:10:17,0
+ Yeah, what was it?
+
+112
+00:10:17,0 --> 00:10:18,0
+ But tomorrow.
+
+113
+00:10:18,0 --> 00:10:20,0
+ But what was it?
+
+114
+00:10:20,0 --> 00:10:21,0
+ Maybe.
+
+115
+00:10:21,0 --> 00:10:22,0
+ I forgot.
+
+116
+00:10:22,0 --> 00:10:23,0
+ Yeah.
+
+117
+00:10:23,0 --> 00:10:25,0
+ Tomorrow there is a meeting, no?
+
+118
+00:10:25,0 --> 00:10:27,0
+ He will discover it.
+
+119
+00:10:27,0 --> 00:10:30,0
+ There is a meeting at 11 o'clock tomorrow.
+
+120
+00:10:30,0 --> 00:10:31,0
+ Yeah.
+
+121
+00:10:31,0 --> 00:10:33,0
+ Just give me a moment.
+
+122
+00:10:33,0 --> 00:10:38,0
+ So, you just gave me.
+
+123
+00:10:38,0 --> 00:10:39,0
+ I got it.
+
+124
+00:10:39,0 --> 00:10:40,0
+ I got it.
+
+125
+00:10:40,0 --> 00:10:41,0
+ I got it.
+
+126
+00:10:41,0 --> 00:10:45,0
+ So, for example, this is one form.
+
+127
+00:10:45,0 --> 00:10:49,0
+ One form means one form with four approval levels.
+
+128
+00:10:49,0 --> 00:10:56,0
+ And we are talking about showing the pending status at which approval level for this one form.
+
+129
+00:10:56,0 --> 00:10:57,0
+ Okay.
+
+130
+00:10:57,0 --> 00:11:01,0
+ And assume that Abdullah is one of the approvers.
+
+131
+00:11:01,0 --> 00:11:05,0
+ Let us say Abdullah is the final approver.
+
+132
+00:11:05,0 --> 00:11:10,0
+ And then Fatima, different, different people are the approvers.
+
+133
+00:11:10,0 --> 00:11:20,0
+ So, what he is saying is that when I, when they log in with an approver login, they are
+
+134
+00:11:20,0 --> 00:11:30,0
+ currently not able to see the pending action for Abdullah.
+
+135
+00:11:30,0 --> 00:11:36,0
+ Because for that to see, you have to go and get the data from multiple forms.
+
+136
+00:11:36,0 --> 00:11:41,0
+ So, in one form, there might be 30 pending with Abdullah.
+
+137
+00:11:41,0 --> 00:11:45,0
+ And then there is another form, there will be 40 pending with Abdullah.
+
+138
+00:11:45,0 --> 00:11:51,0
+ But when Abdullah logs in, Abdullah wants to see all pending.
+
+139
+00:11:51,0 --> 00:11:58,0
+ Even if it is different form, all entries pending at my level, for example.
+
+140
+00:11:58,0 --> 00:11:59,0
+ Okay.
+
+141
+00:11:59,0 --> 00:12:02,0
+ This was the second request.
+
+142
+00:12:02,0 --> 00:12:06,0
+ So, BK, are you following?
+
+143
+00:12:06,0 --> 00:12:08,0
+ No, I lost you.
+
+144
+00:12:08,0 --> 00:12:09,0
+ Can you repeat?
+
+145
+00:12:09,0 --> 00:12:10,0
+ Okay.
+
+146
+00:12:10,0 --> 00:12:12,0
+ Did you get the first one?
+
+147
+00:12:12,0 --> 00:12:15,0
+ So, this is the first situation.
+
+148
+00:12:15,0 --> 00:12:19,0
+ That is one form, multiple approval levels.
+
+149
+00:12:19,0 --> 00:12:24,0
+ And the report shows that X number of forms are complete.
+
+150
+00:12:24,0 --> 00:12:27,0
+ X number of forms are under progress.
+
+151
+00:12:27,0 --> 00:12:28,0
+ Yeah, that I understood.
+
+152
+00:12:28,0 --> 00:12:29,0
+ So, they want to, yeah.
+
+153
+00:12:29,0 --> 00:12:31,0
+ So, we want to pull the data through API.
+
+154
+00:12:31,0 --> 00:12:32,0
+ API, yeah.
+
+155
+00:12:32,0 --> 00:12:34,0
+ And give them a dashboard.
+
+156
+00:12:34,0 --> 00:12:43,0
+ So, that when I log in for a particular form, I'll be able to see for that particular form, there are 100 under progress.
+
+157
+00:12:43,0 --> 00:12:47,0
+ And out of 30% is Abdullah, 30% is Prasanna, etc.
+
+158
+00:12:47,0 --> 00:12:48,0
+ Okay.
+
+159
+00:12:48,0 --> 00:12:49,0
+ Yeah.
+
+160
+00:12:49,0 --> 00:12:52,0
+ That is one use case.
+
+161
+00:12:52,0 --> 00:12:54,0
+ Second use case is that this is about one form.
+
+162
+00:12:54,0 --> 00:12:57,0
+ Similarly, there are many forms.
+
+163
+00:12:57,0 --> 00:12:58,0
+ Yeah.
+
+164
+00:12:58,0 --> 00:12:59,0
+ Okay.
+
+165
+00:13:00,0 --> 00:13:04,0
+ For example, in all the forms, Abdullah is one approver.
+
+166
+00:13:04,0 --> 00:13:20,0
+ But when Abdullah logs in, Abdullah should see or Abdullah should get a dashboard saying that these are the things pending at my level for form number one and form number two, form number three, etc.
+
+167
+00:13:20,0 --> 00:13:21,0
+ Got it.
+
+168
+00:13:21,0 --> 00:13:24,0
+ Which also they are not able to see at the moment.
+
+169
+00:13:25,0 --> 00:13:27,0
+ So, as Haritha said.
+
+170
+00:13:27,0 --> 00:13:30,0
+ One is as a super admin.
+
+171
+00:13:30,0 --> 00:13:31,0
+ Yeah, correct.
+
+172
+00:13:31,0 --> 00:13:32,0
+ And as a.
+
+173
+00:13:32,0 --> 00:13:33,0
+ User level.
+
+174
+00:13:33,0 --> 00:13:34,0
+ As an admin.
+
+175
+00:13:34,0 --> 00:13:35,0
+ User level.
+
+176
+00:13:35,0 --> 00:13:40,0
+ Or as a supervisor level, one should know.
+
+177
+00:13:40,0 --> 00:13:41,0
+ Okay.
+
+178
+00:13:41,0 --> 00:13:42,0
+ Got it.
+
+179
+00:13:42,0 --> 00:13:43,0
+ Two levels.
+
+180
+00:13:43,0 --> 00:13:44,0
+ We need the reports.
+
+181
+00:13:44,0 --> 00:13:45,0
+ Got it.
+
+182
+00:13:45,0 --> 00:13:46,0
+ Got it.
+
+183
+00:13:46,0 --> 00:13:47,0
+ Got it.
+
+184
+00:13:47,0 --> 00:13:48,0
+ So, Haritha will send the API document.
+
+185
+00:13:48,0 --> 00:13:53,0
+ And you look at it and just say whether, yes, it is possible or no, it is not possible.
+
+186
+00:13:53,0 --> 00:13:57,0
+ If you say yes, then we have to quickly give an estimate, not even a proposal.
+
+187
+00:13:57,0 --> 00:14:01,0
+ Verbally give an estimate saying that, okay, this is going to cost you this much.
+
+188
+00:14:01,0 --> 00:14:02,0
+ Okay.
+
+189
+00:14:02,0 --> 00:14:10,0
+ But the good thing is that this is the Dubai media, which is a government entity.
+
+190
+00:14:10,0 --> 00:14:17,0
+ So, the good thing is that if they allow us to do it for them, then we will enter into their system.
+
+191
+00:14:18,0 --> 00:14:32,0
+ Once we enter into their system, all their such scenarios which they cannot solve because of the limitations or commercial reasons of the SaaS company, they can give us the order.
+
+192
+00:14:32,0 --> 00:14:33,0
+ Okay.
+
+193
+00:14:33,0 --> 00:14:35,0
+ So, it is strategic.
+
+194
+00:14:35,0 --> 00:14:39,0
+ Not really also making money.
+
+195
+00:14:39,0 --> 00:14:41,0
+ Also more strategic.
+
+196
+00:14:41,0 --> 00:14:42,0
+ Got it.
+
+197
+00:14:43,0 --> 00:14:47,0
+ So, Haritha, you are clear about the action items on that, right?
+
+198
+00:14:47,0 --> 00:14:48,0
+ Yeah, yeah.
+
+199
+00:14:48,0 --> 00:14:49,0
+ Clear.
+
+200
+00:14:49,0 --> 00:14:50,0
+ Okay.
+
+201
+00:14:50,0 --> 00:14:52,0
+ What is the third item in the agenda?
+
+202
+00:14:56,0 --> 00:14:58,0
+ These are all about the proposals.
+
+203
+00:14:58,0 --> 00:15:01,0
+ Next is about the running projects.
+
+204
+00:15:01,0 --> 00:15:07,0
+ Head to CR update and go live.
+
+205
+00:15:08,0 --> 00:15:14,0
+ So, all that is going to happen only after 13, right?
+
+206
+00:15:14,0 --> 00:15:15,0
+ Not 13.
+
+207
+00:15:15,0 --> 00:15:16,0
+ Not 13.
+
+208
+00:15:16,0 --> 00:15:17,0
+ 18, BK.
+
+209
+00:15:17,0 --> 00:15:18,0
+ 18?
+
+210
+00:15:18,0 --> 00:15:19,0
+ Yeah.
+
+211
+00:15:19,0 --> 00:15:27,0
+ So, BK, can we do it before 18?
+
+212
+00:15:27,0 --> 00:15:32,0
+ Or even if it is 18, then we have to stick it to 18 and try to finish it off on 18.
+
+213
+00:15:35,0 --> 00:15:36,0
+ So, what is to be done?
+
+214
+00:15:37,0 --> 00:15:41,0
+ There are some pending items in the heads.
+
+215
+00:15:41,0 --> 00:15:42,0
+ Not pending, BK.
+
+216
+00:15:42,0 --> 00:15:43,0
+ No, no.
+
+217
+00:15:43,0 --> 00:15:44,0
+ Not pending.
+
+218
+00:15:44,0 --> 00:15:45,0
+ It is a CR, actually.
+
+219
+00:15:45,0 --> 00:15:46,0
+ Okay.
+
+220
+00:15:46,0 --> 00:15:50,0
+ As per our original scope, we delivered in the first demo.
+
+221
+00:15:50,0 --> 00:15:52,0
+ It is clear and they are all happy.
+
+222
+00:15:52,0 --> 00:15:58,0
+ But once they see that, they found it can be improved.
+
+223
+00:15:58,0 --> 00:16:02,0
+ So, they need an admin approval for every user.
+
+224
+00:16:02,0 --> 00:16:03,0
+ That is one thing.
+
+225
+00:16:04,0 --> 00:16:05,0
+ No, it is okay.
+
+226
+00:16:05,0 --> 00:16:06,0
+ I don't want to give the details.
+
+227
+00:16:06,0 --> 00:16:13,0
+ So, there are some requests which the customer has come up for the heads before we hand over.
+
+228
+00:16:13,0 --> 00:16:16,0
+ So, the list is already prepared.
+
+229
+00:16:16,0 --> 00:16:20,0
+ And Aman is the one who is doing it, right?
+
+230
+00:16:20,0 --> 00:16:22,0
+ Aman.
+
+231
+00:16:22,0 --> 00:16:23,0
+ Aman was there.
+
+232
+00:16:23,0 --> 00:16:25,0
+ So, Aman already knows it, right?
+
+233
+00:16:25,0 --> 00:16:26,0
+ Yes.
+
+234
+00:16:26,0 --> 00:16:29,0
+ Or you will send the list to BK.
+
+235
+00:16:30,0 --> 00:16:37,0
+ And what we need from BK is like a confirmation that let us finish it on 18th.
+
+236
+00:16:37,0 --> 00:16:38,0
+ Okay.
+
+237
+00:16:38,0 --> 00:16:39,0
+ Yeah, that is what I need.
+
+238
+00:16:39,0 --> 00:16:41,0
+ Or before that, is it possible?
+
+239
+00:16:41,0 --> 00:16:44,0
+ That is the message I need.
+
+240
+00:16:44,0 --> 00:16:49,0
+ Because they asked us that why is it taking time.
+
+241
+00:16:49,0 --> 00:16:52,0
+ And we said that, you know, developer is in some emergency.
+
+242
+00:16:52,0 --> 00:16:54,0
+ So, we need some time.
+
+243
+00:16:54,0 --> 00:16:56,0
+ So, that's how we have told them to keep quiet.
+
+244
+00:16:57,0 --> 00:16:59,0
+ But we cannot prolong it.
+
+245
+00:16:59,0 --> 00:17:01,0
+ Either 18th or 19th, we have to complete.
+
+246
+00:17:01,0 --> 00:17:03,0
+ By 18th, I will do it.
+
+247
+00:17:03,0 --> 00:17:07,0
+ Till 14th, Aman is busy.
+
+248
+00:17:07,0 --> 00:17:10,0
+ So, another 4 days, I will ask him to complete it.
+
+249
+00:17:10,0 --> 00:17:13,0
+ Yeah, 4 days will not take for it.
+
+250
+00:17:13,0 --> 00:17:17,0
+ It might be even, may not be that much work.
+
+251
+00:17:17,0 --> 00:17:18,0
+ Yeah.
+
+252
+00:17:18,0 --> 00:17:19,0
+ Anyway.
+
+253
+00:17:19,0 --> 00:17:22,0
+ Yeah, correct.
+
+254
+00:17:22,0 --> 00:17:23,0
+ Yeah.
+
+255
+00:17:23,0 --> 00:17:24,0
+ What else?
+
+256
+00:17:24,0 --> 00:17:25,0
+ What is the next one?
+
+257
+00:17:25,0 --> 00:17:35,0
+ Next is that 4C's PDF view experience enhancement.
+
+258
+00:17:35,0 --> 00:17:36,0
+ Yeah.
+
+259
+00:17:36,0 --> 00:17:40,0
+ So, BK, did you see the one video sent by 4C?
+
+260
+00:17:40,0 --> 00:17:42,0
+ Did you get time to see it?
+
+261
+00:17:42,0 --> 00:17:45,0
+ No.
+
+262
+00:17:45,0 --> 00:17:46,0
+ Can you send it to me?
+
+263
+00:17:46,0 --> 00:17:47,0
+ Okay.
+
+264
+00:17:47,0 --> 00:17:49,0
+ Haridas, send it again to BK.
+
+265
+00:17:49,0 --> 00:17:51,0
+ Forward in my WhatsApp.
+
+266
+00:17:51,0 --> 00:17:53,0
+ If you share it, just play it.
+
+267
+00:17:54,0 --> 00:17:56,0
+ Yeah, or you can play it now on the screen.
+
+268
+00:17:56,0 --> 00:17:57,0
+ One minute.
+
+269
+00:17:57,0 --> 00:18:17,0
+ Okay.
+
+270
+00:18:18,0 --> 00:18:20,0
+ This is on WhatsApp.
+
+271
+00:18:20,0 --> 00:18:23,0
+ Yeah.
+
+272
+00:18:23,0 --> 00:18:33,0
+ But it's in the same group.
+
+273
+00:18:33,0 --> 00:18:35,0
+ Waiting to load the video.
+
+274
+00:18:35,0 --> 00:18:43,0
+ Give me a moment.
+
+275
+00:18:44,0 --> 00:18:47,0
+ Okay.
+
+276
+00:18:47,0 --> 00:18:55,0
+ Yeah, that will be easy.
+
+277
+00:18:55,0 --> 00:19:05,0
+ So, basically, BK, what I understand is that they are showing a screen recording of a similar application.
+
+278
+00:19:05,0 --> 00:19:10,0
+ And they're showing the way in which the browsing is happening.
+
+279
+00:19:11,0 --> 00:19:13,0
+ It has to be faster.
+
+280
+00:19:13,0 --> 00:19:21,0
+ Yeah.
+
+281
+00:19:21,0 --> 00:19:22,0
+ Yeah, I understood.
+
+282
+00:19:22,0 --> 00:19:25,0
+ Understood.
+
+283
+00:19:25,0 --> 00:19:29,0
+ So, I will check the video and see how we can improve it.
+
+284
+00:19:29,0 --> 00:19:30,0
+ Okay.
+
+285
+00:19:30,0 --> 00:19:31,0
+ Yeah.
+
+286
+00:19:31,0 --> 00:19:32,0
+ So, that way we can close that.
+
+287
+00:19:32,0 --> 00:19:35,0
+ We can get the final payment and we can close that.
+
+288
+00:19:35,0 --> 00:19:37,0
+ Okay.
+
+289
+00:19:37,0 --> 00:19:38,0
+ Okay.
+
+290
+00:19:38,0 --> 00:19:39,0
+ So, what else?
+
+291
+00:19:39,0 --> 00:19:45,0
+ Next server.
+
+292
+00:19:45,0 --> 00:19:48,0
+ Okay.
+
+293
+00:19:48,0 --> 00:19:55,0
+ Next is link is NFC card separate hosting.
+
+294
+00:19:55,0 --> 00:20:01,0
+ After 13 days, it will take 2-3 days after 13.
+
+295
+00:20:01,0 --> 00:20:02,0
+ Yeah.
+
+296
+00:20:02,0 --> 00:20:05,0
+ So, that we are about to finish now.
+
+297
+00:20:06,0 --> 00:20:09,0
+ Yeah.
+
+298
+00:20:09,0 --> 00:20:12,0
+ The NFC card separate host.
+
+299
+00:20:12,0 --> 00:20:20,0
+ Yeah, I will try and do it as soon as possible.
+
+300
+00:20:20,0 --> 00:20:23,0
+ Okay.
+
+301
+00:20:23,0 --> 00:20:24,0
+ What else?
+
+302
+00:20:24,0 --> 00:20:28,0
+ So, these three are regarding the running project.
+
+303
+00:20:28,0 --> 00:20:31,0
+ But one running project is also there.
+
+304
+00:20:32,0 --> 00:20:34,0
+ But that is, we have a control.
+
+305
+00:20:34,0 --> 00:20:36,0
+ We are clear on that.
+
+306
+00:20:36,0 --> 00:20:39,0
+ So, we have nothing to discuss now.
+
+307
+00:20:39,0 --> 00:20:41,0
+ Nothing to discuss with BK.
+
+308
+00:20:41,0 --> 00:20:42,0
+ Okay.
+
+309
+00:20:42,0 --> 00:20:48,0
+ So, the other thing we are planning to discuss about are the products.
+
+310
+00:20:48,0 --> 00:20:52,0
+ One is DDO.
+
+311
+00:20:53,0 --> 00:20:55,0
+ Yeah.
+
+312
+00:20:55,0 --> 00:20:57,0
+ DDO already.
+
+313
+00:20:57,0 --> 00:21:03,0
+ That is till 18th or 13th.
+
+314
+00:21:03,0 --> 00:21:05,0
+ 13th.
+
+315
+00:21:05,0 --> 00:21:07,0
+ He will start working on it.
+
+316
+00:21:07,0 --> 00:21:09,0
+ Till 13th.
+
+317
+00:21:09,0 --> 00:21:13,0
+ So, from 14th onwards,
+
+318
+00:21:13,0 --> 00:21:15,0
+ Anas will be on DDO.
+
+319
+00:21:15,0 --> 00:21:18,0
+ Everybody will be on DDO by 13th or 14th.
+
+320
+00:21:18,0 --> 00:21:20,0
+ Yeah.
+
+321
+00:21:21,0 --> 00:21:23,0
+ And what is next?
+
+322
+00:21:23,0 --> 00:21:26,0
+ Then any other product discussion.
+
+323
+00:21:26,0 --> 00:21:27,0
+ Okay.
+
+324
+00:21:27,0 --> 00:21:29,0
+ So, I have this comment.
+
+325
+00:21:29,0 --> 00:21:32,0
+ Remember BK, I told about the call center, right?
+
+326
+00:21:32,0 --> 00:21:34,0
+ Call center.
+
+327
+00:21:34,0 --> 00:21:36,0
+ So, I found through my research,
+
+328
+00:21:36,0 --> 00:21:40,0
+ There is this company called Nolarity.
+
+329
+00:21:40,0 --> 00:21:43,0
+ K-N-O-W-L-A-R-I-T-Y.
+
+330
+00:21:43,0 --> 00:21:45,0
+ Nolarity.
+
+331
+00:21:45,0 --> 00:21:49,0
+ Nolarity can give you a virtual number.
+
+332
+00:21:49,0 --> 00:21:52,0
+ And a call center fee.
+
+333
+00:21:52,0 --> 00:21:56,0
+ For as low as 1999 rupees.
+
+334
+00:21:56,0 --> 00:21:58,0
+ Like 2000 rupees per month.
+
+335
+00:21:58,0 --> 00:22:00,0
+ So, I wanted to check that.
+
+336
+00:22:00,0 --> 00:22:02,0
+ Okay.
+
+337
+00:22:02,0 --> 00:22:04,0
+ And if possible,
+
+338
+00:22:04,0 --> 00:22:08,0
+ We want to deploy it for Bethesda.
+
+339
+00:22:08,0 --> 00:22:09,0
+ Okay.
+
+340
+00:22:09,0 --> 00:22:10,0
+ With the virtual number.
+
+341
+00:22:10,0 --> 00:22:12,0
+ And through the same virtual number,
+
+342
+00:22:12,0 --> 00:22:15,0
+ We can make AI agents to call.
+
+343
+00:22:15,0 --> 00:22:16,0
+ Okay.
+
+344
+00:22:16,0 --> 00:22:17,0
+ Or receive calls as well.
+
+345
+00:22:17,0 --> 00:22:18,0
+ Okay.
+
+346
+00:22:18,0 --> 00:22:21,0
+ So, just check on that Nolarity.
+
+347
+00:22:21,0 --> 00:22:23,0
+ Or any competing product.
+
+348
+00:22:23,0 --> 00:22:24,0
+ Okay.
+
+349
+00:22:24,0 --> 00:22:26,0
+ Any competing product.
+
+350
+00:22:26,0 --> 00:22:27,0
+ And now,
+
+351
+00:22:27,0 --> 00:22:32,0
+ When are you going to show us about the CloudBot?
+
+352
+00:22:32,0 --> 00:22:35,0
+ Or MalkBot?
+
+353
+00:22:35,0 --> 00:22:40,0
+ 13th, 14th night.
+
+354
+00:22:40,0 --> 00:22:41,0
+ 14th.
+
+355
+00:22:41,0 --> 00:22:42,0
+ 14th.
+
+356
+00:22:42,0 --> 00:22:44,0
+ 14th or 15th.
+
+357
+00:22:44,0 --> 00:22:45,0
+ Let's say 15th.
+
+358
+00:22:45,0 --> 00:22:46,0
+ Okay.
+
+359
+00:22:47,0 --> 00:22:51,0
+ So, Haritha.
+
+360
+00:22:51,0 --> 00:22:53,0
+ Yeah.
+
+361
+00:22:53,0 --> 00:22:56,0
+ On 15th,
+
+362
+00:22:56,0 --> 00:23:03,0
+ We'll have a meeting scheduled for a demo of new AI agents.
+
+363
+00:23:03,0 --> 00:23:04,0
+ Okay.
+
+364
+00:23:04,0 --> 00:23:05,0
+ Self-running agents.
+
+365
+00:23:05,0 --> 00:23:07,0
+ Self-learning agents.
+
+366
+00:23:07,0 --> 00:23:10,0
+ Okay.
+
+367
+00:23:10,0 --> 00:23:12,0
+ I think, BK, with that,
+
+368
+00:23:12,0 --> 00:23:15,0
+ We can now start the Truman Company.
+
+369
+00:23:15,0 --> 00:23:16,0
+ Yes.
+
+370
+00:23:16,0 --> 00:23:17,0
+ Yes.
+
+371
+00:23:17,0 --> 00:23:18,0
+ Very much.
+
+372
+00:23:18,0 --> 00:23:19,0
+ Yeah.
+
+373
+00:23:19,0 --> 00:23:20,0
+ It is doable now.
+
+374
+00:23:20,0 --> 00:23:23,0
+ We can now create like a virtual company.
+
+375
+00:23:23,0 --> 00:23:26,0
+ And create a virtual organization,
+
+376
+00:23:26,0 --> 00:23:27,0
+ Virtual documents and all that.
+
+377
+00:23:27,0 --> 00:23:28,0
+ And then we can demo it,
+
+378
+00:23:28,0 --> 00:23:30,0
+ Saying that this is how it will run.
+
+379
+00:23:30,0 --> 00:23:35,0
+ Okay.
+
+380
+00:23:35,0 --> 00:23:37,0
+ So, that's all we get.
+
+381
+00:23:37,0 --> 00:23:38,0
+ That's all.
+
+382
+00:23:38,0 --> 00:23:39,0
+ Okay.
+
+383
+00:23:39,0 --> 00:23:40,0
+ That's all for today.
+
+384
+00:23:40,0 --> 00:23:41,0
+ All right.
+
+385
+00:23:41,0 --> 00:23:42,0
+ Good.
+
+386
+00:23:42,0 --> 00:23:43,0
+ Nice.
+
+387
+00:23:43,0 --> 00:23:44,0
+ Thanks.
+
+388
+00:23:44,0 --> 00:23:47,0
+ You send the minutes, okay.
+
+389
+00:23:47,0 --> 00:23:50,0
+ Yeah.
+
+390
+00:23:50,0 --> 00:23:53,0
+ Okay.
+
+391
+00:23:53,0 --> 00:23:54,0
+ Okay.
+
+392
+00:23:54,0 --> 00:23:55,0
+ Thanks, BK.
+
+393
+00:23:55,0 --> 00:23:56,0
+ Thanks, Vicky.
+
+394
+00:23:56,0 --> 00:23:57,0
+ Bye.
+
+395
+00:23:57,0 --> 00:23:59,0
+ Bye, Haritha.
+

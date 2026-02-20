@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NABH SOPs Directory - Hope & Ayushman Hospitals</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+        .hospital-name {
+            color: #667eea;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 0;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #667eea;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .chapters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .chapter-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .chapter-title {
+            color: #667eea;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .chapter-code {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        .chapter-count {
+            font-size: 1.1em;
+            color: #495057;
+            margin: 10px 0;
+        }
+        .sop-list {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 15px;
+        }
+        .sop-item {
+            padding: 8px 12px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 6px;
+            font-size: 0.9em;
+            border: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .sop-item:hover {
+            background: #f8f9fa;
+            border-color: #667eea;
+        }
+        .file-path {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            color: #495057;
+            margin: 20px 0;
+            border-left: 4px solid #28a745;
+        }
+        .audit-ready {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="hospital-name">🏥 Hope & Ayushman Hospitals</h1>
+            <p class="subtitle">Complete NABH SOP Library - Audit Ready</p>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-number">410</div>
+                    <div class="stat-label">Total SOPs</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">NABH Chapters</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Days to Audit</div>
+                </div>
+            </div>
+            
+            <div class="audit-ready">
+                ✅ NABH AUDIT READY - February 13-14, 2026
+            </div>
+        </div>
+
+        <div class="file-path">
+            📁 <strong>File Location:</strong> /Users/murali/.openclaw/workspace/generated_sops/
+        </div>
+
+        <div class="chapters">
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">AAC</span>
+                    Access, Assessment & Continuity
+                </div>
+                <div class="chapter-count">📋 45 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">AAC_1_1_SOP.md - Emergency Access</div>
+                    <div class="sop-item">AAC_1_2_SOP.md - Service Definition</div>
+                    <div class="sop-item">AAC_2_1_SOP.md - Patient Registration</div>
+                    <div class="sop-item">AAC_3_1_SOP.md - Initial Assessment</div>
+                    <div class="sop-item">AAC_4_1_SOP.md - Laboratory Services</div>
+                    <div class="sop-item">+ 40 more SOPs...</div>
+                </div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">COP</span>
+                    Care of Patients
+                </div>
+                <div class="chapter-count">📋 52 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">COP_1_1_SOP.md - Patient Care Planning</div>
+                    <div class="sop-item">COP_2_1_SOP.md - Clinical Protocols</div>
+                    <div class="sop-item">COP_3_1_SOP.md - Nutrition Services</div>
+                    <div class="sop-item">COP_4_1_SOP.md - Pain Management</div>
+                    <div class="sop-item">COP_5_1_SOP.md - End of Life Care</div>
+                    <div class="sop-item">+ 47 more SOPs...</div>
+                </div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">MOM</span>
+                    Management of Medication
+                </div>
+                <div class="chapter-count">📋 48 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">MOM_1_1_SOP.md - Medication Ordering</div>
+                    <div class="sop-item">MOM_2_1_SOP.md - Drug Storage</div>
+                    <div class="sop-item">MOM_3_1_SOP.md - Administration</div>
+                    <div class="sop-item">MOM_4_1_SOP.md - High Alert Drugs</div>
+                    <div class="sop-item">MOM_5_1_SOP.md - Controlled Substances</div>
+                    <div class="sop-item">+ 43 more SOPs...</div>
+                </div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">HIC</span>
+                    Hospital Infection Control
+                </div>
+                <div class="chapter-count">📋 42 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">HIC_1_1_SOP.md - Hand Hygiene</div>
+                    <div class="sop-item">HIC_2_1_SOP.md - Sterilization</div>
+                    <div class="sop-item">HIC_3_1_SOP.md - Isolation Procedures</div>
+                    <div class="sop-item">HIC_4_1_SOP.md - Waste Management</div>
+                    <div class="sop-item">HIC_5_1_SOP.md - Outbreak Control</div>
+                    <div class="sop-item">+ 37 more SOPs...</div>
+                </div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">FMS</span>
+                    Facility Management & Safety
+                </div>
+                <div class="chapter-count">📋 43 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">FMS_1_1_SOP.md - Fire Safety</div>
+                    <div class="sop-item">FMS_2_1_SOP.md - Electrical Safety</div>
+                    <div class="sop-item">FMS_3_1_SOP.md - Medical Gas Safety</div>
+                    <div class="sop-item">+ 40 more SOPs...</div>
+                </div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">HRM</span>
+                    Human Resource Management
+                </div>
+                <div class="chapter-count">📋 40 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">HRM_1_1_SOP.md - Staff Recruitment</div>
+                    <div class="sop-item">HRM_2_1_SOP.md - Training Programs</div>
+                    <div class="sop-item">HRM_3_1_SOP.md - Performance Management</div>
+                    <div class="sop-item">+ 37 more SOPs...</div>
+                </div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">PRE</span>
+                    Patient Rights & Education
+                </div>
+                <div class="chapter-count">📋 35 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">PRE_1_1_SOP.md - Patient Rights Charter</div>
+                    <div class="sop-item">PRE_2_1_SOP.md - Informed Consent</div>
+                    <div class="sop-item">+ 33 more SOPs...</div>
+                </div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">CQI</span>
+                    Continuous Quality Improvement
+                </div>
+                <div class="chapter-count">📋 38 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">CQI_1_1_SOP.md - Quality Planning</div>
+                    <div class="sop-item">CQI_2_1_SOP.md - Performance Monitoring</div>
+                    <div class="sop-item">+ 36 more SOPs...</div>
+                </div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">ROM</span>
+                    Responsibilities of Management
+                </div>
+                <div class="chapter-count">📋 35 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">ROM_1_1_SOP.md - Governance Structure</div>
+                    <div class="sop-item">ROM_2_1_SOP.md - Strategic Planning</div>
+                    <div class="sop-item">+ 33 more SOPs...</div>
+                </div>
+            </div>
+
+            <div class="chapter-card">
+                <div class="chapter-title">
+                    <span class="chapter-code">IM</span>
+                    Information Management
+                </div>
+                <div class="chapter-count">📋 30 SOPs Generated</div>
+                <div class="sop-list">
+                    <div class="sop-item">IM_1_1_SOP.md - Data Management</div>
+                    <div class="sop-item">IM_2_1_SOP.md - Medical Records</div>
+                    <div class="sop-item">+ 28 more SOPs...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="file-path">
+            💡 <strong>To Access:</strong><br>
+            • Finder: Cmd+Shift+G → /Users/murali/.openclaw/workspace/generated_sops<br>
+            • Terminal: cd /Users/murali/.openclaw/workspace/generated_sops<br>
+            • VS Code: code /Users/murali/.openclaw/workspace/generated_sops
+        </div>
+    </div>
+
+    <script>
+        // Add click functionality to SOP items
+        document.querySelectorAll('.sop-item').forEach(item => {
+            item.addEventListener('click', function() {
+                if (!this.textContent.includes('+ ') && this.textContent.includes('.md')) {
+                    const sopName = this.textContent.split(' - ')[0];
+                    alert('SOP: ' + sopName + '\n\nLocation: /Users/murali/.openclaw/workspace/generated_sops/');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

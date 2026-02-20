@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NABH SHCO 3rd Edition - Staff Training MCQ Test</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        /* Start Screen */
+        .start-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .start-screen h2 {
+            color: var(--gray-800);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .chapter-select {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+            margin: 30px 0;
+        }
+        
+        .chapter-btn {
+            padding: 15px 10px;
+            border: 2px solid var(--gray-200);
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+        
+        .chapter-btn:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+        
+        .chapter-btn.selected {
+            border-color: var(--primary);
+            background: #dbeafe;
+        }
+        
+        .chapter-btn .code {
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .chapter-btn .name {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+        
+        .btn {
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Question Screen */
+        .question-screen {
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #8b5cf6);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .question-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+        }
+        
+        .chapter-tag {
+            background: #dbeafe;
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .timer {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 18px 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .option:hover {
+            border-color: var(--primary);
+            background: var(--gray-50);
+        }
+        
+        .option.selected {
+            border-color: var(--primary);
+            background: #dbeafe;
+        }
+        
+        .option.correct {
+            border-color: var(--success);
+            background: #d1fae5;
+        }
+        
+        .option.incorrect {
+            border-color: var(--danger);
+            background: #fee2e2;
+        }
+        
+        .option-letter {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--gray-600);
+            flex-shrink: 0;
+        }
+        
+        .option.selected .option-letter {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .option.correct .option-letter {
+            background: var(--success);
+            color: white;
+        }
+        
+        .option.incorrect .option-letter {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .option-text {
+            font-size: 1rem;
+            color: var(--gray-800);
+        }
+        
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fef3c7;
+            border-radius: 12px;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+        
+        .explanation h4 {
+            color: #92400e;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        .explanation p {
+            color: #78350f;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-800);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-200);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+        }
+        
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .score-circle.excellent {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        
+        .score-circle.good {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        
+        .score-circle.average {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+        
+        .score-circle.poor {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+        
+        .score-percent {
+            font-size: 3rem;
+        }
+        
+        .score-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .result-message {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 10px;
+        }
+        
+        .result-detail {
+            color: var(--gray-600);
+            margin-bottom: 30px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-box {
+            padding: 20px;
+            background: var(--gray-50);
+            border-radius: 12px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+        
+        .stat-box.correct .stat-value { color: var(--success); }
+        .stat-box.incorrect .stat-value { color: var(--danger); }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--gray-50);
+            color: var(--gray-600);
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 640px) {
+            .header h1 { font-size: 1.4rem; }
+            .question-text { font-size: 1.1rem; }
+            .chapter-select { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: 1fr; }
+            .nav-buttons { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>🏥 NABH SHCO 3rd Edition</h1>
+                <p>Staff Training MCQ Test</p>
+                <span class="badge">Hope & Ayushman Hospitals</span>
+            </div>
+            
+            <!-- Start Screen -->
+            <div class="content start-screen" id="startScreen">
+                <h2>Select Chapters to Test</h2>
+                <p style="color: var(--gray-600); margin-bottom: 20px;">Choose one or more chapters, or click "All Chapters" for a comprehensive test</p>
+                
+                <div class="chapter-select" id="chapterSelect">
+                    <button class="chapter-btn selected" data-chapter="all">
+                        <span class="code">ALL</span>
+                        <span class="name">All Chapters</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="AAC">
+                        <span class="code">AAC</span>
+                        <span class="name">Access & Care</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="COP">
+                        <span class="code">COP</span>
+                        <span class="name">Care of Patients</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="MOM">
+                        <span class="code">MOM</span>
+                        <span class="name">Medication</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="PRE">
+                        <span class="code">PRE</span>
+                        <span class="name">Patient Rights</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="HIC">
+                        <span class="code">HIC</span>
+                        <span class="name">Infection Control</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="CQI">
+                        <span class="code">CQI</span>
+                        <span class="name">Quality Improvement</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="ROM">
+                        <span class="code">ROM</span>
+                        <span class="name">Management</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="FMS">
+                        <span class="code">FMS</span>
+                        <span class="name">Facility & Safety</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="HRM">
+                        <span class="code">HRM</span>
+                        <span class="name">Human Resources</span>
+                    </button>
+                    <button class="chapter-btn" data-chapter="IM">
+                        <span class="code">IM</span>
+                        <span class="name">Information Mgmt</span>
+                    </button>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="color: var(--gray-600); font-size: 0.9rem;">
+                        Number of Questions: 
+                        <select id="questionCount" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--gray-300); margin-left: 10px;">
+                            <option value="10">10 Questions</option>
+                            <option value="20" selected>20 Questions</option>
+                            <option value="30">30 Questions</option>
+                            <option value="50">50 Questions (Full Test)</option>
+                        </select>
+                    </label>
+                </div>
+                
+                <button class="btn btn-primary" onclick="startTest()">
+                    🚀 Start Test
+                </button>
+            </div>
+            
+            <!-- Question Screen -->
+            <div class="content question-screen" id="questionScreen">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+                
+                <div class="question-meta">
+                    <span class="chapter-tag" id="chapterTag">AAC</span>
+                    <span id="questionNumber">Question 1 of 20</span>
+                    <span class="timer">⏱️ <span id="timer">00:00</span></span>
+                </div>
+                
+                <div class="question-text" id="questionText"></div>
+                
+                <div class="options" id="optionsContainer"></div>
+                
+                <div class="explanation" id="explanation">
+                    <h4>💡 Explanation</h4>
+                    <p id="explanationText"></p>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">← Previous</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Next →</button>
+                </div>
+            </div>
+            
+            <!-- Results Screen -->
+            <div class="content results-screen" id="resultsScreen">
+                <div class="score-circle" id="scoreCircle">
+                    <span class="score-percent" id="scorePercent">0%</span>
+                    <span class="score-label">Score</span>
+                </div>
+                
+                <h2 class="result-message" id="resultMessage">Great Job!</h2>
+                <p class="result-detail" id="resultDetail">You answered X out of Y questions correctly</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-box correct">
+                        <div class="stat-value" id="correctCount">0</div>
+                        <div class="stat-label">Correct</div>
+                    </div>
+                    <div class="stat-box incorrect">
+                        <div class="stat-value" id="incorrectCount">0</div>
+                        <div class="stat-label">Incorrect</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="timeTaken">0:00</div>
+                        <div class="stat-label">Time Taken</div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="restartTest()">🔄 Take Another Test</button>
+                <button class="btn btn-secondary" onclick="reviewAnswers()" style="margin-top: 10px;">📋 Review Answers</button>
+            </div>
+            
+            <div class="footer">
+                NABH Audit Preparation • Hope & Ayushman Hospitals • Feb 2026
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // =============================================
+        // NABH SHCO 3rd Edition MCQ Question Bank
+        // =============================================
+        const questionBank = {
+            AAC: [
+                {
+                    question: "What is the MINIMUM number of patient identifiers required before any procedure?",
+                    options: ["1 identifier", "2 identifiers", "3 identifiers", "4 identifiers"],
+                    correct: 1,
+                    explanation: "NABH mandates TWO patient identifiers (e.g., patient name + UHID/MRD number) before any procedure, medication administration, or specimen collection. This is a CORE requirement."
+                },
+                {
+                    question: "A unique identification number must be generated at which point?",
+                    options: ["After admission", "At the end of registration", "During discharge", "When entering ICU"],
+                    correct: 1,
+                    explanation: "As per AAC.2.b, a unique identification number must be generated at the END of registration. This is a CORE element."
+                },
+                {
+                    question: "Initial assessment for emergency patients should be completed within:",
+                    options: ["5 minutes", "15 minutes", "30 minutes", "1 hour"],
+                    correct: 0,
+                    explanation: "Emergency patients require immediate triage and initial assessment within 5 minutes of arrival to categorize urgency and initiate appropriate care."
+                },
+                {
+                    question: "Critical laboratory results should be:",
+                    options: ["Filed in the chart", "Intimated to concerned person at the earliest", "Sent via email", "Discussed in next meeting"],
+                    correct: 1,
+                    explanation: "As per AAC.4.e, critical results must be intimated to the concerned person at the earliest. Delay can lead to patient harm."
+                },
+                {
+                    question: "What is the recommended time frame for discharge summary completion?",
+                    options: ["Within 24 hours", "Within 48 hours", "At the time of discharge", "Within 1 week"],
+                    correct: 2,
+                    explanation: "Discharge summary should be completed at the time of discharge to ensure patient receives medication instructions, follow-up dates, and warning signs."
+                },
+                {
+                    question: "Transfer of patients to another facility requires:",
+                    options: ["Verbal consent only", "Written documentation and responsible person to accompany", "Just an ambulance", "Family consent only"],
+                    correct: 1,
+                    explanation: "Transfer requires proper documentation, stabilization, and a responsible healthcare provider to accompany the patient (AAC.2.f)."
+                },
+                {
+                    question: "Triage is a process of:",
+                    options: ["Billing patients", "Prioritizing patients based on clinical needs", "Admitting all patients", "Discharging patients"],
+                    correct: 1,
+                    explanation: "Triage prioritizes patients based on severity of illness/injury to ensure those with most urgent needs receive immediate attention."
+                },
+                {
+                    question: "Patients should be reassessed:",
+                    options: ["Only when they complain", "At appropriate intervals to determine response to treatment", "Once daily", "Only during emergencies"],
+                    correct: 1,
+                    explanation: "AAC.3.c states patients must be reassessed at appropriate intervals to determine response to treatment and plan further care."
+                },
+                {
+                    question: "Early warning signs of clinical deterioration should be:",
+                    options: ["Ignored if patient looks okay", "Identified and prompt intervention initiated", "Documented for next shift", "Reported only to family"],
+                    correct: 1,
+                    explanation: "AAC.3.e requires organizations to identify early warning signs and initiate prompt intervention to prevent adverse outcomes."
+                },
+                {
+                    question: "Outpatients should be informed about:",
+                    options: ["Only their bill", "Their next follow-up appointment", "Hospital policies only", "None of the above"],
+                    correct: 1,
+                    explanation: "AAC.3.d requires outpatients to be informed of their next follow-up appointment where appropriate."
+                }
+            ],
+            COP: [
+                {
+                    question: "High-risk patients include all EXCEPT:",
+                    options: ["Elderly patients", "Immunocompromised patients", "Patients with good vital signs", "Patients on multiple medications"],
+                    correct: 2,
+                    explanation: "High-risk patients include elderly, immunocompromised, those on multiple medications, with altered consciousness, fall risk, etc. Good vital signs alone don't exclude high-risk status."
+                },
+                {
+                    question: "Pain assessment should be done using:",
+                    options: ["Only verbal questions", "Standardized pain assessment tools", "Doctor's observation only", "Family's opinion"],
+                    correct: 1,
+                    explanation: "Pain must be assessed using standardized tools (numeric scale, Wong-Baker faces, behavioral scales) appropriate for patient's age and condition."
+                },
+                {
+                    question: "Nutritional assessment is required for:",
+                    options: ["Only malnourished patients", "All admitted patients", "Only diabetic patients", "Only pediatric patients"],
+                    correct: 1,
+                    explanation: "COP requires nutritional screening/assessment for ALL admitted patients to identify those at nutritional risk and plan appropriate interventions."
+                },
+                {
+                    question: "Restraints on patients should be:",
+                    options: ["Applied freely when needed", "Applied as per documented policy with regular monitoring", "Applied by security", "Avoided always"],
+                    correct: 1,
+                    explanation: "Restraints must follow a documented policy, be ordered by physician, have regular monitoring, and be removed as soon as possible."
+                },
+                {
+                    question: "For end-of-life care, the organization must:",
+                    options: ["Ignore patient wishes", "Respect patient and family wishes and provide comfort care", "Discharge immediately", "Transfer to another facility"],
+                    correct: 1,
+                    explanation: "End-of-life care requires respecting patient/family wishes, providing comfort, managing pain, and supporting emotional needs."
+                },
+                {
+                    question: "Blood transfusion requires:",
+                    options: ["Single verification", "Dual verification at bedside", "No verification needed", "Only doctor's order"],
+                    correct: 1,
+                    explanation: "Blood transfusion requires DUAL verification at bedside - two staff checking patient identity, blood group, and bag details before administration."
+                },
+                {
+                    question: "Surgical safety checklist must be performed:",
+                    options: ["Only for major surgeries", "For all surgical procedures", "Only when resident is available", "Only in private hospitals"],
+                    correct: 1,
+                    explanation: "WHO Surgical Safety Checklist must be performed for ALL surgical procedures - before induction, before incision, and before patient leaves OR."
+                },
+                {
+                    question: "Fall risk assessment should be done:",
+                    options: ["Only for elderly patients", "At admission and when patient condition changes", "Once during entire stay", "Only after a fall occurs"],
+                    correct: 1,
+                    explanation: "Fall risk must be assessed at admission and reassessed whenever patient condition changes (new medication, post-procedure, altered consciousness)."
+                },
+                {
+                    question: "Care of patients receiving moderate sedation requires:",
+                    options: ["Basic monitoring", "Continuous monitoring of vital signs and consciousness", "No special monitoring", "Only pulse oximeter"],
+                    correct: 1,
+                    explanation: "Moderate sedation requires continuous monitoring of oxygen saturation, blood pressure, heart rate, and level of consciousness."
+                },
+                {
+                    question: "Patient isolation is required for:",
+                    options: ["All patients", "Patients with communicable infections", "Only ICU patients", "Patients who request it"],
+                    correct: 1,
+                    explanation: "Isolation precautions are required for patients with communicable/infectious diseases to prevent transmission to others."
+                }
+            ],
+            MOM: [
+                {
+                    question: "High-alert medications must be:",
+                    options: ["Stored anywhere convenient", "Stored separately with clear identification and double-check before administration", "Given without verification", "Stored in patient's drawer"],
+                    correct: 1,
+                    explanation: "High-alert medications (insulin, anticoagulants, potassium, etc.) must be stored separately, clearly labeled, and require independent double-check before administration."
+                },
+                {
+                    question: "LASA stands for:",
+                    options: ["Look-Alike Sound-Alike", "Large And Small Ampules", "Local And Systemic Administration", "List All Standard Antibiotics"],
+                    correct: 0,
+                    explanation: "LASA = Look-Alike Sound-Alike drugs that can be confused due to similar names or packaging. They must be stored separately and clearly differentiated."
+                },
+                {
+                    question: "Medication errors should be:",
+                    options: ["Hidden to avoid blame", "Reported, analyzed, and corrective actions taken", "Only reported if patient is harmed", "Handled by the nurse alone"],
+                    correct: 1,
+                    explanation: "ALL medication errors must be reported (including near-misses), analyzed through RCA, and corrective/preventive actions implemented."
+                },
+                {
+                    question: "The 'Five Rights' of medication administration include all EXCEPT:",
+                    options: ["Right patient", "Right drug", "Right documentation", "Right hospital"],
+                    correct: 3,
+                    explanation: "Five Rights: Right Patient, Right Drug, Right Dose, Right Route, Right Time. Documentation is also critical but 'Right Hospital' is not part of the Five Rights."
+                },
+                {
+                    question: "Controlled substances (narcotics) must be:",
+                    options: ["Kept in regular storage", "Kept under lock and key with documented chain of custody", "Available to all staff", "Stored in patient lockers"],
+                    correct: 1,
+                    explanation: "Controlled substances must be stored under double lock, with strict documentation of every use, and regular physical verification of stock."
+                },
+                {
+                    question: "Drug refrigerator temperature should be maintained at:",
+                    options: ["0-4°C", "2-8°C", "10-15°C", "Room temperature"],
+                    correct: 1,
+                    explanation: "Medication refrigerators must maintain 2-8°C. Temperature must be monitored and logged twice daily with action taken if out of range."
+                },
+                {
+                    question: "Near-expiry drugs should be:",
+                    options: ["Used immediately on any patient", "Identified, segregated, and managed per policy", "Thrown away secretly", "Mixed with other drugs"],
+                    correct: 1,
+                    explanation: "Near-expiry drugs (typically <3 months) must be identified, segregated, and either used appropriately or returned/disposed per policy."
+                },
+                {
+                    question: "Verbal medication orders should be:",
+                    options: ["Accepted as final", "Read-back by receiver and signed by prescriber within 24 hours", "Never accepted", "Written by nurse only"],
+                    correct: 1,
+                    explanation: "Verbal orders require read-back confirmation and must be authenticated (signed) by the prescriber within 24 hours."
+                },
+                {
+                    question: "Emergency drug trays/crash carts should be checked:",
+                    options: ["Monthly", "Weekly", "Daily", "Only after use"],
+                    correct: 2,
+                    explanation: "Crash carts/emergency drug trays must be checked DAILY to ensure drugs are present, not expired, and equipment is functional."
+                },
+                {
+                    question: "Patient's own medications brought from home should be:",
+                    options: ["Immediately administered", "Verified by pharmacist before use", "Discarded", "Given to family to take back"],
+                    correct: 1,
+                    explanation: "Home medications must be identified, verified by pharmacist, and either stored safely or returned to family. They should not be used without verification."
+                }
+            ],
+            PRE: [
+                {
+                    question: "Informed consent must include:",
+                    options: ["Only signature", "Nature of procedure, risks, benefits, alternatives, and right to refuse", "Doctor's name only", "Date only"],
+                    correct: 1,
+                    explanation: "Informed consent requires explaining the nature of procedure, expected benefits, potential risks, alternatives, and patient's right to refuse."
+                },
+                {
+                    question: "Patient rights should be:",
+                    options: ["Known only to doctors", "Displayed prominently and explained to patients", "Kept confidential", "Discussed only if asked"],
+                    correct: 1,
+                    explanation: "Patient rights must be displayed prominently in local language and English, and explained to patients/families upon admission."
+                },
+                {
+                    question: "Patient grievances should be:",
+                    options: ["Ignored", "Addressed through a documented grievance redressal mechanism", "Handled verbally only", "Escalated to police"],
+                    correct: 1,
+                    explanation: "There must be a documented grievance redressal mechanism with defined timelines for acknowledgment and resolution."
+                },
+                {
+                    question: "Patient privacy includes all EXCEPT:",
+                    options: ["Physical privacy during examination", "Confidentiality of medical records", "Sharing records with insurance without consent", "Private counseling space"],
+                    correct: 2,
+                    explanation: "Patient privacy includes physical privacy, record confidentiality, and private counseling. Records CANNOT be shared without patient consent except as required by law."
+                },
+                {
+                    question: "Consent for treatment of a minor should be taken from:",
+                    options: ["The minor", "Legal guardian", "Any relative", "Nurse in-charge"],
+                    correct: 1,
+                    explanation: "For minors, consent must be obtained from the legal guardian (parent or court-appointed guardian)."
+                },
+                {
+                    question: "Patient education should include:",
+                    options: ["Only medication names", "Disease, treatment, diet, medications, warning signs, and follow-up", "Hospital history", "Staff names"],
+                    correct: 1,
+                    explanation: "Patient education must cover their condition, treatment plan, diet, medications, warning signs to watch for, and follow-up requirements."
+                },
+                {
+                    question: "A patient has the right to:",
+                    options: ["Demand specific doctor", "Refuse treatment after being informed of consequences", "Leave without paying", "Access other patients' records"],
+                    correct: 1,
+                    explanation: "Patients have the right to refuse treatment after being fully informed of the consequences. This must be documented."
+                },
+                {
+                    question: "Research involving patients requires:",
+                    options: ["No special permission", "Ethics committee approval and patient informed consent", "Only doctor's decision", "Hospital administrator approval only"],
+                    correct: 1,
+                    explanation: "Any research involving patients requires Ethics Committee approval AND specific informed consent from the patient."
+                },
+                {
+                    question: "Vulnerable populations requiring special protection include:",
+                    options: ["Only children", "Children, elderly, mentally ill, pregnant women, disabled", "Only pregnant women", "Only critically ill"],
+                    correct: 1,
+                    explanation: "Vulnerable populations include children, elderly, mentally ill, pregnant women, disabled, prisoners, and economically disadvantaged."
+                },
+                {
+                    question: "Patient has the right to know:",
+                    options: ["Other patients' information", "Their estimated cost of treatment", "Staff salaries", "Hospital profits"],
+                    correct: 1,
+                    explanation: "Patients have the right to know estimated costs of treatment and any changes to this estimate."
+                }
+            ],
+            HIC: [
+                {
+                    question: "The WHO 5 Moments of Hand Hygiene include all EXCEPT:",
+                    options: ["Before touching patient", "After body fluid exposure", "Before drinking water", "After touching patient surroundings"],
+                    correct: 2,
+                    explanation: "WHO 5 Moments: Before touching patient, Before aseptic procedure, After body fluid exposure, After touching patient, After touching patient surroundings."
+                },
+                {
+                    question: "Hand hygiene compliance should be at least:",
+                    options: ["50%", "60%", "70%", "80%"],
+                    correct: 3,
+                    explanation: "NABH expects hand hygiene compliance of at least 80%. This must be audited regularly with data maintained."
+                },
+                {
+                    question: "Color coding for infectious waste (red bin) is for:",
+                    options: ["Paper waste", "Contaminated waste (blood, body fluids)", "Glass items", "Food waste"],
+                    correct: 1,
+                    explanation: "Red bins are for infected/contaminated waste including blood-soaked items, body fluids, and microbiological waste."
+                },
+                {
+                    question: "Needle stick injury protocol includes:",
+                    options: ["Ignoring if minor", "Immediate washing, reporting, and post-exposure prophylaxis evaluation", "Only reporting to supervisor", "Taking leave"],
+                    correct: 1,
+                    explanation: "Needle stick injuries require immediate washing with soap and water, reporting within 2 hours, and evaluation for post-exposure prophylaxis (PEP)."
+                },
+                {
+                    question: "Autoclave sterilization requires:",
+                    options: ["Only heat", "Heat, pressure, and time with biological indicator testing", "Only water", "UV light"],
+                    correct: 1,
+                    explanation: "Autoclaving requires proper temperature (121°C), pressure (15 psi), and time (15-30 min). Biological indicators must be tested weekly."
+                },
+                {
+                    question: "Hospital-acquired infection (HAI) surveillance should focus on:",
+                    options: ["Only ICU", "Catheter-associated UTI, VAP, surgical site infections, CLABSI", "Only surgical cases", "Only pediatric wards"],
+                    correct: 1,
+                    explanation: "Key HAIs to monitor: CAUTI (catheter-associated UTI), VAP (ventilator-associated pneumonia), SSI (surgical site infection), CLABSI (central line-associated bloodstream infection)."
+                },
+                {
+                    question: "Contact isolation requires:",
+                    options: ["Only mask", "Gown and gloves", "Only hand washing", "No special precautions"],
+                    correct: 1,
+                    explanation: "Contact isolation requires gown and gloves, dedicated equipment, and strict hand hygiene when entering/leaving the room."
+                },
+                {
+                    question: "Sharps should be disposed in:",
+                    options: ["Regular bins", "Puncture-proof containers filled no more than 3/4", "Any available container", "Handed to housekeeping"],
+                    correct: 1,
+                    explanation: "Sharps (needles, blades) must be disposed in puncture-proof containers, filled no more than 3/4 full, and never recapped."
+                },
+                {
+                    question: "Biomedical waste must be disposed within:",
+                    options: ["24 hours", "48 hours", "72 hours", "1 week"],
+                    correct: 1,
+                    explanation: "Biomedical waste must be disposed within 48 hours as per BMW Management Rules."
+                },
+                {
+                    question: "Antibiotic stewardship program aims to:",
+                    options: ["Prescribe more antibiotics", "Optimize antibiotic use and prevent resistance", "Stop all antibiotics", "Use only expensive antibiotics"],
+                    correct: 1,
+                    explanation: "Antibiotic stewardship promotes appropriate antibiotic selection, dosing, and duration to prevent antimicrobial resistance."
+                }
+            ],
+            CQI: [
+                {
+                    question: "Quality indicators should be:",
+                    options: ["Measured once a year", "Measured regularly and trended over time", "Only measured during audit", "Kept confidential from staff"],
+                    correct: 1,
+                    explanation: "Quality indicators must be measured regularly (monthly/quarterly), trended over time, analyzed, and improvement actions taken when targets are not met."
+                },
+                {
+                    question: "Root Cause Analysis (RCA) should be done for:",
+                    options: ["All incidents", "Only fatal incidents", "Sentinel events and serious adverse events", "Only medication errors"],
+                    correct: 2,
+                    explanation: "RCA is required for sentinel events (unexpected death, wrong-site surgery) and serious adverse events to identify system failures and prevent recurrence."
+                },
+                {
+                    question: "A sentinel event is:",
+                    options: ["Minor incident", "An unexpected occurrence involving death or serious harm", "A near-miss", "A patient complaint"],
+                    correct: 1,
+                    explanation: "Sentinel event is an unexpected occurrence involving death or serious physical/psychological injury, or risk thereof."
+                },
+                {
+                    question: "Near-miss reporting is important because:",
+                    options: ["It's optional", "It identifies system weaknesses before harm occurs", "It blames individuals", "It increases workload"],
+                    correct: 1,
+                    explanation: "Near-misses are opportunities to identify and fix system weaknesses before actual harm occurs. A non-punitive reporting culture is essential."
+                },
+                {
+                    question: "Quality committee meetings should be held:",
+                    options: ["Once a year", "At least monthly", "Only during NABH audit", "When problems arise"],
+                    correct: 1,
+                    explanation: "Quality and safety committees should meet at least monthly to review indicators, incidents, and improvement activities."
+                },
+                {
+                    question: "PDCA cycle stands for:",
+                    options: ["Patient Doctor Care Assessment", "Plan Do Check Act", "Prepare Document Check Approve", "Plan Diagnose Cure Assess"],
+                    correct: 1,
+                    explanation: "PDCA (Plan-Do-Check-Act) is a continuous improvement methodology for testing and implementing changes."
+                },
+                {
+                    question: "Clinical audits should:",
+                    options: ["Focus only on documentation", "Compare practice against standards and identify improvements", "Blame poor performers", "Be kept secret"],
+                    correct: 1,
+                    explanation: "Clinical audits compare current practice against evidence-based standards to identify gaps and implement improvements."
+                },
+                {
+                    question: "Patient safety goals include:",
+                    options: ["Reducing costs only", "Patient identification, medication safety, fall prevention, infection control", "Only infection control", "Only surgical safety"],
+                    correct: 1,
+                    explanation: "International Patient Safety Goals (IPSG) cover patient identification, effective communication, high-alert medications, safe surgery, infection control, and fall prevention."
+                },
+                {
+                    question: "Corrective Action Preventive Action (CAPA) should be:",
+                    options: ["Done verbally", "Documented with timelines and responsibility", "Optional", "Done only for major incidents"],
+                    correct: 1,
+                    explanation: "CAPA must be documented with specific actions, responsible persons, timelines, and follow-up to verify effectiveness."
+                },
+                {
+                    question: "Patient satisfaction surveys should:",
+                    options: ["Only collect positive feedback", "Be analyzed and improvement actions taken on feedback", "Be done once a year", "Be optional"],
+                    correct: 1,
+                    explanation: "Patient feedback must be actively collected, analyzed for trends, and specific improvement actions taken on identified issues."
+                }
+            ],
+            ROM: [
+                {
+                    question: "The governing body is responsible for:",
+                    options: ["Daily patient care", "Strategic direction, policy approval, and performance oversight", "Medication dispensing", "Housekeeping"],
+                    correct: 1,
+                    explanation: "Governing body provides strategic direction, approves policies, ensures resource availability, and oversees organizational performance."
+                },
+                {
+                    question: "Hospital leadership includes:",
+                    options: ["Only doctors", "Medical, nursing, and administrative leaders", "Only administrators", "Only the owner"],
+                    correct: 1,
+                    explanation: "Leadership includes medical superintendent/director, nursing head, and administrative head working together for hospital management."
+                },
+                {
+                    question: "Statutory compliance means:",
+                    options: ["Following international standards only", "Compliance with all applicable laws and regulations", "Following doctor's orders", "Patient compliance with treatment"],
+                    correct: 1,
+                    explanation: "Statutory compliance includes adhering to all applicable laws - Clinical Establishment Act, PCPNDT, Fire safety, BMW rules, drug licenses, etc."
+                },
+                {
+                    question: "Ethics committee should address:",
+                    options: ["Only financial matters", "Ethical dilemmas in patient care and research", "Staff salaries", "Equipment procurement"],
+                    correct: 1,
+                    explanation: "Ethics committee addresses ethical issues in patient care (end-of-life, resource allocation) and research (informed consent, patient protection)."
+                },
+                {
+                    question: "Annual operating plan should include:",
+                    options: ["Only financial budget", "Goals, action plans, resource requirements, and monitoring mechanisms", "Only staff requirements", "Only equipment list"],
+                    correct: 1,
+                    explanation: "Annual plan includes organizational goals, department objectives, action plans, resource requirements, and mechanisms for monitoring achievement."
+                },
+                {
+                    question: "Budgeting for quality improvement should be:",
+                    options: ["Optional", "Part of the annual budget", "Considered only if profits are good", "Done only during accreditation"],
+                    correct: 1,
+                    explanation: "Quality improvement must have dedicated budget allocation for training, equipment upgrades, and improvement initiatives."
+                },
+                {
+                    question: "Communication of organizational goals to staff should be:",
+                    options: ["Done only for senior staff", "Done for all staff at all levels", "Optional", "Done only during appraisals"],
+                    correct: 1,
+                    explanation: "Organizational goals, policies, and expectations must be communicated to ALL staff through orientation, meetings, and regular updates."
+                },
+                {
+                    question: "Outsourced services must:",
+                    options: ["Operate independently", "Comply with hospital quality standards through written agreements", "Set their own standards", "Not be monitored"],
+                    correct: 1,
+                    explanation: "Outsourced services (lab, laundry, dietary) must have written agreements specifying quality requirements and must be monitored for compliance."
+                },
+                {
+                    question: "Conflict of interest policy addresses:",
+                    options: ["Patient conflicts", "Situations where personal interests may affect professional judgment", "Staff conflicts", "Family disputes"],
+                    correct: 1,
+                    explanation: "Conflict of interest policies ensure decisions are made in patient's and organization's best interest, not for personal gain."
+                },
+                {
+                    question: "Risk management program should:",
+                    options: ["Only address financial risks", "Identify, assess, and mitigate clinical and operational risks", "Be reactive only", "Focus only on malpractice"],
+                    correct: 1,
+                    explanation: "Risk management proactively identifies potential risks (clinical, operational, financial), assesses their impact, and implements mitigation strategies."
+                }
+            ],
+            FMS: [
+                {
+                    question: "Fire safety drills should be conducted:",
+                    options: ["Once a year", "At least twice a year with documentation", "Only after a fire incident", "Never"],
+                    correct: 1,
+                    explanation: "Fire drills must be conducted at least twice a year, with all staff participating and drills documented with feedback for improvement."
+                },
+                {
+                    question: "Fire extinguishers should be checked:",
+                    options: ["Once a year", "Monthly with annual professional servicing", "Only when needed", "Every 5 years"],
+                    correct: 1,
+                    explanation: "Fire extinguishers require monthly visual checks and annual professional servicing. Records must be maintained."
+                },
+                {
+                    question: "Emergency codes are used for:",
+                    options: ["Patient billing", "Rapid communication of emergencies without causing panic", "Staff attendance", "Department meetings"],
+                    correct: 1,
+                    explanation: "Emergency codes (Code Red-Fire, Code Blue-Cardiac arrest, Code Pink-Child abduction) enable rapid response without alarming patients/visitors."
+                },
+                {
+                    question: "Medical equipment calibration is required:",
+                    options: ["Only for new equipment", "Periodically as per manufacturer guidelines", "Only if malfunctioning", "Once in equipment lifetime"],
+                    correct: 1,
+                    explanation: "All medical equipment must be calibrated periodically as per manufacturer guidelines, with records maintained."
+                },
+                {
+                    question: "Electrical safety includes:",
+                    options: ["Only using original equipment", "Proper earthing, MCB/ELCB, no overloading, regular PAT testing", "Using extension cords freely", "Ignoring minor sparks"],
+                    correct: 1,
+                    explanation: "Electrical safety requires proper earthing, MCB/ELCB protection, no circuit overloading, and regular Portable Appliance Testing (PAT)."
+                },
+                {
+                    question: "Emergency power backup should be tested:",
+                    options: ["Never", "Regularly with documented switchover testing", "Only during power outages", "Once a year"],
+                    correct: 1,
+                    explanation: "Emergency power (generators, UPS) must be tested regularly with documented switchover times, especially for critical areas like OT and ICU."
+                },
+                {
+                    question: "Safe drinking water requires:",
+                    options: ["Any available water", "Regular testing for potability", "Only filtering", "No special treatment"],
+                    correct: 1,
+                    explanation: "Drinking water must be regularly tested for microbial and chemical safety, with records maintained."
+                },
+                {
+                    question: "Construction and renovation in patient care areas requires:",
+                    options: ["No special precautions", "Infection control risk assessment (ICRA) and barriers", "Only informing patients", "Working at night only"],
+                    correct: 1,
+                    explanation: "Construction requires ICRA (Infection Control Risk Assessment), proper barriers, dust control, and alternate pathways to prevent infection transmission."
+                },
+                {
+                    question: "Hazardous materials should be:",
+                    options: ["Stored anywhere", "Identified, labeled, stored safely, with MSDS available", "Disposed in regular waste", "Kept in patient areas"],
+                    correct: 1,
+                    explanation: "Hazardous materials must be identified, properly labeled, stored safely, and have Material Safety Data Sheets (MSDS) available for staff reference."
+                },
+                {
+                    question: "Medical gas cylinders should be:",
+                    options: ["Stored lying down", "Stored upright, secured, with full/empty segregation", "Stored in patient rooms", "Not labeled"],
+                    correct: 1,
+                    explanation: "Gas cylinders must be stored upright, secured to prevent falling, with clear segregation of full and empty cylinders."
+                }
+            ],
+            HRM: [
+                {
+                    question: "Staff credentialing involves:",
+                    options: ["Just checking resume", "Verification of qualifications, experience, registration, and references", "Only interview", "No verification needed"],
+                    correct: 1,
+                    explanation: "Primary source verification of educational qualifications, professional registration, experience, and reference checks is required for all clinical staff."
+                },
+                {
+                    question: "Orientation for new staff should include:",
+                    options: ["Only job duties", "Hospital policies, safety procedures, quality standards, and job responsibilities", "Only salary information", "Just a facility tour"],
+                    correct: 1,
+                    explanation: "Orientation covers hospital mission, policies, safety (fire, infection control), quality standards, and specific job responsibilities."
+                },
+                {
+                    question: "Staff training needs assessment should be:",
+                    options: ["Done once at joining", "Done annually based on performance and job requirements", "Optional", "Done only for doctors"],
+                    correct: 1,
+                    explanation: "Training needs are assessed annually based on performance appraisals, new technology/procedures, and job requirements."
+                },
+                {
+                    question: "BLS (Basic Life Support) training should be for:",
+                    options: ["Only doctors", "All clinical staff", "Only ICU staff", "Only nurses"],
+                    correct: 1,
+                    explanation: "All clinical staff should be trained in BLS, with regular refresher training and competency assessment."
+                },
+                {
+                    question: "Staff immunization should include:",
+                    options: ["No specific vaccines", "Hepatitis B, annual flu vaccine, and other risk-based vaccines", "Only Hepatitis B", "Vaccines are optional"],
+                    correct: 1,
+                    explanation: "Healthcare workers require Hepatitis B vaccination, annual influenza vaccine, and other vaccines based on work exposure risk."
+                },
+                {
+                    question: "Staff health checkup should be done:",
+                    options: ["Never", "At joining and periodically thereafter", "Only when sick", "Only for senior staff"],
+                    correct: 1,
+                    explanation: "Pre-employment health check and periodic health examinations help ensure staff fitness and identify occupational health issues early."
+                },
+                {
+                    question: "Personnel files should contain:",
+                    options: ["Only salary records", "Qualifications, registration, training records, performance appraisals", "Personal photos only", "Just joining date"],
+                    correct: 1,
+                    explanation: "Personnel files must contain verified credentials, job description, orientation records, training, immunization, and performance appraisals."
+                },
+                {
+                    question: "Performance appraisal should be:",
+                    options: ["Done randomly", "Done at least annually with documented feedback", "Optional", "Done only for poor performers"],
+                    correct: 1,
+                    explanation: "All staff should have at least annual performance appraisals with documented feedback and development plans."
+                },
+                {
+                    question: "Staff welfare programs may include:",
+                    options: ["Nothing", "Health insurance, grievance redressal, recreation, and safety programs", "Only salary", "Punishment for errors"],
+                    correct: 1,
+                    explanation: "Staff welfare includes health insurance, occupational safety, grievance mechanisms, recreation, and work-life balance support."
+                },
+                {
+                    question: "Privileging means:",
+                    options: ["Giving special treatment", "Granting specific clinical permissions based on credentials and competence", "VIP status", "Seniority benefits"],
+                    correct: 1,
+                    explanation: "Privileging grants clinical staff permission to perform specific procedures based on their verified credentials, training, and demonstrated competence."
+                }
+            ],
+            IM: [
+                {
+                    question: "Medical records must be:",
+                    options: ["Handwritten only", "Accurate, complete, legible, and contemporaneous", "Typed only", "Optional"],
+                    correct: 1,
+                    explanation: "Medical records must be accurate, complete, legible, and documented contemporaneously (at or near the time of care)."
+                },
+                {
+                    question: "Patient records should be retained for:",
+                    options: ["1 year", "As per legal requirements (typically 3-7 years for adults, longer for minors)", "Forever", "6 months"],
+                    correct: 1,
+                    explanation: "Records must be retained as per legal requirements - typically 3-7 years for adults, and for minors until they reach majority plus additional years."
+                },
+                {
+                    question: "Access to medical records should be:",
+                    options: ["Open to all", "Restricted based on role with documented access policy", "Only for doctors", "Only for nurses"],
+                    correct: 1,
+                    explanation: "Record access should be role-based with documented policy specifying who can access what information."
+                },
+                {
+                    question: "Abbreviations in medical records should be:",
+                    options: ["Used freely", "From an approved hospital abbreviation list only", "Avoided completely", "Made up as needed"],
+                    correct: 1,
+                    explanation: "Only approved abbreviations from the hospital's standard list should be used to prevent misinterpretation."
+                },
+                {
+                    question: "Electronic health records (EHR) require:",
+                    options: ["No special security", "Password protection, access logs, and backup systems", "Paper backup only", "Free access"],
+                    correct: 1,
+                    explanation: "EHR systems require password protection, user access controls, audit trails, regular backups, and disaster recovery plans."
+                },
+                {
+                    question: "Consent forms should be part of:",
+                    options: ["Separate files", "The patient's medical record", "Billing records", "HR files"],
+                    correct: 1,
+                    explanation: "All consent forms (general, procedure-specific, anesthesia) must be filed in the patient's medical record."
+                },
+                {
+                    question: "Discharge summary must include:",
+                    options: ["Only diagnosis", "Diagnosis, treatment given, medications, follow-up, and warning signs", "Only medications", "Just doctor's signature"],
+                    correct: 1,
+                    explanation: "Discharge summary must include diagnosis, treatment provided, medications with instructions, follow-up plan, and warning signs."
+                },
+                {
+                    question: "Medical records committee should:",
+                    options: ["Meet once a year", "Regularly review record quality and completeness", "Only deal with storage", "Not be required"],
+                    correct: 1,
+                    explanation: "Medical records committee regularly audits record quality, completeness, timeliness, and ensures compliance with documentation standards."
+                },
+                {
+                    question: "Data backup should be done:",
+                    options: ["Monthly", "Daily with off-site backup", "When convenient", "Only when system is full"],
+                    correct: 1,
+                    explanation: "Data backup should be done daily at minimum, with off-site storage to protect against data loss from disasters."
+                },
+                {
+                    question: "Patient record destruction should be:",
+                    options: ["Done by any staff", "As per documented policy with proper authorization and records", "Immediate after discharge", "By shredding only"],
+                    correct: 1,
+                    explanation: "Record destruction must follow documented policy, with proper authorization, after retention period, using secure methods, with destruction logs maintained."
+                }
+            ]
+        };
+
+        // State
+        let currentQuestions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let startTime = null;
+        let timerInterval = null;
+        let selectedChapters = ['all'];
+
+        // Elements
+        const startScreen = document.getElementById('startScreen');
+        const questionScreen = document.getElementById('questionScreen');
+        const resultsScreen = document.getElementById('resultsScreen');
+
+        // Chapter selection
+        document.querySelectorAll('.chapter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const chapter = btn.dataset.chapter;
+                if (chapter === 'all') {
+                    document.querySelectorAll('.chapter-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    selectedChapters = ['all'];
+                } else {
+                    document.querySelector('[data-chapter="all"]').classList.remove('selected');
+                    btn.classList.toggle('selected');
+                    selectedChapters = Array.from(document.querySelectorAll('.chapter-btn.selected'))
+                        .map(b => b.dataset.chapter)
+                        .filter(c => c !== 'all');
+                    if (selectedChapters.length === 0) {
+                        document.querySelector('[data-chapter="all"]').classList.add('selected');
+                        selectedChapters = ['all'];
+                    }
+                }
+            });
+        });
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function startTest() {
+            const questionCount = parseInt(document.getElementById('questionCount').value);
+            
+            // Collect questions from selected chapters
+            let allQuestions = [];
+            const chapters = selectedChapters.includes('all') ? Object.keys(questionBank) : selectedChapters;
+            
+            chapters.forEach(chapter => {
+                if (questionBank[chapter]) {
+                    questionBank[chapter].forEach(q => {
+                        allQuestions.push({ ...q, chapter });
+                    });
+                }
+            });
+
+            // Shuffle and select questions
+            currentQuestions = shuffleArray(allQuestions).slice(0, questionCount);
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill(null);
+            
+            // Start timer
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000);
+            
+            // Show question screen
+            startScreen.style.display = 'none';
+            questionScreen.style.display = 'block';
+            resultsScreen.style.display = 'none';
+            
+            showQuestion();
+        }
+
+        function updateTimer() {
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
+            const seconds = (elapsed % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+        }
+
+        function showQuestion() {
+            const q = currentQuestions[currentQuestionIndex];
+            
+            // Update progress
+            const progress = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+            
+            // Update meta
+            document.getElementById('chapterTag').textContent = q.chapter;
+            document.getElementById('questionNumber').textContent = `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`;
+            
+            // Update question
+            document.getElementById('questionText').textContent = q.question;
+            
+            // Update options
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            const letters = ['A', 'B', 'C', 'D'];
+            
+            q.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                if (userAnswers[currentQuestionIndex] === index) {
+                    optionDiv.classList.add('selected');
+                }
+                optionDiv.innerHTML = `
+                    <span class="option-letter">${letters[index]}</span>
+                    <span class="option-text">${option}</span>
+                `;
+                optionDiv.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Hide explanation
+            document.getElementById('explanation').style.display = 'none';
+            
+            // Update nav buttons
+            document.getElementById('prevBtn').style.visibility = currentQuestionIndex === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').textContent = currentQuestionIndex === currentQuestions.length - 1 ? 'Finish ✓' : 'Next →';
+        }
+
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            
+            const options = document.querySelectorAll('.option');
+            options.forEach((opt, i) => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+                if (i === index) {
+                    opt.classList.add('selected');
+                }
+            });
+            
+            // Show correct/incorrect after selection
+            const q = currentQuestions[currentQuestionIndex];
+            setTimeout(() => {
+                options.forEach((opt, i) => {
+                    if (i === q.correct) {
+                        opt.classList.add('correct');
+                    } else if (i === index && i !== q.correct) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                // Show explanation
+                document.getElementById('explanationText').textContent = q.explanation;
+                document.getElementById('explanation').style.display = 'block';
+            }, 300);
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuestions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                finishTest();
+            }
+        }
+
+        function finishTest() {
+            clearInterval(timerInterval);
+            
+            // Calculate results
+            let correct = 0;
+            currentQuestions.forEach((q, i) => {
+                if (userAnswers[i] === q.correct) correct++;
+            });
+            
+            const percentage = Math.round((correct / currentQuestions.length) * 100);
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            
+            // Update results screen
+            const scoreCircle = document.getElementById('scoreCircle');
+            scoreCircle.className = 'score-circle';
+            if (percentage >= 90) {
+                scoreCircle.classList.add('excellent');
+                document.getElementById('resultMessage').textContent = '🏆 Excellent!';
+            } else if (percentage >= 75) {
+                scoreCircle.classList.add('good');
+                document.getElementById('resultMessage').textContent = '👍 Good Job!';
+            } else if (percentage >= 50) {
+                scoreCircle.classList.add('average');
+                document.getElementById('resultMessage').textContent = '📚 Keep Learning!';
+            } else {
+                scoreCircle.classList.add('poor');
+                document.getElementById('resultMessage').textContent = '💪 Needs Improvement';
+            }
+            
+            document.getElementById('scorePercent').textContent = `${percentage}%`;
+            document.getElementById('resultDetail').textContent = `You answered ${correct} out of ${currentQuestions.length} questions correctly`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = currentQuestions.length - correct;
+            document.getElementById('timeTaken').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Show results
+            questionScreen.style.display = 'none';
+            resultsScreen.style.display = 'block';
+        }
+
+        function restartTest() {
+            resultsScreen.style.display = 'none';
+            startScreen.style.display = 'block';
+        }
+
+        function reviewAnswers() {
+            currentQuestionIndex = 0;
+            resultsScreen.style.display = 'none';
+            questionScreen.style.display = 'block';
+            showQuestion();
+            
+            // Show all answers
+            const q = currentQuestions[currentQuestionIndex];
+            setTimeout(() => {
+                const options = document.querySelectorAll('.option');
+                options.forEach((opt, i) => {
+                    if (i === q.correct) {
+                        opt.classList.add('correct');
+                    } else if (userAnswers[currentQuestionIndex] === i) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                document.getElementById('explanationText').textContent = q.explanation;
+                document.getElementById('explanation').style.display = 'block';
+            }, 100);
+        }
+    </script>
+</body>
+</html>

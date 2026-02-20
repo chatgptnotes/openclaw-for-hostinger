@@ -424,7 +424,7 @@
   "communication": {
     "primary_channels": {
       "phone": "+91 93731 11709",
-      "whatsapp": "+91 93731 11709",
+      "whatsapp": ["+91 93731 11709", "+91 8412030400"],
       "telegram": "@Nabhassistant_bot"
     },
     "emails": {

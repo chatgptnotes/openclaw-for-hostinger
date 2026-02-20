@@ -1,0 +1,22 @@
+{
+  "name": "hope-hospital-voice-assistant",
+  "version": "1.0.0",
+  "description": "Patient-facing voice assistant with Hindi support and medical terminology",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node test/test-ivr.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "twilio": "^4.20.0",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "ws": "^8.14.2"
+  },
+  "keywords": ["ivr", "voice-assistant", "hindi", "medical", "hospital"],
+  "author": "Hope Hospital",
+  "license": "UNLICENSED"
+}

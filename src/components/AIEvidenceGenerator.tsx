@@ -37,7 +37,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { useNABHStore } from '../store/nabhStore';
 import { getHospitalInfo, getNABHCoordinator, NABH_ASSESSOR_PROMPT } from '../config/hospitalConfig';
-import { getClaudeApiKey, getGeminiApiKey } from '../lib/supabase';
+import { getClaudeApiKey, callGeminiAPI } from '../lib/supabase';
 import {
   generateInfographic,
   svgToDataUrl,
@@ -404,29 +404,9 @@ function updateHTMLWithText(
 }
 
 // Gemini API call for text generation
-async function callGeminiText(apiKey: string, prompt: string, userMessage: string): Promise<string> {
-  if (!apiKey || apiKey.trim() === '') {
-    throw new Error('Gemini API key is not configured.');
-  }
-
+async function callGeminiText(prompt: string, userMessage: string): Promise<string> {
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: `${prompt}\n\n${userMessage}`,
-                },
-              ],
-            },
-          ],
+    const data = await callGeminiAPI(`${prompt}\n\n${userMessage}`, 0.7, 8192);
           generationConfig: {
             temperature: 0.7,
             maxOutputTokens: 8192,
@@ -545,7 +525,6 @@ export default function AIEvidenceGenerator() {
 
   // API keys from environment variables
   const claudeApiKey = getClaudeApiKey();
-  const geminiApiKey = getGeminiApiKey();
   const [evidenceItems, setEvidenceItems] = useState<EvidenceItem[]>([]);
   const [generatedContents, setGeneratedContents] = useState<GeneratedContent[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -695,7 +674,6 @@ export default function AIEvidenceGenerator() {
       if (geminiApiKey) {
         try {
           generatedText = await callGeminiText(
-            geminiApiKey,
             listPrompt,
             `Objective Element Description:\n\n${description}`
           );
@@ -835,21 +813,15 @@ Generate complete, ready-to-use content/template for this evidence in ENGLISH ON
         let content: string;
 
         // Try Gemini first, fallback to Claude
-        if (geminiApiKey) {
-          try {
-            content = await callGeminiText(geminiApiKey, contentPrompt, userMessage);
-          } catch (geminiErr) {
-            console.warn('Gemini failed for content generation, trying Claude:', geminiErr);
-            if (claudeApiKey) {
-              content = await callClaudeText(claudeApiKey, contentPrompt, userMessage);
-            } else {
-              throw geminiErr;
-            }
+        try {
+          content = await callGeminiText(contentPrompt, userMessage);
+        } catch (geminiErr) {
+          console.warn('Gemini failed for content generation, trying Claude:', geminiErr);
+          if (claudeApiKey) {
+            content = await callClaudeText(claudeApiKey, contentPrompt, userMessage);
+          } else {
+            throw geminiErr;
           }
-        } else if (claudeApiKey) {
-          content = await callClaudeText(claudeApiKey, contentPrompt, userMessage);
-        } else {
-          throw new Error('No API key configured.');
         }
 
         // Extract editable text from the generated HTML content

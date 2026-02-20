@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NABH Nurses Test - Hope Hospital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ec4899;
+            --primary-dark: #db2777;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        .header p { opacity: 0.9; }
+        .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; margin-top: 10px; }
+        
+        .content { padding: 30px; }
+        
+        .start-screen { text-align: center; padding: 40px 20px; }
+        .start-screen h2 { color: var(--gray-800); font-size: 1.5rem; margin-bottom: 20px; }
+        
+        .info-box {
+            background: #fdf2f8;
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+            border-radius: 8px;
+        }
+        
+        .info-box h3 { color: var(--primary-dark); margin-bottom: 10px; }
+        .info-box ul { margin-left: 20px; color: var(--gray-600); }
+        .info-box li { margin: 5px 0; }
+        
+        .btn {
+            padding: 14px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 5px;
+        }
+        
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-secondary { background: var(--gray-100); color: var(--gray-800); }
+        
+        .question-screen { display: none; }
+        
+        .progress-bar { height: 8px; background: var(--gray-200); border-radius: 4px; margin-bottom: 20px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #8b5cf6); border-radius: 4px; transition: width 0.3s; }
+        
+        .question-meta { display: flex; justify-content: space-between; margin-bottom: 20px; color: var(--gray-600); font-size: 0.9rem; }
+        .category-tag { background: #fdf2f8; color: var(--primary); padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+        
+        .question-text { font-size: 1.25rem; font-weight: 600; color: var(--gray-800); line-height: 1.6; margin-bottom: 25px; }
+        
+        .options { display: flex; flex-direction: column; gap: 12px; }
+        
+        .option {
+            padding: 18px 20px;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .option:hover { border-color: var(--primary); background: var(--gray-50); }
+        .option.selected { border-color: var(--primary); background: #fdf2f8; }
+        .option.correct { border-color: var(--success); background: #d1fae5; }
+        .option.incorrect { border-color: var(--danger); background: #fee2e2; }
+        
+        .option-letter {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--gray-100);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700;
+            color: var(--gray-600);
+        }
+        
+        .option.selected .option-letter { background: var(--primary); color: white; }
+        .option.correct .option-letter { background: var(--success); color: white; }
+        .option.incorrect .option-letter { background: var(--danger); color: white; }
+        
+        .explanation {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fef3c7;
+            border-radius: 12px;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+        
+        .explanation h4 { color: #92400e; margin-bottom: 8px; }
+        .explanation p { color: #78350f; font-size: 0.9rem; line-height: 1.5; }
+        
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+        
+        .results-screen { display: none; text-align: center; padding: 40px 20px; }
+        
+        .score-circle {
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 30px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            font-weight: 700;
+        }
+        
+        .score-circle.excellent { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .score-circle.good { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; }
+        .score-circle.average { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .score-circle.poor { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        
+        .score-percent { font-size: 3rem; }
+        .score-label { font-size: 1rem; opacity: 0.9; }
+        
+        .result-message { font-size: 1.5rem; font-weight: 600; color: var(--gray-800); margin-bottom: 10px; }
+        .result-detail { color: var(--gray-600); margin-bottom: 30px; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px; }
+        .stat-box { padding: 20px; background: var(--gray-50); border-radius: 12px; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--gray-800); }
+        .stat-label { font-size: 0.85rem; color: var(--gray-600); }
+        .stat-box.correct .stat-value { color: var(--success); }
+        .stat-box.incorrect .stat-value { color: var(--danger); }
+        
+        .footer { text-align: center; padding: 20px; background: var(--gray-50); color: var(--gray-600); font-size: 0.85rem; }
+        
+        @media (max-width: 640px) {
+            .header h1 { font-size: 1.4rem; }
+            .question-text { font-size: 1.1rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .nav-buttons { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>👩‍⚕️ NABH Test for NURSES</h1>
+                <p>SHCO 3rd Edition - Staff Training</p>
+                <span class="badge">Hope & Ayushman Hospitals</span>
+            </div>
+            
+            <div class="content start-screen" id="startScreen">
+                <h2>Nursing Staff Assessment</h2>
+                
+                <div class="info-box">
+                    <h3>📋 This test covers:</h3>
+                    <ul>
+                        <li>Patient Identification & Safety</li>
+                        <li>Medication Administration (5 Rights)</li>
+                        <li>Infection Control & Hand Hygiene</li>
+                        <li>Documentation & Nursing Notes</li>
+                        <li>Fall Prevention & High-Risk Care</li>
+                        <li>Emergency Response (Code Blue)</li>
+                        <li>Patient Rights & Consent</li>
+                        <li>Pain Assessment & Management</li>
+                    </ul>
+                </div>
+                
+                <p style="color: var(--gray-600); margin-bottom: 20px;">30 questions • Approx. 15 minutes</p>
+                
+                <button class="btn btn-primary" onclick="startTest()">🚀 Start Test</button>
+            </div>
+            
+            <div class="content question-screen" id="questionScreen">
+                <div class="progress-bar"><div class="progress-fill" id="progressBar"></div></div>
+                
+                <div class="question-meta">
+                    <span class="category-tag" id="categoryTag">Patient Safety</span>
+                    <span id="questionNumber">Question 1 of 30</span>
+                </div>
+                
+                <div class="question-text" id="questionText"></div>
+                <div class="options" id="optionsContainer"></div>
+                
+                <div class="explanation" id="explanation">
+                    <h4>💡 Explanation</h4>
+                    <p id="explanationText"></p>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">← Previous</button>
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Next →</button>
+                </div>
+            </div>
+            
+            <div class="content results-screen" id="resultsScreen">
+                <div class="score-circle" id="scoreCircle">
+                    <span class="score-percent" id="scorePercent">0%</span>
+                    <span class="score-label">Score</span>
+                </div>
+                
+                <h2 class="result-message" id="resultMessage">Great Job!</h2>
+                <p class="result-detail" id="resultDetail"></p>
+                
+                <div class="stats-grid">
+                    <div class="stat-box correct">
+                        <div class="stat-value" id="correctCount">0</div>
+                        <div class="stat-label">Correct</div>
+                    </div>
+                    <div class="stat-box incorrect">
+                        <div class="stat-value" id="incorrectCount">0</div>
+                        <div class="stat-label">Incorrect</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="timeTaken">0:00</div>
+                        <div class="stat-label">Time</div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="restartTest()">🔄 Retake Test</button>
+                <button class="btn btn-secondary" onclick="reviewAnswers()">📋 Review</button>
+            </div>
+            
+            <div class="footer">NABH Audit Preparation • Nursing Staff • Feb 2026</div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // Patient Identification
+            { category: "Patient ID", question: "Before administering medication, how many patient identifiers must you verify?", options: ["1 identifier", "2 identifiers", "3 identifiers", "Just ask name"], correct: 1, explanation: "NABH requires TWO identifiers (name + UHID/MRD) before any medication, procedure, or specimen collection." },
+            { category: "Patient ID", question: "Which is NOT an acceptable patient identifier?", options: ["Patient name", "UHID/MRD number", "Room number", "Date of birth"], correct: 2, explanation: "Room/bed number is NOT acceptable as patients can be moved. Use name, UHID, DOB, or photo ID." },
+            { category: "Patient ID", question: "Patient identification band should be checked:", options: ["Only at admission", "Before every medication and procedure", "Once per shift", "Only for surgery patients"], correct: 1, explanation: "ID band must be verified before EVERY medication administration, procedure, specimen collection, or blood transfusion." },
+            
+            // Medication Safety
+            { category: "Medication", question: "The Five Rights of medication administration are:", options: ["Right patient, drug, dose, route, time", "Right doctor, nurse, drug, dose, route", "Right patient, pharmacy, drug, dose, time", "Right ward, patient, drug, dose, time"], correct: 0, explanation: "5 Rights: Right Patient, Right Drug, Right Dose, Right Route, Right Time. Some add Right Documentation." },
+            { category: "Medication", question: "High-alert medications require:", options: ["Single nurse verification", "Independent double-check by two nurses", "Doctor to administer", "No special verification"], correct: 1, explanation: "High-alert drugs (insulin, heparin, KCl, opioids) require independent double-check by two qualified staff before administration." },
+            { category: "Medication", question: "LASA drugs should be:", options: ["Stored together for convenience", "Stored separately with Tall Man lettering", "Given only by doctors", "Avoided completely"], correct: 1, explanation: "Look-Alike Sound-Alike drugs must be stored separately with clear differentiation using Tall Man lettering (e.g., DOPamine vs DOBUTamine)." },
+            { category: "Medication", question: "If you discover a medication error, you should:", options: ["Hide it to avoid blame", "Report it and monitor patient", "Tell only your supervisor verbally", "Wait to see if patient is affected"], correct: 1, explanation: "ALL medication errors must be reported immediately, patient monitored, and incident documented for RCA and prevention." },
+            { category: "Medication", question: "Verbal medication orders require:", options: ["No documentation", "Read-back and signing by doctor within 24 hours", "Writing in personal diary", "Only verbal acknowledgment"], correct: 1, explanation: "Verbal orders must be read back for confirmation and authenticated (signed) by prescriber within 24 hours." },
+            { category: "Medication", question: "Controlled substances (narcotics) require:", options: ["Normal storage", "Double-lock storage with count verification", "Single lock only", "Storage in nurse station drawer"], correct: 1, explanation: "Narcotics require double-lock storage, documented chain of custody, and physical count verification each shift." },
+            
+            // Infection Control
+            { category: "Infection Control", question: "The WHO 5 Moments of Hand Hygiene are:", options: ["Before and after meals, bathroom, sleep, work", "Before patient, before aseptic, after body fluid, after patient, after surroundings", "Only before and after patient contact", "Only when hands look dirty"], correct: 1, explanation: "5 Moments: Before touching patient, Before aseptic procedure, After body fluid exposure, After touching patient, After touching surroundings." },
+            { category: "Infection Control", question: "Hand hygiene with alcohol-based rub should take:", options: ["5 seconds", "20-30 seconds", "1 minute", "10 seconds"], correct: 1, explanation: "Alcohol-based hand rub requires 20-30 seconds, covering all surfaces until dry." },
+            { category: "Infection Control", question: "When should you wash with soap and water instead of alcohol rub?", options: ["Always", "When hands are visibly soiled", "Never, rub is always better", "Only before surgery"], correct: 1, explanation: "Soap and water is required when hands are visibly soiled, after using bathroom, or after caring for C. diff patients." },
+            { category: "Infection Control", question: "Needle stick injury protocol - first step:", options: ["Report to supervisor", "Wash with soap and water immediately", "Take prophylaxis", "Document the incident"], correct: 1, explanation: "First: Wash immediately with soap and water (don't squeeze). Then report within 2 hours for PEP evaluation." },
+            { category: "Infection Control", question: "Red color-coded waste bin is for:", options: ["General waste", "Infected/contaminated waste", "Sharp objects", "Recyclable items"], correct: 1, explanation: "Red bin: Infected waste (blood-soaked items, body fluids). Yellow: Pathological. Blue: Sharp containers. Black: General." },
+            { category: "Infection Control", question: "Sharps containers should be changed when:", options: ["Completely full", "3/4 full", "Daily regardless of level", "Weekly"], correct: 1, explanation: "Sharps containers must be changed when 3/4 full to prevent overflow and needle stick injuries. Never overfill." },
+            
+            // Patient Safety
+            { category: "Patient Safety", question: "Fall risk assessment should be done:", options: ["Only for elderly patients", "At admission and when condition changes", "Only after a fall occurs", "Once per hospitalization"], correct: 1, explanation: "Fall risk assessment at admission and reassessed with any condition change (new meds, post-op, altered consciousness, weakness)." },
+            { category: "Patient Safety", question: "Patient at high fall risk should have:", options: ["No special interventions", "Yellow band, bed alarm, frequent rounding", "Only documentation in chart", "Transfer to ICU"], correct: 1, explanation: "High fall risk: Yellow ID band, bed rails up, bed low, call bell in reach, non-slip footwear, frequent rounding, bed alarm if appropriate." },
+            { category: "Patient Safety", question: "Pressure ulcer risk assessment uses:", options: ["Visual inspection only", "Braden or Norton scale", "Doctor's judgment", "No formal assessment needed"], correct: 1, explanation: "Standardized tools (Braden Scale, Norton Scale) assess pressure ulcer risk. High-risk patients need prevention interventions." },
+            { category: "Patient Safety", question: "Side rails should be:", options: ["Always up for all patients", "Based on patient assessment and policy", "Always down", "Only up at night"], correct: 1, explanation: "Side rail use based on individual assessment - can be restraint if used to prevent patient from leaving bed. Follow hospital policy." },
+            
+            // Documentation
+            { category: "Documentation", question: "Nursing notes should be:", options: ["Written at end of shift from memory", "Documented contemporaneously (at time of care)", "Copied from previous shift", "Only for abnormal findings"], correct: 1, explanation: "Document at time of care or as soon as possible. Late entries should be labeled as such with actual time noted." },
+            { category: "Documentation", question: "If you make an error in documentation, you should:", options: ["Use white-out", "Scratch it out completely", "Single line through, initial, date, and correct", "Remove the page"], correct: 2, explanation: "Draw single line through error, initial, date, and write correct entry. Error must remain visible for legal purposes." },
+            { category: "Documentation", question: "Nursing assessment must include:", options: ["Only vital signs", "Physical assessment, psychosocial, pain, fall risk, nutrition", "Only what doctor orders", "Only abnormal findings"], correct: 1, explanation: "Comprehensive nursing assessment: Physical, pain, fall risk, skin, nutrition, psychosocial, functional status, discharge needs." },
+            
+            // Patient Rights
+            { category: "Patient Rights", question: "Patient refuses medication. You should:", options: ["Force the patient", "Document refusal and inform doctor", "Give it in food secretly", "Ignore and move on"], correct: 1, explanation: "Patient has right to refuse. Document refusal, educate on consequences, inform physician, and document everything." },
+            { category: "Patient Rights", question: "Patient's family wants medical information. You should:", options: ["Tell them everything", "Check if patient has consented to share with them", "Refuse always", "Only tell the spouse"], correct: 1, explanation: "Verify patient has authorized sharing information with specific family members. Maintain confidentiality otherwise." },
+            
+            // Pain Management
+            { category: "Pain", question: "Pain should be assessed using:", options: ["Only your observation", "Standardized pain scales (0-10, Wong-Baker)", "Only when patient complains", "Blood pressure readings"], correct: 1, explanation: "Use appropriate standardized tools: Numeric scale (0-10) for adults, Wong-Baker faces for children, behavioral scales for non-verbal." },
+            { category: "Pain", question: "Pain is considered the:", options: ["Minor vital sign", "5th vital sign", "Optional assessment", "Doctor's responsibility only"], correct: 1, explanation: "Pain is the 5th vital sign. Assess with other vitals, document, and reassess after intervention." },
+            
+            // Emergency
+            { category: "Emergency", question: "Code Blue means:", options: ["Fire emergency", "Cardiac/respiratory arrest", "Child abduction", "Security threat"], correct: 1, explanation: "Code Blue: Cardiac/respiratory arrest. Code Red: Fire. Code Pink: Child abduction. Know your hospital's codes!" },
+            { category: "Emergency", question: "First action when patient is unresponsive:", options: ["Start CPR immediately", "Check responsiveness, call for help, check pulse", "Call family", "Give medications"], correct: 1, explanation: "Check responsiveness, call for help/activate Code Blue, check breathing and pulse (10 sec), start CPR if no pulse." },
+            { category: "Emergency", question: "Crash cart should be checked:", options: ["Weekly", "Daily", "Only after use", "Monthly"], correct: 1, explanation: "Crash cart requires DAILY check - all drugs present, not expired, defibrillator charged, supplies complete. Document the check." },
+            { category: "Emergency", question: "During CPR, compression depth for adults should be:", options: ["1-2 inches", "At least 2 inches (5 cm)", "As deep as possible", "Gentle compressions only"], correct: 1, explanation: "Adult CPR: Compress at least 2 inches (5 cm), rate 100-120/min, allow full chest recoil, minimize interruptions." }
+        ];
+
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let userAnswers = [];
+        let startTime = null;
+
+        function shuffleArray(arr) {
+            const newArr = [...arr];
+            for (let i = newArr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
+            }
+            return newArr;
+        }
+
+        function startTest() {
+            currentQuestions = shuffleArray(questions);
+            currentIndex = 0;
+            userAnswers = new Array(currentQuestions.length).fill(null);
+            startTime = Date.now();
+            
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('questionScreen').style.display = 'block';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = currentQuestions[currentIndex];
+            document.getElementById('progressBar').style.width = `${((currentIndex + 1) / currentQuestions.length) * 100}%`;
+            document.getElementById('categoryTag').textContent = q.category;
+            document.getElementById('questionNumber').textContent = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
+            document.getElementById('questionText').textContent = q.question;
+            
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+            const letters = ['A', 'B', 'C', 'D'];
+            
+            q.options.forEach((opt, i) => {
+                const div = document.createElement('div');
+                div.className = 'option' + (userAnswers[currentIndex] === i ? ' selected' : '');
+                div.innerHTML = `<span class="option-letter">${letters[i]}</span><span>${opt}</span>`;
+                div.onclick = () => selectOption(i);
+                container.appendChild(div);
+            });
+            
+            document.getElementById('explanation').style.display = 'none';
+            document.getElementById('prevBtn').style.visibility = currentIndex === 0 ? 'hidden' : 'visible';
+            document.getElementById('nextBtn').textContent = currentIndex === currentQuestions.length - 1 ? 'Finish ✓' : 'Next →';
+        }
+
+        function selectOption(index) {
+            userAnswers[currentIndex] = index;
+            const options = document.querySelectorAll('.option');
+            const q = currentQuestions[currentIndex];
+            
+            options.forEach((opt, i) => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+                if (i === index) opt.classList.add('selected');
+            });
+            
+            setTimeout(() => {
+                options.forEach((opt, i) => {
+                    if (i === q.correct) opt.classList.add('correct');
+                    else if (i === index) opt.classList.add('incorrect');
+                });
+                document.getElementById('explanationText').textContent = q.explanation;
+                document.getElementById('explanation').style.display = 'block';
+            }, 300);
+        }
+
+        function prevQuestion() { if (currentIndex > 0) { currentIndex--; showQuestion(); } }
+        
+        function nextQuestion() {
+            if (currentIndex < currentQuestions.length - 1) { currentIndex++; showQuestion(); }
+            else { finishTest(); }
+        }
+
+        function finishTest() {
+            let correct = 0;
+            currentQuestions.forEach((q, i) => { if (userAnswers[i] === q.correct) correct++; });
+            
+            const pct = Math.round((correct / currentQuestions.length) * 100);
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            
+            const circle = document.getElementById('scoreCircle');
+            circle.className = 'score-circle ' + (pct >= 90 ? 'excellent' : pct >= 75 ? 'good' : pct >= 50 ? 'average' : 'poor');
+            document.getElementById('resultMessage').textContent = pct >= 90 ? '🏆 Excellent!' : pct >= 75 ? '👍 Good Job!' : pct >= 50 ? '📚 Keep Learning!' : '💪 Needs Practice';
+            
+            document.getElementById('scorePercent').textContent = pct + '%';
+            document.getElementById('resultDetail').textContent = `${correct} of ${currentQuestions.length} correct`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('incorrectCount').textContent = currentQuestions.length - correct;
+            document.getElementById('timeTaken').textContent = `${Math.floor(elapsed/60)}:${(elapsed%60).toString().padStart(2,'0')}`;
+            
+            document.getElementById('questionScreen').style.display = 'none';
+            document.getElementById('resultsScreen').style.display = 'block';
+        }
+
+        function restartTest() {
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('startScreen').style.display = 'block';
+        }
+
+        function reviewAnswers() {
+            currentIndex = 0;
+            document.getElementById('resultsScreen').style.display = 'none';
+            document.getElementById('questionScreen').style.display = 'block';
+            showQuestion();
+            setTimeout(() => {
+                const q = currentQuestions[0];
+                document.querySelectorAll('.option').forEach((opt, i) => {
+                    if (i === q.correct) opt.classList.add('correct');
+                    else if (userAnswers[0] === i) opt.classList.add('incorrect');
+                });
+                document.getElementById('explanationText').textContent = q.explanation;
+                document.getElementById('explanation').style.display = 'block';
+            }, 100);
+        }
+    </script>
+</body>
+</html>

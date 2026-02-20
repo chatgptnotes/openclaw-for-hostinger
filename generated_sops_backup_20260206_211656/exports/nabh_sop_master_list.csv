@@ -1,0 +1,16 @@
+NABH Element,SOP ID,Title,Department,Type,Status,File Path
+AAC.1.1,SOP-AAC-1.1-001,Emergency Department Availability and Access,Emergency Department,Emergency Care Protocol,COMPLETE,AAC/AAC_1_1_SOP_Complete.md
+AAC.1.2,SOP-AAC-1.2-001,Triage System Implementation,Emergency Department,Emergency Procedure,TEMPLATE,AAC/AAC_1_2_SOP.md
+AAC.1.3,SOP-AAC-1.3-001,Emergency Care Protocols,Emergency Department,Clinical Protocol,TEMPLATE,AAC/AAC_1_3_SOP.md
+AAC.1.4,SOP-AAC-1.4-001,Resuscitation Procedures,Emergency Department,Emergency Procedure,TEMPLATE,AAC/AAC_1_4_SOP.md
+AAC.1.5,SOP-AAC-1.5-001,Emergency Medication Availability,Emergency Department,Medication Management,TEMPLATE,AAC/AAC_1_5_SOP.md
+AAC.1.6,SOP-AAC-1.6-001,Emergency Equipment Maintenance,Emergency Department,Equipment Management,TEMPLATE,AAC/AAC_1_6_SOP.md
+AAC.1.7,SOP-AAC-1.7-001,Staff Competency in Emergency Care,Emergency Department,HR/Training,TEMPLATE,AAC/AAC_1_7_SOP.md
+AAC.1.8,SOP-AAC-1.8-001,Patient Tracking in Emergency,Emergency Department,Administrative,TEMPLATE,AAC/AAC_1_8_SOP.md
+AAC.1.9,SOP-AAC-1.9-001,Emergency Documentation,Emergency Department,Documentation,TEMPLATE,AAC/AAC_1_9_SOP.md
+AAC.1.10,SOP-AAC-1.10-001,Emergency Discharge Procedures,Emergency Department,Discharge Protocol,TEMPLATE,AAC/AAC_1_10_SOP.md
+HIC.2.1,SOP-HIC-2.1-001,Hand Hygiene Protocol,All Departments,Infection Control,COMPLETE,HIC/HIC_2_1_SOP_Complete.md
+HIC.3.1,SOP-HIC-3.1-001,Standard Precautions Protocol,All Departments,Infection Control,COMPLETE,HIC/HIC_3_1_SOP_Complete.md
+MOM.4.2,SOP-MOM-4.2-001,Patient Identification Verification,Nursing/Pharmacy,Medication Safety,COMPLETE,MOM/MOM_4_2_SOP_Complete.md
+COP.2.1,SOP-COP-2.1-001,High-Risk Patient Identification,All Clinical,Clinical Care,COMPLETE,COP/COP_2_1_SOP_Complete.md
+CQI.3.1,SOP-CQI-3.1-001,Patient Safety Program,Quality Department,Patient Safety,COMPLETE,CQI/CQI_3_1_SOP_Complete.md

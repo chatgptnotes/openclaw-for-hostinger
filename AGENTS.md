@@ -16,6 +16,25 @@ Before doing anything else:
 
 Don't ask permission. Just do it.
 
+## 🚀 Startup Checklist (MANDATORY)
+
+**Every main session, verify these are working:**
+
+1. **Check cron jobs:** Run `cron list` to verify all daily tasks are enabled
+2. **Reference:** `memory/daily-tasks.md` — master list of all automated tasks
+3. **Review HEARTBEAT.md** — for any manual/periodic tasks
+4. **Check today's memory:** `memory/YYYY-MM-DD.md` for context
+
+**If something seems missing:**
+- Cross-check `memory/daily-tasks.md` against `cron list`
+- Fix any disabled jobs that should be running
+- Report gaps to Dr. Murali
+
+**Key files for daily operations:**
+- `memory/daily-tasks.md` — All cron jobs with times, targets, IDs
+- `HEARTBEAT.md` — Periodic checks and exclusions
+- `TOOLS.md` — Contact overrides and local notes
+
 ## Memory
 
 You wake up fresh each session. These files are your continuity:

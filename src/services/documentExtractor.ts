@@ -4,7 +4,7 @@
  * Uses Gemini Vision API for intelligent text extraction
  */
 
-import { getGeminiApiKey } from '../lib/supabase';
+import { callGeminiAPI } from '../lib/supabase';
 
 export interface ExtractionResult {
   success: boolean;
@@ -39,12 +39,15 @@ export const fileToBase64 = (file: File): Promise<string> => {
 
 /**
  * Extract text from image using Gemini Vision
+ * TODO: Backend API needs image support - currently uses direct API call (SECURITY RISK)
  */
 export const extractTextFromImage = async (
   file: File,
   prompt?: string
 ): Promise<ExtractionResult> => {
-  const geminiApiKey = getGeminiApiKey();
+  // TODO: SECURITY FIX NEEDED - This function still uses direct Gemini API for image processing
+  // The backend proxy needs to be updated to support image uploads before this can be secured
+  const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
   if (!geminiApiKey) {
     return { success: false, text: '', error: 'Gemini API key not configured' };
   }
@@ -74,6 +77,14 @@ Format the output as structured text with clear sections.`;
               { inline_data: { mime_type: file.type, data: base64.split(',')[1] } }
             ]
           }],
+          generationConfig: { temperature: 0.7, maxOutputTokens: 8192 },
+        }),
+      }
+    );
+
+    const data = await response.json();
+            ]
+          }],
           generationConfig: { temperature: 0.3, maxOutputTokens: 8192 },
         }),
       }
@@ -91,13 +102,14 @@ Format the output as structured text with clear sections.`;
 
 /**
  * Extract text from PDF using Gemini Vision (for scanned PDFs)
- * For text-based PDFs, we'll use a simple approach
+ * TODO: Backend API needs image support - currently uses direct API call (SECURITY RISK)
  */
 export const extractTextFromPDF = async (
   file: File,
   prompt?: string
 ): Promise<ExtractionResult> => {
-  const geminiApiKey = getGeminiApiKey();
+  // TODO: SECURITY FIX NEEDED - This function still uses direct Gemini API for PDF processing
+  const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
   if (!geminiApiKey) {
     return { success: false, text: '', error: 'Gemini API key not configured' };
   }
@@ -150,11 +162,6 @@ export const analyzeDocument = async (
   text: string,
   documentCategory: string
 ): Promise<DocumentAnalysis> => {
-  const geminiApiKey = getGeminiApiKey();
-  if (!geminiApiKey) {
-    return { documentType: 'unknown', sections: [] };
-  }
-
   const prompts: Record<string, string> = {
     stationery: `Analyze this hospital stationery/form text and extract:
 1. Document type (form, register, certificate, letterhead, etc.)
@@ -211,19 +218,7 @@ Return as JSON with keys: title, slides[{title, content, keyPoints[]}], suggesti
   };
 
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompts[documentCategory] || prompts.stationery }] }],
-          generationConfig: { temperature: 0.3, maxOutputTokens: 4096 },
-        }),
-      }
-    );
-
-    const data = await response.json();
+    const data = await callGeminiAPI(prompts[documentCategory] || prompts.stationery, 0.3, 4096);
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
     // Try to parse JSON from response
@@ -263,11 +258,6 @@ export const generateImprovedDocument = async (
   userSuggestions: string,
   hospitalName: string = 'Hope Hospital'
 ): Promise<string> => {
-  const geminiApiKey = getGeminiApiKey();
-  if (!geminiApiKey) {
-    return '';
-  }
-
   const prompts: Record<string, string> = {
     stationery: `Create an improved, professionally formatted hospital document based on this extracted content.
 
@@ -348,19 +338,7 @@ Generate complete HTML presentation with multiple slides.`,
   };
 
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompts[documentCategory] || prompts.stationery }] }],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 8192 },
-        }),
-      }
-    );
-
-    const data = await response.json();
+    const data = await callGeminiAPI(prompts[documentCategory] || prompts.stationery, 0.7, 8192);
     let content = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
     // Extract HTML from response
@@ -387,19 +365,8 @@ export const extractCommitteeData = async (text: string): Promise<{
   meetingFrequency: string;
   responsibilities: string[];
 }> => {
-  const geminiApiKey = getGeminiApiKey();
-  if (!geminiApiKey) {
-    return { name: '', description: '', objectives: [], members: [], meetingFrequency: '', responsibilities: [] };
-  }
-
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: `Extract committee information from this document:
+    const prompt = `Extract committee information from this document:
 
 ${text}
 
@@ -413,13 +380,9 @@ Return JSON with:
   "responsibilities": ["responsibility1", "responsibility2"]
 }
 
-Only return the JSON, no other text.` }] }],
-          generationConfig: { temperature: 0.3, maxOutputTokens: 2048 },
-        }),
-      }
-    );
+Only return the JSON, no other text.`;
 
-    const data = await response.json();
+    const data = await callGeminiAPI(prompt, 0.3, 2048);
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
     try {
@@ -444,19 +407,8 @@ Only return the JSON, no other text.` }] }],
 export const extractKPIData = async (text: string): Promise<{
   kpis: { name: string; category: string; target: number; unit: string; formula: string }[];
 }> => {
-  const geminiApiKey = getGeminiApiKey();
-  if (!geminiApiKey) {
-    return { kpis: [] };
-  }
-
   try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: `Extract KPI/Quality Indicator information from this document:
+    const prompt = `Extract KPI/Quality Indicator information from this document:
 
 ${text}
 
@@ -473,13 +425,9 @@ Return JSON with:
   ]
 }
 
-Only return the JSON, no other text.` }] }],
-          generationConfig: { temperature: 0.3, maxOutputTokens: 4096 },
-        }),
-      }
-    );
-
-    const data = await response.json();
+Only return the JSON, no other text.`;
+    
+    const data = await callGeminiAPI(prompt, 0.3, 4096);
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
     try {

@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NABH SHCO 3rd Edition - Printable MCQ Quiz</title>
+    <style>
+        @page { size: A4; margin: 1.5cm; }
+        @media print {
+            .no-print { display: none !important; }
+            .page-break { page-break-before: always; }
+            body { font-size: 11pt; }
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; line-height: 1.4; padding: 20px; max-width: 800px; margin: 0 auto; }
+        
+        .header { text-align: center; border-bottom: 3px solid #2563eb; padding-bottom: 15px; margin-bottom: 20px; }
+        .header h1 { color: #1e40af; font-size: 24pt; margin-bottom: 5px; }
+        .header h2 { color: #4b5563; font-size: 14pt; font-weight: normal; }
+        .header .hospital { color: #059669; font-weight: bold; margin-top: 10px; }
+        
+        .info-box { background: #f3f4f6; border-left: 4px solid #2563eb; padding: 10px 15px; margin-bottom: 20px; }
+        .info-box strong { color: #1e40af; }
+        
+        .name-date { display: flex; justify-content: space-between; margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; }
+        .name-date div { flex: 1; }
+        .name-date span { color: #666; }
+        .name-date .line { border-bottom: 1px solid #000; display: inline-block; width: 200px; margin-left: 10px; }
+        
+        .section { margin-bottom: 25px; }
+        .section-title { background: #1e40af; color: white; padding: 8px 15px; font-size: 14pt; margin-bottom: 15px; }
+        
+        .question { margin-bottom: 20px; page-break-inside: avoid; }
+        .question-num { font-weight: bold; color: #2563eb; }
+        .question-text { margin: 5px 0 10px 0; font-weight: 500; }
+        
+        .options { margin-left: 20px; }
+        .option { margin: 5px 0; display: flex; align-items: flex-start; }
+        .option-box { width: 18px; height: 18px; border: 2px solid #666; margin-right: 10px; flex-shrink: 0; margin-top: 2px; }
+        .option-text { flex: 1; }
+        
+        .answer-key { background: #fef3c7; border: 2px solid #f59e0b; padding: 15px; margin-top: 30px; }
+        .answer-key h3 { color: #92400e; margin-bottom: 10px; }
+        .answers { display: flex; flex-wrap: wrap; gap: 10px; }
+        .answer { background: white; padding: 3px 8px; border-radius: 4px; font-size: 10pt; }
+        
+        .btn { background: #2563eb; color: white; border: none; padding: 15px 30px; font-size: 14pt; cursor: pointer; border-radius: 8px; margin: 10px 5px; }
+        .btn:hover { background: #1d4ed8; }
+        .btn-secondary { background: #6b7280; }
+        
+        .print-controls { text-align: center; margin-bottom: 20px; padding: 20px; background: #f3f4f6; border-radius: 8px; }
+        
+        .footer { text-align: center; margin-top: 30px; padding-top: 15px; border-top: 1px solid #ccc; color: #666; font-size: 10pt; }
+    </style>
+</head>
+<body>
+    <div class="print-controls no-print">
+        <h2>🖨️ Print Options</h2>
+        <p>Select what to print:</p>
+        <button class="btn" onclick="window.print()">Print Quiz (No Answers)</button>
+        <button class="btn btn-secondary" onclick="showAnswers()">Show Answer Key</button>
+        <button class="btn btn-secondary" onclick="printWithAnswers()">Print With Answers</button>
+    </div>
+
+    <div class="header">
+        <h1>🏥 NABH SHCO 3rd Edition</h1>
+        <h2>Staff Training Assessment Quiz</h2>
+        <div class="hospital">Hope & Ayushman Hospitals, Nagpur</div>
+    </div>
+    
+    <div class="name-date">
+        <div>
+            <span>Name / नाम:</span>
+            <span class="line"></span>
+        </div>
+        <div>
+            <span>Department / विभाग:</span>
+            <span class="line"></span>
+        </div>
+        <div>
+            <span>Date / दिनांक:</span>
+            <span class="line"></span>
+        </div>
+    </div>
+    
+    <div class="info-box">
+        <strong>Instructions:</strong> Mark (✓) the correct answer for each question. Time: 30 minutes.
+    </div>
+
+    <!-- SECTION 1: PATIENT SAFETY -->
+    <div class="section">
+        <div class="section-title">📋 Section 1: Patient Identification & Safety</div>
+        
+        <div class="question">
+            <span class="question-num">Q1.</span>
+            <div class="question-text">How many patient identifiers must be verified before giving medication?</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) 1 identifier</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) 2 identifiers</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) 3 identifiers</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) No verification needed</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q2.</span>
+            <div class="question-text">Which is NOT an acceptable patient identifier?</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Patient name</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) UHID / MRD number</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Room / Bed number</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Date of birth</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q3.</span>
+            <div class="question-text">Fall risk assessment should be done:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Only for elderly patients</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) At admission and when patient condition changes</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Only after a fall occurs</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Once per hospitalization</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q4.</span>
+            <div class="question-text">High fall risk patient should have:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) No special interventions</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Yellow ID band, bed alarm, frequent rounding</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Only documentation in chart</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Transfer to ICU</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q5.</span>
+            <div class="question-text">Pain is considered which vital sign?</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) 4th vital sign</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) 5th vital sign</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) 6th vital sign</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Not a vital sign</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: MEDICATION SAFETY -->
+    <div class="section page-break">
+        <div class="section-title">💊 Section 2: Medication Safety</div>
+        
+        <div class="question">
+            <span class="question-num">Q6.</span>
+            <div class="question-text">The Five Rights of medication are:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Right patient, drug, dose, route, time</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Right doctor, nurse, drug, dose, route</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Right patient, pharmacy, drug, dose, time</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Right ward, patient, drug, dose, time</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q7.</span>
+            <div class="question-text">LASA stands for:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Large And Small Ampules</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Look-Alike Sound-Alike</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Local And Systemic Administration</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) List All Standard Antibiotics</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q8.</span>
+            <div class="question-text">High-alert medications require:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Single nurse verification</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Independent double-check by two staff</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Doctor to administer</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) No special verification</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q9.</span>
+            <div class="question-text">Drug refrigerator temperature should be:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) 0-4°C</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) 2-8°C</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) 10-15°C</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Room temperature</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q10.</span>
+            <div class="question-text">Crash cart should be checked:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Weekly</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Daily</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Monthly</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Only after use</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: INFECTION CONTROL -->
+    <div class="section page-break">
+        <div class="section-title">🧴 Section 3: Infection Control & Hand Hygiene</div>
+        
+        <div class="question">
+            <span class="question-num">Q11.</span>
+            <div class="question-text">WHO 5 Moments of Hand Hygiene are:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Before meals, bathroom, sleep, work, home</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Before patient, before aseptic, after body fluid, after patient, after surroundings</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Only before and after patient contact</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Only when hands look dirty</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q12.</span>
+            <div class="question-text">Hand hygiene compliance should be at least:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) 50%</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) 60%</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) 70%</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) 80%</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q13.</span>
+            <div class="question-text">Red color-coded waste bin is for:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) General waste</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Infected/contaminated waste</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Sharp objects</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Recyclable items</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q14.</span>
+            <div class="question-text">Sharps containers should be changed when:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Completely full</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) 3/4 (three-quarter) full</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Daily regardless of level</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Weekly</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q15.</span>
+            <div class="question-text">Needle stick injury - first step is:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Report to supervisor</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Wash with soap and water immediately</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Take prophylaxis</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Document the incident</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: DOCUMENTATION & CONSENT -->
+    <div class="section page-break">
+        <div class="section-title">📝 Section 4: Documentation & Patient Rights</div>
+        
+        <div class="question">
+            <span class="question-num">Q16.</span>
+            <div class="question-text">Informed consent must include:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Only procedure name</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Procedure, risks, benefits, alternatives, right to refuse</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Just patient signature</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Doctor's credentials only</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q17.</span>
+            <div class="question-text">Medical records should be:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Written at end of shift</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Accurate, complete, legible, contemporaneous</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Completed weekly</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Optional for minor procedures</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q18.</span>
+            <div class="question-text">If patient refuses treatment, you should:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Force treatment</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Document refusal and consequences explained</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Discharge immediately</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Inform police</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q19.</span>
+            <div class="question-text">Abbreviations in medical records should be:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Used freely for speed</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) From approved hospital list only</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Avoided completely</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Made up as needed</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q20.</span>
+            <div class="question-text">Discharge summary must include:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Only diagnosis</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Diagnosis, treatment, medications, follow-up, warning signs</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Only medications</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Just doctor's signature</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: EMERGENCY & SAFETY -->
+    <div class="section page-break">
+        <div class="section-title">🚨 Section 5: Emergency & Fire Safety</div>
+        
+        <div class="question">
+            <span class="question-num">Q21.</span>
+            <div class="question-text">Code Blue means:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Fire emergency</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Cardiac/respiratory arrest</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Child abduction</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Security threat</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q22.</span>
+            <div class="question-text">Fire safety drill should be conducted:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Once a year</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) At least twice a year</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Only after a fire</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Never</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q23.</span>
+            <div class="question-text">Fire extinguisher PASS means:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Push And Spray Slowly</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Pull pin, Aim, Squeeze, Sweep</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Press And Shake Spray</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Pour All Substances Slowly</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q24.</span>
+            <div class="question-text">Fire exits should be:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) Locked for security</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Clear and never blocked</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Used for storage</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Only for staff use</span></div>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="question-num">Q25.</span>
+            <div class="question-text">Sentinel event (like wrong-site surgery) requires:</div>
+            <div class="options">
+                <div class="option"><div class="option-box"></div><span class="option-text">A) No special action</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">B) Immediate reporting and Root Cause Analysis</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">C) Only verbal reporting</span></div>
+                <div class="option"><div class="option-box"></div><span class="option-text">D) Reporting only to family</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANSWER KEY (Hidden by default) -->
+    <div class="answer-key page-break" id="answerKey" style="display: none;">
+        <h3>✅ ANSWER KEY</h3>
+        <div class="answers">
+            <span class="answer">1. B</span>
+            <span class="answer">2. C</span>
+            <span class="answer">3. B</span>
+            <span class="answer">4. B</span>
+            <span class="answer">5. B</span>
+            <span class="answer">6. A</span>
+            <span class="answer">7. B</span>
+            <span class="answer">8. B</span>
+            <span class="answer">9. B</span>
+            <span class="answer">10. B</span>
+            <span class="answer">11. B</span>
+            <span class="answer">12. D</span>
+            <span class="answer">13. B</span>
+            <span class="answer">14. B</span>
+            <span class="answer">15. B</span>
+            <span class="answer">16. B</span>
+            <span class="answer">17. B</span>
+            <span class="answer">18. B</span>
+            <span class="answer">19. B</span>
+            <span class="answer">20. B</span>
+            <span class="answer">21. B</span>
+            <span class="answer">22. B</span>
+            <span class="answer">23. B</span>
+            <span class="answer">24. B</span>
+            <span class="answer">25. B</span>
+        </div>
+        <p style="margin-top: 15px; font-size: 10pt; color: #666;">
+            <strong>Passing Score:</strong> 80% (20/25 correct)<br>
+            <strong>Score:</strong> _____ / 25 = _____%
+        </p>
+    </div>
+
+    <div class="footer">
+        <p>NABH SHCO 3rd Edition Staff Assessment • Hope & Ayushman Hospitals • Feb 2026</p>
+        <p>Prepared by Quality Department • For internal training use only</p>
+    </div>
+
+    <script>
+        function showAnswers() {
+            document.getElementById('answerKey').style.display = 'block';
+        }
+        
+        function printWithAnswers() {
+            document.getElementById('answerKey').style.display = 'block';
+            setTimeout(() => window.print(), 100);
+        }
+    </script>
+</body>
+</html>
